@@ -8,7 +8,7 @@ public abstract class Experiment {
     private String region;
     private int minTrials;
     protected ArrayList<Trial> trials;
-    private Owner owner;
+    private User owner;
 
     public Experiment(String description, String region, int minTrials) {
         this.description = description;
