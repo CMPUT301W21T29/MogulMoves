@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public abstract class Experiment {
 
+    private boolean active = true;
+    private boolean locationRequired = false;
     private String description;
     private String region;
     private int minTrials;
@@ -16,6 +18,14 @@ public abstract class Experiment {
         this.minTrials = minTrials;
 
         trials = new ArrayList<>();
+    }
+
+    public void setActive(boolean active){
+        this.active = active;
+    }
+
+    public boolean getActive() {
+        return active;
     }
 
     public String getDescription() {

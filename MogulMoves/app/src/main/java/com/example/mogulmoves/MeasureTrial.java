@@ -4,9 +4,7 @@ public class MeasureTrial extends Trial {
 
     private float measurement;
 
-    public MeasureTrial(User experimenter, float measurement) {
-        super(experimenter);
-
+    public MeasureTrial(float measurement) {
         this.measurement = measurement;
     }
 
