@@ -4,7 +4,7 @@ public abstract class Trial {
 
     private User experimenter;  // user who performed this trial
 
-    public Trial(User experimenter) {
+    public void setExperimenter(User experimenter) {
         this.experimenter = experimenter;
     }
 
