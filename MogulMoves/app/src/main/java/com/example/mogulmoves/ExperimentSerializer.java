@@ -15,11 +15,14 @@ public class ExperimentSerializer implements Serializer {
 
         if(object instanceof BinomialExperiment){
             map.put("type", 0);
+
         }else if(object instanceof NonNegativeCountExperiment &&
                 !(object instanceof IntegerCountExperiment)){
             map.put("type", 1);
+
         }else if(object instanceof IntegerCountExperiment){
             map.put("type", 2);
+
         }else if(object instanceof MeasureExperiment){
             map.put("type", 3);
         }
