@@ -2,7 +2,9 @@ package com.example.mogulmoves;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -17,7 +19,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void publishExperiment(Experiment experiment){
-        experiments.add(experiment);
+    public void toProfileActivity (View view)
+    {
+        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivity(i);
     }
+
+
 }
