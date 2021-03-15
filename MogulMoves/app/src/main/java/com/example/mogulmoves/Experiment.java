@@ -30,7 +30,15 @@ public abstract class Experiment {
         return minTrials;
     }
 
+    public int getNumTrials() {
+        return trials.size();
+    }
+
     public void addTrial(Trial trial){
         trials.add(trial);
+    }
+
+    public User getOwner() {
+        return owner;
     }
 }
