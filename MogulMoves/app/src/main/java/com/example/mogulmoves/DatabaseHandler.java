@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,11 +21,11 @@ import java.util.HashMap;
 
 public class DatabaseHandler {
 
+    static String TAG = "Sample";
+
     public static void pushData(String collection, String document, HashMap<String, Object> values) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String TAG = "Sample";
-
         CollectionReference collectionReference = db.collection(collection);
 
         collectionReference
@@ -48,6 +49,18 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<HashMap<String, Object>> pullData(String collection) {
+
+        ArrayList<HashMap<String, Object>> result = new ArrayList<>();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = db.collection(collection);
+
+        for(QueryDocumentSnapshot doc: collectionReference.get().getResult()) {
+            Log.d(TAG, "Retrieving data for " + collection);
+            result.add((HashMap<String, Object>) doc.getData());
+        }
+
+        return result;
 
     }
 
