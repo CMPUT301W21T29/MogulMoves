@@ -1,87 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginVertical="15dp"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_main_toolbar" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:labelFor="@+id/txtSubject"
-        android:text="Subject: " />
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="20dp">
 
-    <EditText
-        android:id="@+id/txtSubject"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="" />
-
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:labelFor="@+id/spinner"
-        android:text="Choose Experiment" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:entries="@array/experiment_array"
-        android:prompt="@string/experiment_prompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:labelFor="@+id/txtEmail"
-        android:text="Email: " />
-
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="" />
-
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:labelFor="@+id/txtQuestion"
-        android:text="Your Question: " />
-
-    <EditText
-        android:id="@+id/txtQuestion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:text="" />
-
-
-    <Button
-        android:id="@+id/btnSubmitQuestion"
-        android:text="Submit"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subscribed Experiments"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_marginLeft="7dp"/>
 
     </LinearLayout>
+  
 
-</ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+  
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
+
+</LinearLayout>
