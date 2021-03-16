@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_marginTop="20dp">
 
         <TextView
@@ -22,7 +22,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="18dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="7dp"/>
 
     </LinearLayout>
 
@@ -31,14 +31,14 @@
         android:layout_height="0.5dp"
         android:background="@color/black"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"/>
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
 
 
 </LinearLayout>
