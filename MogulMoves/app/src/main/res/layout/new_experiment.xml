@@ -26,9 +26,8 @@
 
         <Spinner
             android:id="@+id/experiment_type"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
 
     </LinearLayout>
 
@@ -102,7 +101,7 @@
         android:layout_marginTop="5dp">
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/location_required"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trial locations required?"
@@ -132,9 +131,31 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+            android:onClick="publishExperiment"
             android:text="PUBLISH" />
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:text="One or more field(s) required!"
+            android:textColor="#EB4034"
+            android:textSize="18dp"
+            android:visibility="invisible" />
+
+    </LinearLayout>
 
 </LinearLayout>

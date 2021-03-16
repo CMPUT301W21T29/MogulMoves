@@ -25,6 +25,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
         map.put("active", experiment.getActive());
         map.put("owner", experiment.getOwner());
         map.put("trials", experiment.getTrials());
+        map.put("id", experiment.getId());
 
         if(experiment instanceof BinomialExperiment){
             map.put("type", 0);
