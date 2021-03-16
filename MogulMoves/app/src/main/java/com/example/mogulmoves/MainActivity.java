@@ -13,7 +13,9 @@ import com.google.firebase.firestore.DocumentReference;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.util.Log;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -86,6 +88,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
       
+    }
+
+    public void toProfileActivity (View view)
+    {
+        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivity(i);
+    }
+
+    public void toNewExperimentActivity (View view)
+    {
+        Intent i = new Intent(getApplicationContext(), NewExperimentActivity.class);
+        startActivity(i);
     }
 
     private void setupDatabaseListeners() {
