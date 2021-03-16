@@ -68,26 +68,22 @@ public class NewExperimentActivity extends AppCompatActivity {
             switch (type) {
                 case "Count": {
                     IntegerCountExperiment experiment = new IntegerCountExperiment(69420, description_string, region_string, minimum_int, location_bool);
-                    DatabaseHandler.pushData("experiments", "" + experiment.getId(),
-                            serializer.toData(experiment));
+                    ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Binomial": {
                     BinomialExperiment experiment = new BinomialExperiment(69420, description_string, region_string, minimum_int, location_bool);
-                    DatabaseHandler.pushData("experiments", "" + experiment.getId(),
-                            serializer.toData(experiment));
+                    ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Non-Negative Count": {
                     NonNegativeCountExperiment experiment = new NonNegativeCountExperiment(69420, description_string, region_string, minimum_int, location_bool);
-                    DatabaseHandler.pushData("experiments", "" + experiment.getId(),
-                            serializer.toData(experiment));
+                    ObjectContext.addExperiment(experiment);
                     break;
                 }
                 default: {
                     MeasureExperiment experiment = new MeasureExperiment(69420, description_string, region_string, minimum_int, location_bool);
-                    DatabaseHandler.pushData("experiments", "" + experiment.getId(),
-                            serializer.toData(experiment));
+                    ObjectContext.addExperiment(experiment);
                     break;
                 }
             }
