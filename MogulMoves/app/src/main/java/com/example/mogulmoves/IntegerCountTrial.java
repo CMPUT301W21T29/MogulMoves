@@ -2,11 +2,11 @@ package com.example.mogulmoves;
 
 public class IntegerCountTrial extends NonNegativeCountTrial{
 
-    public IntegerCountTrial(User experimenter, int count) {
-        super(experimenter, count);
+    public IntegerCountTrial(int count) {
+        super(count);
     }
 
-    public void decriment(){
+    public void decrement(){
         count--;
     }
 
