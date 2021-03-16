@@ -5,8 +5,10 @@ import androidx.annotation.NonNull;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,12 +36,34 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    ListView expList;
+    ArrayAdapter<Experiment> expAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setupDatabaseListeners();
+
+        expList = findViewById(R.id.experiment_list);
+        expAdapter = new ExperimentList(this, ObjectContext.experiments);
+
+        expList.setAdapter(expAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        expAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        expAdapter.notifyDataSetChanged();
     }
 
     private void setupDatabaseListeners() {
