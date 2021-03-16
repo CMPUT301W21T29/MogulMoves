@@ -1,12 +1,14 @@
 package com.example.mogulmoves;
 
-public class User {
+public class User extends SavedObject {
 
     private String username;
     private String email;
     private String phone;
 
     public User(String username, String email, String phone) {
+        super();
+
         this.username = username;
         this.email = email;
         this.phone = phone;
