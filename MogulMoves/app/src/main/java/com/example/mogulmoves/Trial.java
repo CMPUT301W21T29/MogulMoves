@@ -2,13 +2,14 @@ package com.example.mogulmoves;
 
 public abstract class Trial extends SavedObject {
 
-    private User experimenter;  // user who performed this trial
+    private int experimenter;  // id of user who performed this trial
 
-    public void setExperimenter(User experimenter) {
+    public void setExperimenter(int experimenter) {
         this.experimenter = experimenter;
     }
 
-    public User getExperimenter() {
+    public int getExperimenter() {
         return experimenter;
     }
+
 }
