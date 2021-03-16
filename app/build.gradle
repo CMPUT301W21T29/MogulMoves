@@ -44,5 +44,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+<<<<<<< Updated upstream:app/build.gradle
+=======
+    implementation platform('com.google.firebase:firebase-bom:26.7.0')
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.android.support:multidex:1.0.3'
+>>>>>>> Stashed changes:MogulMoves/app/build.gradle
 
 }
