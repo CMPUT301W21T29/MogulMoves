@@ -4,18 +4,21 @@ import java.util.HashMap;
 
 public abstract class SavedObject {
 
-    private final int id;
-    public static int nextId;
+    private int id;
 
     public SavedObject() {
 
-        id = nextId;
-        nextId++;
+        id = ObjectContext.nextId;
+        ObjectContext.nextId++;
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("nextId", nextId);
+        map.put("nextId", ObjectContext.nextId);
         DatabaseHandler.pushData("globals", "globals", map);
 
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {
