@@ -2,10 +2,17 @@ package com.example.mogulmoves;
 
 import java.util.HashMap;
 
+/**
+ * Abstract class for all objects that will be saved in the database.
+ */
 public abstract class SavedObject {
 
     private int id;
 
+    /**
+     * Grabs a new id for the object.
+     * Updates the next available id and pushes it to the database.
+     */
     public SavedObject() {
 
         id = ObjectContext.nextId;
@@ -17,10 +24,18 @@ public abstract class SavedObject {
 
     }
 
-    public void setId(int id) {
+    /**
+     * Sets the id for the object, assumes id does not already exist in the system.
+     */
+    public SavedObject(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets the id of the object.
+     *
+     * @return The current object id
+     */
     public int getId() {
         return id;
     }
