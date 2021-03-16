@@ -2,9 +2,25 @@ package com.example.mogulmoves;
 
 import java.util.HashMap;
 
-public interface Serializer {
+/**
+ * Interface for serializers to convert objects into savable data and vice-versa.
+ */
+public interface Serializer<ObjectType> {
 
-    HashMap<String, Object> toData(SavedObject object);
-    SavedObject fromData(HashMap<String, Object> map);
+    /**
+     * Converts the necessary data from an object into a HashMap.
+     *
+     * @param object an object to have it's data pulled and converted
+     * @return a HashMap containing key/value pairs of all the necessary data
+     */
+    HashMap<String, Object> toData(ObjectType object);
+
+    /**
+     * Converts a HashMap of object data into an object.
+     *
+     * @param map a HashMap containing all the necessary key/value pairs to construct the object
+     * @return an object with the properties and attributes specified by the data
+     */
+    ObjectType fromData(HashMap<String, Object> map);
 
 }

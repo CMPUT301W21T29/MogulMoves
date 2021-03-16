@@ -2,25 +2,52 @@ package com.example.mogulmoves;
 
 import java.util.ArrayList;
 
+/**
+ * Class to represent a question, with a list of reply messages.
+ */
 public class Question extends Message {
 
-    private ArrayList<Integer> replies;
+    private final ArrayList<Integer> replies;
 
-    public Question(String text) {
-        super(text);
+    /**
+     * Creates the question.
+     *
+     * @param user the id of the user that created the message
+     * @param text the text of the message
+     */
+    public Question(int user, String text) {
+        super(user, text);
 
         replies = new ArrayList<>();
     }
 
-    public void addReply(int reply) {
+    /**
+     * Creates the question with a set id.
+     *
+     * @param id the object id of the question
+     * @param user the id of the user that created the message
+     * @param text the text of the message
+     */
+    public Question(int id, int user, String text) {
+        super(id, user, text);
 
-        replies.add(reply);
-
-        //MessageSerializer serializer = new MessageSerializer();
-        //DatabaseHandler.pushData("messages", "" + reply.getId(), serializer.toData(reply));
-
+        replies = new ArrayList<>();
     }
 
+    /**
+     * Adds a reply to the list of replies
+     *
+     * @param reply the id of a reply
+     */
+    public void addReply(int reply) {
+        replies.add(reply);
+    }
+
+    /**
+     * Returns the list of replies.
+     *
+     * @return the list of a replies
+     */
     public ArrayList<Integer> getReplies() {
         return replies;
     }
