@@ -1,6 +1,6 @@
 package com.example.mogulmoves;
 
-public abstract class Trial {
+public abstract class Trial extends SavedObject {
 
     private User experimenter;  // user who performed this trial
 

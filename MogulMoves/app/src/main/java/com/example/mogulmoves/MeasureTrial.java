@@ -5,6 +5,8 @@ public class MeasureTrial extends Trial {
     private float measurement;
 
     public MeasureTrial(float measurement) {
+        super();
+
         this.measurement = measurement;
     }
 

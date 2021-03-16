@@ -6,6 +6,8 @@ public class BinomialTrial extends Trial {
     private int failures;
 
     public BinomialTrial(int successes, int failures) {
+        super();
+
         this.successes = successes;
         this.failures = failures;
     }
@@ -21,5 +23,4 @@ public class BinomialTrial extends Trial {
     public int getTrials(){
         return successes + failures;
     }
-
 }

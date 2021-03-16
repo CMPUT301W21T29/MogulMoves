@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ExperimentSerializer implements Serializer {
 
-    public HashMap<String, Object> serialize(Object object){
+    public HashMap<String, Object> toData(SavedObject object){
 
         HashMap<String, Object> map = new HashMap<>();
         Experiment experiment = (Experiment) object;
@@ -12,6 +12,7 @@ public class ExperimentSerializer implements Serializer {
         map.put("description", experiment.getDescription());
         map.put("region", experiment.getRegion());
         map.put("minTrials", experiment.getMinTrials());
+        map.put("id", experiment.getId());
 
         if(object instanceof BinomialExperiment){
             map.put("type", 0);
@@ -31,7 +32,7 @@ public class ExperimentSerializer implements Serializer {
 
     }
 
-    public Experiment fromSerialized(HashMap<String, Object> map){
+    public Experiment fromData(HashMap<String, Object> map){
 
         Experiment experiment;
 
