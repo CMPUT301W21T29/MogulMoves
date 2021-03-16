@@ -4,15 +4,21 @@
     android:layout_height="match_parent">
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <com.github.mikephil.charting.charts.BarChart
     android:id="@+id/histogram"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 =======
+=======
+>>>>>>> Stashed changes
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/histogram"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 
