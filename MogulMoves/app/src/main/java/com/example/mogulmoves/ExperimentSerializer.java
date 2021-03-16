@@ -25,6 +25,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
         map.put("active", experiment.getActive());
         map.put("owner", experiment.getOwner());
         map.put("trials", experiment.getTrials());
+        map.put("id", experiment.getId());
 
         if(experiment instanceof BinomialExperiment){
             map.put("type", 0);
@@ -73,7 +74,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
                     minTrials, locationRequired);
 
         } else if(type == 1) {
-            experiment = new NonNegativeCountExperiment(id, owner,description, region,
+            experiment = new NonNegativeCountExperiment(id, owner, description, region,
                     minTrials, locationRequired);
 
         } else if (type == 2) {

@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public abstract class SavedObject {
 
-    private int id;
+    private final int id;
 
     /**
      * Grabs a new id for the object.

@@ -89,8 +89,8 @@ public class ObjectContext {
 
         experiment.addTrial(trial.getId());
 
-        UserSerializer serializer = new UserSerializer();
-        DatabaseHandler.pushData("users", "" + trial.getId(),
+        TrialSerializer serializer = new TrialSerializer();
+        DatabaseHandler.pushData("trials", "" + trial.getId(),
                 serializer.toData(trial));
     }
 

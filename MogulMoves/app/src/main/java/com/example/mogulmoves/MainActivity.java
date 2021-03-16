@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
                         // some kind of log message here
 
-                        ObjectContext.nextId = (int) doc.getData().get("nextId");
+                        ObjectContext.nextId = (int) (long) doc.getData().get("nextId");
                     }
                 }
             }
