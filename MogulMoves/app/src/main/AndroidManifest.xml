@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".NewExperimentActivity" />
     </application>
 
 </manifest>

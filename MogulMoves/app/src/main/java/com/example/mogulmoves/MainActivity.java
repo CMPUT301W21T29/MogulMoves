@@ -25,5 +25,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void toNewExperimentActivity (View view)
+    {
+        Intent i = new Intent(getApplicationContext(), NewExperimentActivity.class);
+        startActivity(i);
+    }
+
 
 }
