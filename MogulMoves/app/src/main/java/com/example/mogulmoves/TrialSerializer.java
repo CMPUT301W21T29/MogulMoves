@@ -9,6 +9,7 @@ public class TrialSerializer implements Serializer {
         Trial trial = (Trial) object;
 
         map.put("id", trial.getId());
+        map.put("owner", trial.getExperimenter());
 
         if(object instanceof BinomialTrial){
 
@@ -41,29 +42,32 @@ public class TrialSerializer implements Serializer {
     public Trial fromData(HashMap<String, Object> map){
 
         Trial trial;
-        int type = (int) map.get("type");
+        int type = (int) (long) map.get("type");
+        int id = (int) (long) map.get("id");
 
         if(type == 0) {
 
-            int successes = (int) map.get("successes");
-            int failures = (int) map.get("failures");
+            int successes = (int) (long) map.get("successes");
+            int failures = (int) (long) map.get("failures");
             trial = new BinomialTrial(successes, failures);
 
         }else if(type == 1){
 
-            int count = (int) map.get("count");
+            int count = (int) (long) map.get("count");
             trial = new NonNegativeCountTrial(count);
 
         }else if (type == 2){
 
-            int count = (int) map.get("count");
+            int count = (int) (long) map.get("count");
             trial = new IntegerCountTrial(count);
 
         }else {
 
-            float measurement = (int) map.get("measurement");
+            float measurement = (int) (long) map.get("measurement");
             trial = new MeasureTrial(measurement);
         }
+
+        trial.setId(id);
 
         return trial;
 

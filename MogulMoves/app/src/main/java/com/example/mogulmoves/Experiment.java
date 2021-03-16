@@ -9,15 +9,17 @@ public abstract class Experiment extends SavedObject {
     private String description;
     private String region;
     private int minTrials;
-    protected ArrayList<Trial> trials;
-    private User owner;
+    private int owner;
 
-    public Experiment(String description, String region, int minTrials) {
+    private ArrayList<Integer> trials;
+
+    public Experiment(String description, String region, int minTrials, boolean locationRequired) {
         super();
 
         this.description = description;
         this.region = region;
         this.minTrials = minTrials;
+        this.locationRequired = locationRequired;
 
         trials = new ArrayList<>();
     }
@@ -28,6 +30,10 @@ public abstract class Experiment extends SavedObject {
 
     public boolean getActive() {
         return active;
+    }
+
+    public boolean getLocationRequired() {
+        return locationRequired;
     }
 
     public String getDescription() {
@@ -46,19 +52,23 @@ public abstract class Experiment extends SavedObject {
         return trials.size();
     }
 
-    public void addTrial(Trial trial){
+    public ArrayList<Integer> getTrials() {
+        return trials;
+    }
+
+    public void addTrial(int trial){
 
         trials.add(trial);
 
-        TrialSerializer serializer = new TrialSerializer();
-        DatabaseHandler.pushData("trials", "" + trial.getId(), serializer.toData(trial));
+        //TrialSerializer serializer = new TrialSerializer();
+        //DatabaseHandler.pushData("trials", "" + trial.getId(), serializer.toData(trial));
     }
 
-    public void setOwner(User user){
+    public void setOwner(int user){
         owner = user;
     }
 
-    public User getOwner() {
+    public int getOwner() {
         return owner;
     }
 }

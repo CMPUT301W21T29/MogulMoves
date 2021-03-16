@@ -23,8 +23,10 @@ public class UserSerializer implements Serializer {
         String username = (String) map.get("username");
         String email = (String) map.get("email");
         String phone = (String) map.get("phone");
+        int id = (int) (long) map.get("id");
 
         User user = new User(username, email, phone);
+        user.setId(id);
 
         return user;
 

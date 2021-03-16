@@ -6,7 +6,7 @@ public class MeasureExperiment extends Experiment {
 
     private ArrayList<MeasureTrial> trials;
 
-    public MeasureExperiment(String description, String region, int minTrials) {
-        super(description, region, minTrials);
+    public MeasureExperiment(String description, String region, int minTrials, boolean locationRequired) {
+        super(description, region, minTrials, locationRequired);
     }
 }
