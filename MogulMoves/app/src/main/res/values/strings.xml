@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MogulMoves</string>
+
+    <string name="experiment_prompt">Choose an experiment</string>
+    <string-array name="experiment_array">
+        <item>Count-Based Trials</item>
+        <item>Binomial Trials</item>
+        <item>Non-Negative Trials</item>
+        <item>Measurement Trials</item>
+    </string-array>
 </resources>

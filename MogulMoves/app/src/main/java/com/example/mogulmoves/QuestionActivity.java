@@ -13,27 +13,24 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class QuestionActivity extends AppCompatActivity {
 
-    private ArrayList<User> users = new ArrayList<>();
-    private ArrayList<Experiment> experiments = new ArrayList<>();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_question);
 
         initQAModule();
     }
 
     private void initQAModule() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         Spinner expSpinner = findViewById(R.id.spinner);
 
         EditText txtSubject = findViewById(R.id.txtSubject);
@@ -56,28 +53,21 @@ public class MainActivity extends AppCompatActivity {
                 docData.put("question", question);
 
                 db.collection("questions")
-                        .add(docData)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                System.out.println("Question Added");
-                                txtSubject.setText("");
-                                txtEmail.setText("");
-                                txtQuestion.setText("");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                System.out.println("Question Addition Failed");
-                            }
-                        });
+                    .add(docData)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            System.out.println("Question Added");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            System.out.println("Question Addition Failed");
+                        }
+                    });
 
             }
         });
-    }
-
-    public void publishExperiment(Experiment experiment){
-        experiments.add(experiment);
     }
 }

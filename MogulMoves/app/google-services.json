@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1030850052926",
+    "firebase_url": "https://experiments-d1eca-default-rtdb.firebaseio.com",
+    "project_id": "experiments-d1eca",
+    "storage_bucket": "experiments-d1eca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030850052926:android:582a93b98be6c19fb7a26f",
+        "android_client_info": {
+          "package_name": "com.example.mogulmoves"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030850052926-5195ddrm5umnln2u7916kfsrejut91sa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7uhAY5YdIQlalohigFYlddlVH4KaPzZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030850052926-5195ddrm5umnln2u7916kfsrejut91sa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
