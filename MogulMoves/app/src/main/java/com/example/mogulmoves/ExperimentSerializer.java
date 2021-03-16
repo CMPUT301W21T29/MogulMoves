@@ -12,7 +12,6 @@ public class ExperimentSerializer implements Serializer {
         map.put("description", experiment.getDescription());
         map.put("region", experiment.getRegion());
         map.put("minTrials", experiment.getMinTrials());
-        map.put("id", experiment.getId());
 
         if(object instanceof BinomialExperiment){
             map.put("type", 0);
