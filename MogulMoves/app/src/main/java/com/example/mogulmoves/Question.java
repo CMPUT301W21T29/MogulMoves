@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Question extends Message {
 
-    private ArrayList<Message> replies;
+    private ArrayList<Integer> replies;
 
-    public Question() {
-        super();
+    public Question(String text) {
+        super(text);
 
         replies = new ArrayList<>();
     }
 
-    public void addReply(Message reply) {
+    public void addReply(int reply) {
 
         replies.add(reply);
 
@@ -21,4 +21,7 @@ public class Question extends Message {
 
     }
 
+    public ArrayList<Integer> getReplies() {
+        return replies;
+    }
 }

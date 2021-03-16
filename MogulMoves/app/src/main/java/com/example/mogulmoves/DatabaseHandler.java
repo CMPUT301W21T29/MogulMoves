@@ -45,7 +45,6 @@ public class DatabaseHandler {
                         Log.d(TAG, "Data could not be added!" + e.toString());
                     }
                 });
-
     }
 
     public static ArrayList<HashMap<String, Object>> pullData(String collection) {
