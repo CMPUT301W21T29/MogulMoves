@@ -1,14 +1,14 @@
 package com.example.mogulmoves;
 
-public abstract class Trial {
+public abstract class Trial extends SavedObject {
 
-    private Experimenter experimenter;  // experimenter who performed this trial
+    private User experimenter;  // user who performed this trial
 
-    public Trial(Experimenter experimenter) {
+    public void setExperimenter(User experimenter) {
         this.experimenter = experimenter;
     }
 
-    public Experimenter getExperimenter() {
+    public User getExperimenter() {
         return experimenter;
     }
 }
