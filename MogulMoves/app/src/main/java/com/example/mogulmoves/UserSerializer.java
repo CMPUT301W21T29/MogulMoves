@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class UserSerializer implements Serializer {
 
-    public HashMap<String, Object> serialize(Object object){
+    public HashMap<String, Object> toData(SavedObject object){
 
         HashMap<String, Object> map = new HashMap<>();
         User user = (User) object;
@@ -12,12 +12,13 @@ public class UserSerializer implements Serializer {
         map.put("username", user.getUsername());
         map.put("email", user.getEmail());
         map.put("phone", user.getPhone());
+        map.put("id", user.getId());
 
         return map;
 
     }
 
-    public User fromSerialized(HashMap<String, Object> map){
+    public User fromData(HashMap<String, Object> map){
 
         String username = (String) map.get("username");
         String email = (String) map.get("email");
@@ -28,5 +29,4 @@ public class UserSerializer implements Serializer {
         return user;
 
     }
-
 }

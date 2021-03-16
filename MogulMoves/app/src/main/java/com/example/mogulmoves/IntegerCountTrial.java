@@ -6,7 +6,7 @@ public class IntegerCountTrial extends NonNegativeCountTrial{
         super(count);
     }
 
-    public void decriment(){
+    public void decrement(){
         count--;
     }
 

@@ -3,10 +3,12 @@ package com.example.mogulmoves;
 import java.util.HashMap;
 
 public class TrialSerializer implements Serializer {
-    public HashMap<String, Object> serialize(Object object){
+    public HashMap<String, Object> toData(SavedObject object){
 
         HashMap<String, Object> map = new HashMap<>();
         Trial trial = (Trial) object;
+
+        map.put("id", trial.getId());
 
         if(object instanceof BinomialTrial){
 
@@ -36,7 +38,7 @@ public class TrialSerializer implements Serializer {
 
     }
 
-    public Trial fromSerialized(HashMap<String, Object> map){
+    public Trial fromData(HashMap<String, Object> map){
 
         Trial trial;
         int type = (int) map.get("type");

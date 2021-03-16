@@ -1,10 +1,21 @@
 package com.example.mogulmoves;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,9 +26,138 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setupDatabaseListeners();
     }
 
-    public void publishExperiment(Experiment experiment){
-        experiments.add(experiment);
+    private void setupDatabaseListeners() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference;
+
+        // user data listener
+        collectionReference = db.collection("users");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+
+                users.clear();
+
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                    // some kind of log message here
+
+                    UserSerializer serializer = new UserSerializer();
+                    users.add(serializer.fromData((HashMap<String, Object>) doc.getData()));
+                }
+                // notify any adapters that things have changed here
+            }
+        });
+
+        // experiment data listener
+        collectionReference = db.collection("experiments");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+
+                experiments.clear();
+
+                HashMap<Integer, User> userHashMap = new HashMap<>();
+
+                for(User user: users){
+                    userHashMap.put(user.getId(), user);
+                }
+
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                    // some kind of log message here
+
+                    ExperimentSerializer serializer = new ExperimentSerializer();
+                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+                    Experiment experiment = serializer.fromData(data);
+
+                    experiment.setOwner(userHashMap.get((int) data.get("id")));
+                    experiments.add(experiment);
+                }
+                // notify any adapters that things have changed here
+            }
+        });
+
+        // trial data listener
+        collectionReference = db.collection("trials");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+
+                HashMap<Integer, Experiment> experimentHashMap = new HashMap<>();
+                HashMap<Integer, User> userHashMap = new HashMap<>();
+
+                for(Experiment experiment: experiments){
+                    experiment.trials.clear();
+                    experimentHashMap.put(experiment.getId(), experiment);
+                }
+
+                for(User user: users){
+                    userHashMap.put(user.getId(), user);
+                }
+
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                    // some kind of log message here
+
+                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+
+                    TrialSerializer serializer = new TrialSerializer();
+                    Trial trial = serializer.fromData(data);
+
+                    trial.setExperimenter(userHashMap.get((int) data.get("experimenter")));
+
+                    experimentHashMap.get((int) data.get("id")).addTrial(trial);
+                }
+                // notify any adapters that things have changed here
+            }
+        });
+
+        // global data listener
+        collectionReference = db.collection("globals");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+
+                    if(doc.getId().equals("globals")) {
+                        // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                        // some kind of log message here
+
+                        SavedObject.nextId = (int) doc.getData().get("nextId");
+                    }
+                }
+            }
+        });
     }
+
+    public void publishExperiment(Experiment experiment) {
+
+        experiments.add(experiment);
+
+        ExperimentSerializer serializer = new ExperimentSerializer();
+        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
+                serializer.toData(experiment));
+
+    }
+
+    public void addUser(User user) {
+
+        users.add(user);
+
+        UserSerializer serializer = new UserSerializer();
+        DatabaseHandler.pushData("users", "" + user.getId(),
+                serializer.toData(user));
+
+    }
+
 }
