@@ -4,8 +4,8 @@ public class NonNegativeCountTrial extends Trial {
 
     protected int count;
 
-    public NonNegativeCountTrial(User experimenter, int count) {
-        super(experimenter);
+    public NonNegativeCountTrial(int count) {
+        super();
 
         this.count = count;
     }
