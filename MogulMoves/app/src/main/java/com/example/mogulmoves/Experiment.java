@@ -160,6 +160,9 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
 
     @Override
     public String GeoExperimentWarning(int user) {
+        if (owner == user) {
+            return "Do you want to require user location for this experiment?";
+        }
 
 
 }
