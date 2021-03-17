@@ -19,8 +19,6 @@ import java.util.HashMap;
  */
 public class DatabaseHandler {
 
-    static String TAG = "Sample";
-
     /**
      * Pushes a HashMap of data to Firebase.
      *
@@ -40,14 +38,14 @@ public class DatabaseHandler {
                     @Override
                     public void onSuccess(Void aVoid) {
                         // These are a method which gets executed when the task is succeeded
-                        Log.d(TAG, "Data has been added successfully!");
+                        Log.d(ObjectContext.TAG, "Data has been added successfully!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // These are a method which gets executed if there’s any problem
-                        Log.d(TAG, "Data could not be added!" + e.toString());
+                        Log.d(ObjectContext.TAG, "Data could not be added!" + e.toString());
                     }
                 });
     }
@@ -66,7 +64,7 @@ public class DatabaseHandler {
         CollectionReference collectionReference = db.collection(collection);
 
         for(QueryDocumentSnapshot doc: collectionReference.get().getResult()) {
-            Log.d(TAG, "Retrieving data for " + collection);
+            Log.d(ObjectContext.TAG, "Retrieving data for " + collection);
             result.add((HashMap<String, Object>) doc.getData());
         }
 

@@ -6,6 +6,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.installations.FirebaseInstallations;
 
 import java.util.HashMap;
 
@@ -30,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        identifyUser();
         setupDatabaseListeners();
 
         expList = findViewById(R.id.experiment_list);
@@ -50,6 +57,37 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
 
         expAdapter.notifyDataSetChanged();
+    }
+
+    private void identifyUser() {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseInstallations installation = FirebaseInstallations.getInstance();
+
+        installation.getId()
+                .addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Log.d(ObjectContext.TAG, "UIID grabbed successfully!");
+                        ObjectContext.installationId = result;
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(ObjectContext.TAG, "UIID could not be grabbed!" + e.toString()); // hopefully doesnt happen ohp
+                    }
+                });
+
+        for(User user: ObjectContext.users){
+            if(user.getInstallationId().equals(ObjectContext.installationId)){
+                return;
+            }
+        }
+
+        User user = new User(ObjectContext.installationId, "", "", "");
+        ObjectContext.addUser(user);
+
     }
 
     private void setupDatabaseListeners() {
