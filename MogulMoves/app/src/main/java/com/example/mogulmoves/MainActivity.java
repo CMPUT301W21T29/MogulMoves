@@ -122,11 +122,13 @@ public class MainActivity extends AppCompatActivity {
 
                                 for(User user: ObjectContext.users){
                                     if(user.getInstallationId().equals(ObjectContext.installationId)){
+                                        ObjectContext.userDatabaseId = user.getId();
                                         return;
                                     }
                                 }
 
                                 User user = new User(ObjectContext.installationId, "", "", "");
+                                ObjectContext.userDatabaseId = user.getId();
                                 ObjectContext.addUser(user);
                             }
                         });

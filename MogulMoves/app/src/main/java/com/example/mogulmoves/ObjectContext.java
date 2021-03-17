@@ -13,6 +13,7 @@ public class ObjectContext {
 
     public static int nextId;
     public static String installationId;
+    public static int userDatabaseId;
 
     public static ArrayList<User> users = new ArrayList<>();
     public static ArrayList<Experiment> experiments = new ArrayList<>();
