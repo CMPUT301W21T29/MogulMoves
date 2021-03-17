@@ -149,6 +149,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
 
     @Override
     public void setLocationRequired(boolean locationRequired, User user) throws IOException {
+        if (this.owner.equals(user)) {
 
     }
 
