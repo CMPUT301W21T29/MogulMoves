@@ -5,4 +5,5 @@ import java.util.ArrayList;
 
 public interface GeoExperiment {
     public boolean getLocationRequired();
+    public void setLocationRequired(boolean locationRequired, User user) throws IOException;
 }
