@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MogulMoves">
         <activity android:name=".QuestionActivity"></activity>
+        <activity android:name=".EditProfilePage"></activity>
+        <activity android:name=".UserProfilePage" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
