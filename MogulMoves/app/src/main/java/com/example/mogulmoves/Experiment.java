@@ -171,6 +171,10 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     @Override
     public ArrayList<Location> getAllLocations() throws IOException {
         ArrayList<Location> locations = new ArrayList<>();
-
+        for (int i = 0; i < trials.size(); i++) {
+            locations.add(trials.get(i).getExperimenterGeo());
+        }
+        return locations;
+    }
 
 }
