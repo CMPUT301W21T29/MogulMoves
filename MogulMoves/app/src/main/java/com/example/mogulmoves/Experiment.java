@@ -147,4 +147,9 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         return locationRequired;
     }
 
+    @Override
+    public void setLocationRequired(boolean locationRequired, User user) throws IOException {
+
+    }
+
 }
