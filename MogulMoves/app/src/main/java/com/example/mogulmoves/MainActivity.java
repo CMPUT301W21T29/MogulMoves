@@ -1,10 +1,12 @@
 package com.example.mogulmoves;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -35,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
     ListView expList;
     ArrayAdapter<Experiment> expAdapter;
 
+    final ListView.OnItemClickListener expOCL = new ListView.OnItemClickListener() {
+        public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+            toViewExperimentActivity(view, ObjectContext.experiments.get(pos).getId());
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         expAdapter = new ExperimentList(this, ObjectContext.experiments);
 
         expList.setAdapter(expAdapter);
+        expList.setOnItemClickListener(expOCL);
     }
 
     @Override
@@ -193,6 +202,13 @@ public class MainActivity extends AppCompatActivity {
     public void toNewExperimentActivity (View view)
     {
         Intent i = new Intent(getApplicationContext(), NewExperimentActivity.class);
+        startActivity(i);
+    }
+
+    public void toViewExperimentActivity(View v, int exp_id)
+    {
+        Intent i = new Intent(getApplicationContext(), ViewExperimentActivity.class);
+        i.putExtra("expID", exp_id);
         startActivity(i);
     }
 
