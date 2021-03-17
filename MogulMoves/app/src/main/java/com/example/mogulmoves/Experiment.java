@@ -158,7 +158,8 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         }
     }
 
-
+    @Override
+    public String GeoExperimentWarning(int user) {
 
 
 }
