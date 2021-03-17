@@ -37,6 +37,7 @@ public class HistogramFragment extends DialogFragment {
 
     public HistogramFragment(IntegerCountExperiment experiment, ArrayList<IntegerCountTrial> countTrials) {
         // count
+        ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
             integerData.add(countTrials.get(i).getCount());
         }

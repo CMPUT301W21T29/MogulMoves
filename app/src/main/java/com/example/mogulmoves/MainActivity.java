@@ -1,6 +1,7 @@
 package com.example.mogulmoves;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
