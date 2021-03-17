@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         identifyUser();
         setupDatabaseListeners();
 
-        expList = findViewById(R.id.experiment_list);
+D        expList = findViewById(R.id.experiment_list);
         expAdapter = new ExperimentList(this, ObjectContext.experiments);
 
         expList.setAdapter(expAdapter);

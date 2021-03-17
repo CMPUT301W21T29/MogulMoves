@@ -37,7 +37,11 @@ public class HistogramFragment extends DialogFragment {
 
     public HistogramFragment(IntegerCountExperiment experiment, ArrayList<IntegerCountTrial> countTrials) {
         // count
+<<<<<<< Updated upstream
         ArrayList<Integer> countTrials = experiment.getTrials();
+=======
+
+>>>>>>> Stashed changes
         for (int i=0; i<countTrials.size(); i++) {
             integerData.add(countTrials.get(i).getCount());
         }
