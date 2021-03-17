@@ -37,6 +37,7 @@
 
 
     <ListView
+        android:id="@+id/experiment_list"
         android:layout_width="match_parent"
         android:layout_height="417dp"
         android:paddingLeft="5dp"

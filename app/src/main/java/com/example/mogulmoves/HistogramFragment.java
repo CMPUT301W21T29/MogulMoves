@@ -25,8 +25,8 @@ import java.util.List;
 
 public class HistogramFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
-    private List<Float> floatData;
-    private List<Integer> integerData;
+    private List<Float> floatData = new ArrayList<>();
+    private List<Integer> integerData = new ArrayList<>();
     private List<int[]> binomialData = new ArrayList<>();
     private BarChart barChart;
     private int experimentType;
@@ -35,40 +35,44 @@ public class HistogramFragment extends DialogFragment {
 
     // different constructors for the fragment based on what kind of experiment is needing a histogram
 
-    public HistogramFragment(IntegerCountExperiment experiment, ArrayList<IntegerCountTrial> countTrials) {
+    public HistogramFragment(IntegerCountExperiment experiment) {
         // count
-<<<<<<< Updated upstream
         ArrayList<Integer> countTrials = experiment.getTrials();
-=======
-
->>>>>>> Stashed changes
         for (int i=0; i<countTrials.size(); i++) {
-            integerData.add(countTrials.get(i).getCount());
+            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            integerData.add(trial.getCount());
         }
         experimentType = 0;
     }
 
-    public HistogramFragment(NonNegativeCountExperiment experiment, ArrayList<NonNegativeCountTrial> countTrials) {
+    public HistogramFragment(NonNegativeCountExperiment experiment) {
         // non negative count
+        ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            integerData.add(countTrials.get(i).getCount());
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            integerData.add(trial.getCount());
         }
         experimentType = 0;
     }
 
-    public HistogramFragment(BinomialExperiment experiment, ArrayList<BinomialTrial> binomialTrials) {
+    public HistogramFragment(BinomialExperiment experiment) {
         // binomial
-        for (int i=0; i<binomialTrials.size(); i++) {
-            int[] trialPair = {binomialTrials.get(i).getSuccesses(), binomialTrials.get(i).getFailures()};
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            int[] trialPair = {trial.getSuccesses(), trial.getFailures()};
             binomialData.add(trialPair);
         }
+
         experimentType = 1;
     }
 
-    public HistogramFragment(MeasureExperiment experiment, ArrayList<MeasureTrial> measureTrials) {
+    public HistogramFragment(MeasureExperiment experiment) {
         // measurement
-        for (int i=0; i<measureTrials.size(); i++) {
-            floatData.add(measureTrials.get(i).getMeasurement());
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            floatData.add(trial.getMeasurement());
         }
         experimentType = 2;
     }

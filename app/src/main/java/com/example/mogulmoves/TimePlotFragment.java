@@ -33,6 +33,7 @@ import java.util.List;
 
 public class TimePlotFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
+    // private List<Time> timeData = new ArrayList<>();
     private List<Float> floatData = new ArrayList<>();
     private List<Integer> integerData = new ArrayList<>();
     private List<int[]> binomialData = new ArrayList<>();
@@ -41,35 +42,47 @@ public class TimePlotFragment extends DialogFragment {
     private ArrayList<Entry> timePlotData1 = new ArrayList<>();
     private LineChart tpLineChart;
 
-    public TimePlotFragment(IntegerCountExperiment experiment, ArrayList<IntegerCountTrial> countTrials) {
+
+    // implement time storage whenever i figure out how exactly to store time variables
+
+    public TimePlotFragment(IntegerCountExperiment experiment) {
         // count
+        ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            integerData.add(countTrials.get(i).getCount());
+            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            integerData.add(trial.getCount());
         }
         experimentType = 0;
     }
 
-    public TimePlotFragment(NonNegativeCountExperiment experiment, ArrayList<NonNegativeCountTrial> countTrials) {
+    public TimePlotFragment(NonNegativeCountExperiment experiment) {
         // non negative count
+        ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            integerData.add(countTrials.get(i).getCount());
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            integerData.add(trial.getCount());
         }
         experimentType = 0;
     }
 
-    public TimePlotFragment(BinomialExperiment experiment, ArrayList<BinomialTrial> binomialTrials) {
+    public TimePlotFragment(BinomialExperiment experiment) {
         // binomial
-        for (int i=0; i<binomialTrials.size(); i++) {
-            int[] trialPair = {binomialTrials.get(i).getSuccesses(), binomialTrials.get(i).getFailures()};
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            int[] trialPair = {trial.getSuccesses(), trial.getFailures()};
             binomialData.add(trialPair);
         }
+
         experimentType = 1;
     }
 
-    public TimePlotFragment(MeasureExperiment experiment, ArrayList<MeasureTrial> measureTrials) {
+    public TimePlotFragment(MeasureExperiment experiment) {
         // measurement
-        for (int i=0; i<measureTrials.size(); i++) {
-            floatData.add(measureTrials.get(i).getMeasurement());
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            floatData.add(trial.getMeasurement());
         }
         experimentType = 2;
     }
