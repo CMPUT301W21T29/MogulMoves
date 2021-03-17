@@ -153,6 +153,12 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         if (owner == user) {
             this.locationRequired = locationRequired;
         }
+        else {
+            throw new IOException("Permission Denied");
+        }
+    }
+
+
 
 
 }
