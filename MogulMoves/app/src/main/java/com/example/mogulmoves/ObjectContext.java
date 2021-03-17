@@ -7,7 +7,10 @@ import java.util.ArrayList;
  */
 public class ObjectContext {
 
+    public static String TAG = "Sample";
+
     public static int nextId;
+    public static String installationId;
 
     public static ArrayList<User> users = new ArrayList<>();
     public static ArrayList<Experiment> experiments = new ArrayList<>();
