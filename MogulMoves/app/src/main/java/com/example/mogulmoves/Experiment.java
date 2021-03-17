@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Abstract class to represent an experiment and all of its data.
  */
-public abstract class Experiment extends SavedObject {
+public abstract class Experiment extends SavedObject implements GeoExperiment{
 
     private boolean active = true;
     private boolean locationRequired = false;
