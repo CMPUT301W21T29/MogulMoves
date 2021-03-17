@@ -41,8 +41,8 @@ public abstract class Trial extends SavedObject {
         return experimenter;
     }
 
-    public void setGeoRequired(boolean isGeoRequired) {
-        this.isGeoRequired = isGeoRequired;
+    public void setGeoRequired() {
+        this.isGeoRequired = ;
     }
 
 }
