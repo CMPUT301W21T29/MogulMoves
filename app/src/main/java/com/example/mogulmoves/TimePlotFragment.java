@@ -14,28 +14,34 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistogramFragment extends DialogFragment {
+public class TimePlotFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
-    private List<Float> floatData;
-    private List<Integer> integerData;
+    private List<Float> floatData = new ArrayList<>();
+    private List<Integer> integerData = new ArrayList<>();
     private List<int[]> binomialData = new ArrayList<>();
-    private BarChart barChart;
     private int experimentType;
-    private ArrayList<BarEntry> histogramData = new ArrayList<>();
-    private ArrayList<BarEntry> histogramData1 = new ArrayList<>();
+    private ArrayList<Entry> timePlotData = new ArrayList<>();
+    private ArrayList<Entry> timePlotData1 = new ArrayList<>();
+    private LineChart tpLineChart;
 
-    // different constructors for the fragment based on what kind of experiment is needing a histogram
-
-    public HistogramFragment(IntegerCountExperiment experiment, ArrayList<IntegerCountTrial> countTrials) {
+    public TimePlotFragment(IntegerCountExperiment experiment, ArrayList<IntegerCountTrial> countTrials) {
         // count
         for (int i=0; i<countTrials.size(); i++) {
             integerData.add(countTrials.get(i).getCount());
@@ -43,7 +49,7 @@ public class HistogramFragment extends DialogFragment {
         experimentType = 0;
     }
 
-    public HistogramFragment(NonNegativeCountExperiment experiment, ArrayList<NonNegativeCountTrial> countTrials) {
+    public TimePlotFragment(NonNegativeCountExperiment experiment, ArrayList<NonNegativeCountTrial> countTrials) {
         // non negative count
         for (int i=0; i<countTrials.size(); i++) {
             integerData.add(countTrials.get(i).getCount());
@@ -51,7 +57,7 @@ public class HistogramFragment extends DialogFragment {
         experimentType = 0;
     }
 
-    public HistogramFragment(BinomialExperiment experiment, ArrayList<BinomialTrial> binomialTrials) {
+    public TimePlotFragment(BinomialExperiment experiment, ArrayList<BinomialTrial> binomialTrials) {
         // binomial
         for (int i=0; i<binomialTrials.size(); i++) {
             int[] trialPair = {binomialTrials.get(i).getSuccesses(), binomialTrials.get(i).getFailures()};
@@ -60,7 +66,7 @@ public class HistogramFragment extends DialogFragment {
         experimentType = 1;
     }
 
-    public HistogramFragment(MeasureExperiment experiment, ArrayList<MeasureTrial> measureTrials) {
+    public TimePlotFragment(MeasureExperiment experiment, ArrayList<MeasureTrial> measureTrials) {
         // measurement
         for (int i=0; i<measureTrials.size(); i++) {
             floatData.add(measureTrials.get(i).getMeasurement());
@@ -87,76 +93,51 @@ public class HistogramFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.histogram_fragment, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.time_plot_fragment, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        barChart = view.findViewById(R.id.histogram_graph);
-        BarData barData;
-        BarDataSet barDataSet, barDataSet1;
+        tpLineChart = view.findViewById(R.id.time_plot_graph);
+        LineData lineData;
+        LineDataSet lineDataSet, lineDataSet1;
 
         switch(experimentType) {
             case 0:
                 for (int i=0; i<integerData.size(); i++) {
-                    histogramData.add(new BarEntry(i, integerData.get(i)));
+                    timePlotData.add(new BarEntry(i, integerData.get(i)));
                 }
                 break;
             case 1:
                 for (int i=0; i<binomialData.size(); i++) {
-                    histogramData.add(new BarEntry(i, binomialData.get(i)[0]));
-                    histogramData1.add(new BarEntry(i, binomialData.get(i)[1]));
+                    timePlotData.add(new BarEntry(i, binomialData.get(i)[0]));
+                    timePlotData1.add(new BarEntry(i, binomialData.get(i)[1]));
                 }
                 break;
             case 2:
                 for (int i=0; i<floatData.size(); i++) {
-                    histogramData.add(new BarEntry(i, floatData.get(i)));
+                    timePlotData.add(new BarEntry(i, floatData.get(i)));
                 }
                 break;
         }
 
         if (experimentType == 1) {
-            barDataSet = new BarDataSet(histogramData, "Successes");
-            barDataSet1 = new BarDataSet(histogramData, "Failures");
+            lineDataSet = new LineDataSet(timePlotData, "Successes");
+            lineDataSet1 = new LineDataSet(timePlotData, "Failures"); //
 
-            barData = new BarData(barDataSet, barDataSet1);
+            lineData = new LineData(lineDataSet, lineDataSet1);
 
-            barDataSet.setColor(Color.GREEN);
-            barDataSet1.setColor(Color.RED);
         }
         else {
-            barDataSet = new BarDataSet(histogramData, "Data");
+            lineDataSet = new LineDataSet(timePlotData, "Data");
 
-            barDataSet.setColor(Color.GREEN);
-
-            barData = new BarData(barDataSet);
-
+            lineData = new LineData(lineDataSet);
         }
 
-        barChart.setData(barData);
-
-        XAxis xAxis = barChart.getXAxis();
-        String[] months = new String[] {}; // what is going on
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(months)); // what is going on pt. 2
-
-        barChart.getAxisLeft().setAxisMinimum(0);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setGranularityEnabled(true);
-
-        float barSpace = 0.02f;
-        float groupSpace = 0.3f;
-        int groupCount;
-        if (experimentType == 1) groupCount = 2;
-        else groupCount = 1;
-
-        barData.setBarWidth(0.15f);
-        barChart.getXAxis().setAxisMinimum(0);
-        barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
-        barChart.groupBars(0, groupSpace, barSpace); // perform the "explicit" grouping
+        tpLineChart.setData(lineData);
+        tpLineChart.invalidate();
 
         return builder
                 .setView(view)
-                .setTitle("Histogram")
+                .setTitle("Time Plot")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}
