@@ -75,15 +75,6 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     }
 
     /**
-     * Returns whether locations are required for this experiment.
-     *
-     * @return a boolean representing whether locations are required for this experiment
-     */
-    public boolean getLocationRequired() {
-        return locationRequired;
-    }
-
-    /**
      * Returns the description of the experiment.
      *
      * @return the description of the experiment
@@ -145,4 +136,15 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     public void addTrial(int trial){
         trials.add(trial);
     }
+
+    /**
+     * Returns whether locations are required for this experiment.
+     *
+     * @return a boolean representing whether locations are required for this experiment
+     */
+    @Override
+    public boolean getLocationRequired() {
+        return locationRequired;
+    }
+
 }
