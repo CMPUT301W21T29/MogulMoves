@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         expAdapter = new ExperimentList(this, ObjectContext.experiments);
 
         expList.setAdapter(expAdapter);
+        ObjectContext.adapters.add(expAdapter);
     }
 
     @Override
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         ObjectContext.nextId = (int) (long) doc.getData().get("nextId");
                     }
                 }
+                ObjectContext.refreshAdapters();
             }
         });
 
@@ -134,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
                 User user = new User(ObjectContext.installationId, "", "", "");
                 ObjectContext.addUser(user);
+
+                ObjectContext.refreshAdapters();
             }
         });
 
@@ -145,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     FirebaseFirestoreException error) {
 
                 ObjectContext.experiments.clear();
+                System.out.println(ObjectContext.experiments.size());
 
                 for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
                     // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
@@ -156,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
 
                     ObjectContext.experiments.add(experiment);
                 }
-                // notify any adapters that things have changed here
+
+                ObjectContext.refreshAdapters();
             }
         });
 
@@ -179,7 +185,8 @@ public class MainActivity extends AppCompatActivity {
 
                     ObjectContext.trials.add(trial);
                 }
-                // notify any adapters that things have changed here
+
+                ObjectContext.refreshAdapters();
             }
         });
     }
