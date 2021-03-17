@@ -1,4 +1,4 @@
-package com.example.mogulmoves;
+/*package com.example.mogulmoves;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,4 +69,4 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
     }
-}
+}*/
