@@ -53,6 +53,9 @@ public class User extends SavedObject {
         subscribed = new ArrayList<>();
     }
 
+    public User() {
+    }
+
     /**
      * Returns the Firebase installation id of the user.
      *
