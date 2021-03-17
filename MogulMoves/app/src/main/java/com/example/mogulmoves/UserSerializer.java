@@ -23,6 +23,7 @@ public class UserSerializer implements Serializer<User> {
         map.put("phone", user.getPhone());
         map.put("id", user.getId());
         map.put("subscribed", user.getSubscribed());
+        map.put("installationId", user.getInstallationId());
 
         return map;
 
@@ -36,12 +37,13 @@ public class UserSerializer implements Serializer<User> {
      */
     public User fromData(HashMap<String, Object> map){
 
+        String installationId = (String) map.get("installationId");
         String username = (String) map.get("username");
         String email = (String) map.get("email");
         String phone = (String) map.get("phone");
         int id = (int) (long) map.get("id");
 
-        User user = new User(id, username, email, phone);
+        User user = new User(id, installationId, username, email, phone);
 
         for(int experiment: (List<Integer>) map.get("subscribed")) {
             user.addSubscription(experiment);

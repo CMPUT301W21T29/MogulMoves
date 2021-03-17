@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public abstract class SavedObject {
 
-    private int id;
+    private final int id;
 
     /**
      * Grabs a new id for the object.
@@ -19,7 +19,7 @@ public abstract class SavedObject {
         ObjectContext.nextId++;
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("nextId", ObjectContext.nextId);
+        map.put("nextId", ObjectContext.    nextId);
         DatabaseHandler.pushData("globals", "globals", map);
 
     }

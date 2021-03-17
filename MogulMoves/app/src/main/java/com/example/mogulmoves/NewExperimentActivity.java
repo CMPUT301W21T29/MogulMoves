@@ -63,8 +63,6 @@ public class NewExperimentActivity extends AppCompatActivity {
             }
             int minimum_int = Integer.parseInt(minimum_int_str);
 
-            ExperimentSerializer serializer = new ExperimentSerializer();
-
             String type = spinner.getSelectedItem().toString();
             switch (type) {
                 case "Count": {
