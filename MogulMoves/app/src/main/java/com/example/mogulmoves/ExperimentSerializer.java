@@ -74,7 +74,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
                     minTrials, locationRequired);
 
         } else if(type == 1) {
-            experiment = new NonNegativeCountExperiment(id, owner,description, region,
+            experiment = new NonNegativeCountExperiment(id, owner, description, region,
                     minTrials, locationRequired);
 
         } else if (type == 2) {

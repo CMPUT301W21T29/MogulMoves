@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class User extends SavedObject {
 
+    private String installationId;
     private String username;
     private String email;
     private String phone;
@@ -16,13 +17,15 @@ public class User extends SavedObject {
     /**
      * Creates the user.
      *
+     * @param installationId the Firebase installation id of the user
      * @param username the username of the user
      * @param email the email address of the user
      * @param phone the phone number of the user
      */
-    public User(String username, String email, String phone) {
+    public User(String installationId, String username, String email, String phone) {
         super();
 
+        this.installationId = installationId;
         this.username = username;
         this.email = email;
         this.phone = phone;
@@ -33,19 +36,30 @@ public class User extends SavedObject {
     /**
      * Creates the user with a set id.
      *
+     * @param installationId the Firebase installation id of the user
      * @param id the object id of the user
      * @param username the username of the user
      * @param email the email address of the user
      * @param phone the phone number of the user
      */
-    public User(int id, String username, String email, String phone) {
+    public User(int id, String installationId, String username, String email, String phone) {
         super(id);
 
+        this.installationId = installationId;
         this.username = username;
         this.email = email;
         this.phone = phone;
 
         subscribed = new ArrayList<>();
+    }
+
+    /**
+     * Returns the Firebase installation id of the user.
+     *
+     * @return the Firebase installation id of the user
+     */
+    public String getInstallationId() {
+        return installationId;
     }
 
     /**
@@ -64,6 +78,18 @@ public class User extends SavedObject {
      */
     public String getEmail() {
         return email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     /**
