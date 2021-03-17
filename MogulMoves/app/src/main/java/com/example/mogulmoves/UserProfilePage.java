@@ -12,9 +12,11 @@ public class UserProfilePage extends AppCompatActivity {
     TextView fullName, email, phone;
     User user;
 
-    String currentName = "another name";
-    String currentEmail = "another email";
-    String currentPhoneNumber = "another phone";
+    /*String currentName = "test name";
+    String currentEmail = "test email";
+    String currentPhoneNumber = "test phone";*/
+
+    String editedName, editedEmail, editedPhone;
 
     public static final String EXTRA_NAME = "com.example.mogulmoves.EXTRA_NAME";
     public static final String EXTRA_EMAIL = "com.example.mogulmoves.EXTRA_EMAIL";
@@ -30,22 +32,33 @@ public class UserProfilePage extends AppCompatActivity {
         email = findViewById(R.id.email_address);
         phone = findViewById(R.id.phone_number);
 
-        fullName.setText(currentName);
-        email.setText(currentEmail);
-        phone.setText(currentPhoneNumber);
+        fullName.setText(editedName);
+        email.setText(editedEmail);
+        phone.setText(editedPhone);
+
+
+        Intent backIntent = getIntent();
+        if (getIntent() != null){
+            editedName = backIntent.getStringExtra(EditProfilePage.BACK_NAME);
+            editedEmail = backIntent.getStringExtra(EditProfilePage.BACK_EMAIL);
+            editedPhone = backIntent.getStringExtra(EditProfilePage.BACK_PHONE);
+            fullName.setText(editedName);
+            email.setText(editedEmail);
+            phone.setText(editedPhone);
+        }
 
     }
 
     public void switch_to_edit(View view) {
         TextView editButton = findViewById(R.id.edit_profile_button);
-        switchToEditUserProfile(currentName,currentEmail,currentPhoneNumber);
+        switchToEditUserProfile(editedName,editedEmail,editedPhone);
     }
 
-    public void switchToEditUserProfile(String CN, String CE, String CF){
+    public void switchToEditUserProfile(String CurrentName, String CurrentEmail, String CurrentPhone){
         Intent intent = new Intent(this, EditProfilePage.class);
-        intent.putExtra(EXTRA_NAME, CN);
-        intent.putExtra(EXTRA_EMAIL, CE);
-        intent.putExtra(EXTRA_PHONE, CF);
+        intent.putExtra(EXTRA_NAME, CurrentName);
+        intent.putExtra(EXTRA_EMAIL, CurrentEmail);
+        intent.putExtra(EXTRA_PHONE, CurrentPhone);
         startActivity(intent);
     }
 }

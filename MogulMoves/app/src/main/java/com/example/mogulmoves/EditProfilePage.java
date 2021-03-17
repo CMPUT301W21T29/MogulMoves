@@ -12,6 +12,10 @@ import android.widget.TextView;
 public class EditProfilePage extends AppCompatActivity {
     EditText NameEditing, EmailEditing, PhoneEditing;
 
+    public static final String BACK_NAME = "com.example.mogulmoves.BACK_NAME";
+    public static final String BACK_EMAIL = "com.example.mogulmoves.BACK_EMAIL";
+    public static final String BACK_PHONE = "com.example.mogulmoves.BACK_PHONE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +37,20 @@ public class EditProfilePage extends AppCompatActivity {
         EditProfileSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String newName = NameEditing.getText().toString();
+                String newEmail = EmailEditing.getText().toString();
+                String newPhone = PhoneEditing.getText().toString();
+                switchBackToUserProfile(newName, newEmail, newPhone);
             }
         });
+
+    }
+
+    public void switchBackToUserProfile(String newName, String newEmail, String newPhone){
+        Intent intent = new Intent(this, UserProfilePage.class);
+        intent.putExtra(BACK_NAME, newName);
+        intent.putExtra(BACK_EMAIL, newEmail);
+        intent.putExtra(BACK_PHONE, newPhone);
+        startActivity(intent);
     }
 }
