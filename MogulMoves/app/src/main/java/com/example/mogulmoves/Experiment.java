@@ -163,6 +163,9 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         if (owner == user) {
             return "Do you want to require user location for this experiment?";
         }
-
+        else {
+            return "This experiment requires collection of your location, do you want to continue?";
+        }
+    }
 
 }
