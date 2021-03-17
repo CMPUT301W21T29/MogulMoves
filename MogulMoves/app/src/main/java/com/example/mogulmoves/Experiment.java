@@ -149,13 +149,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     }
 
     @Override
-    public void setLocationRequired(boolean locationRequired, User user) throws IOException {
-        if (this.owner.equals(user)) {
-            this.locationRequired = locationRequired;
-        }
-        else {
-            throw new IOException("Permission Denied");
-        }
-    }
+    public void setLocationRequired(boolean locationRequired, int user) throws IOException {
+
 
 }
