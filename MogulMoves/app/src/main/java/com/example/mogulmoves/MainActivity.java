@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        identifyUser();
         setupDatabaseListeners();
 
         expList = findViewById(R.id.experiment_list);
@@ -66,24 +65,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void identifyUser() {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseInstallations installation = FirebaseInstallations.getInstance();
-
-        installation.getId()
-                .addOnSuccessListener(new OnSuccessListener<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Log.d(ObjectContext.TAG, "UIID grabbed successfully!");
-                        ObjectContext.installationId = result;
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(ObjectContext.TAG, "UIID could not be grabbed!" + e.toString()); // hopefully doesnt happen ohp
-                    }
-                });
     }
 
     private void setupDatabaseListeners() {
@@ -110,36 +91,53 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // user data listener
-        collectionReference = db.collection("users");
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                    FirebaseFirestoreException error) {
+        FirebaseInstallations installation = FirebaseInstallations.getInstance();
 
-                ObjectContext.users.clear();
+        installation.getId()
+                .addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Log.d(ObjectContext.TAG, "UIID grabbed successfully!");
+                        ObjectContext.installationId = result;
 
-                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
-                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
-                    // some kind of log message here
+                        // user data listener
+                        CollectionReference collectionReference = db.collection("users");
+                        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                                    FirebaseFirestoreException error) {
 
-                    UserSerializer serializer = new UserSerializer();
-                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
-                    ObjectContext.users.add(serializer.fromData(data));
-                }
+                                ObjectContext.users.clear();
 
-                for(User user: ObjectContext.users){
-                    if(user.getInstallationId().equals(ObjectContext.installationId)){
-                        return;
+                                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                                    // some kind of log message here
+
+                                    UserSerializer serializer = new UserSerializer();
+                                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+                                    ObjectContext.users.add(serializer.fromData(data));
+                                }
+
+                                ObjectContext.refreshAdapters();
+
+                                for(User user: ObjectContext.users){
+                                    if(user.getInstallationId().equals(ObjectContext.installationId)){
+                                        return;
+                                    }
+                                }
+
+                                User user = new User(ObjectContext.installationId, "", "", "");
+                                ObjectContext.addUser(user);
+                            }
+                        });
                     }
-                }
-
-                User user = new User(ObjectContext.installationId, "", "", "");
-                ObjectContext.addUser(user);
-
-                ObjectContext.refreshAdapters();
-            }
-        });
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(ObjectContext.TAG, "UIID could not be grabbed!" + e.toString()); // hopefully doesnt happen ohp
+                    }
+                });
 
         // experiment data listener
         collectionReference = db.collection("experiments");
