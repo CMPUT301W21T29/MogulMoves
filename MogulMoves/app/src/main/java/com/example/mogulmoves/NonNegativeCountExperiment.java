@@ -39,7 +39,7 @@ public class NonNegativeCountExperiment extends Experiment {
      *
      * @return an array of the values
      */
-    private float[] getValues() {
+    protected float[] getValues() {
 
         int length = trials.size();
         float[] values = new float[length];

@@ -162,6 +162,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     }
 
     /**
+<<<<<<< HEAD
      * Returns whether locations are required for this experiment.
      *
      * @return a boolean representing whether locations are required for this experiment
@@ -217,4 +218,47 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
 
 
 
+=======
+     * Returns the values of every trial in the experiment.
+     *
+     * @return an array of the values
+     */
+    protected abstract float[] getValues();
+
+    /**
+     * Calculates the median value of all the trials.
+     *
+     * @return the median
+     */
+    public float getMedian() {
+        return StatCalculator.getMedian(getValues());
+    }
+
+    /**
+     * Calculates the mean value of all the trials.
+     *
+     * @return the mean
+     */
+    public float getMean() {
+        return StatCalculator.getMean(getValues());
+    }
+
+    /**
+     * Calculates the quartiles of the values of all the trials.
+     *
+     * @return a 2 element array representing the 1st and 3rd quartiles
+     */
+    public float[] getQuartiles() {
+        return StatCalculator.getQuartiles(getValues());
+    }
+
+    /**
+     * Calculates the standard deviation of the values of all the trials
+     *
+     * @return the standard deviation
+     */
+    public float getStdDev() {
+        return StatCalculator.getStdDev(getValues());
+    }
+>>>>>>> c948a15970020a4573337b14cce3c5cbf72ff28d
 }
