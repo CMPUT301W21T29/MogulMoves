@@ -77,7 +77,7 @@ public class TrialSerializer implements Serializer<Trial> {
 
         }  else {
 
-            float measurement = (int) (long) map.get("measurement");
+            float measurement = (float) (double) map.get("measurement");
             trial = new MeasureTrial(id, owner, measurement);
         }
 

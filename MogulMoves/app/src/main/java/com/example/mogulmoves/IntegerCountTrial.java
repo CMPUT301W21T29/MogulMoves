@@ -27,10 +27,10 @@ public class IntegerCountTrial extends NonNegativeCountTrial{
     }
 
     /**
-     * Decrements the count of the trial.
+     * Increments the count of the trial.
      */
-    public void decrement(){
-        count--;
+    public void increment(){
+        count++;
     }
 
 }

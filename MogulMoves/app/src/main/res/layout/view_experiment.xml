@@ -122,6 +122,7 @@
                     android:id="@+id/add_trial_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="openAddTrialFragment"
                     android:text="ADD TRIAL" />
 
             </LinearLayout>
