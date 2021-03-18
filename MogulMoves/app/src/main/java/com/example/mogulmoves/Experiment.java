@@ -179,6 +179,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         }
     }
 
+
     @Override
     public String GeoExperimentWarning(int user) {
         if (owner == user) {
@@ -198,7 +199,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         return locations;
     }
 
-=======
+    /**
      * Adds a reply to the experiment thread.
      *
      * @param message the id of a message to add to this experiment
@@ -206,5 +207,5 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     public void addMessage(int message){
         messages.add(message);
     }
->>>>>>> 19bf8a47b743ef2966d97707ca0c8a0327674866
+
 }
