@@ -2,6 +2,7 @@ package com.example.mogulmoves;
 
 import android.widget.ArrayAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -55,6 +56,21 @@ public class ObjectContext {
         }
 
         return null; // should not happen hopefully
+
+    }
+
+    public static ArrayList<Experiment> searchExperiments(String keyword) {
+
+        ArrayList<Experiment> found = new ArrayList<>();
+        keyword = keyword.toLowerCase();
+
+        for(Experiment experiment: experiments) {
+            if(experiment.getDescription().toLowerCase().contains(keyword)){
+                found.add(experiment);
+            }
+        }
+
+        return found;
 
     }
 

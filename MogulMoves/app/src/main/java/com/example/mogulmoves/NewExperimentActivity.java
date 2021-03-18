@@ -66,22 +66,22 @@ public class NewExperimentActivity extends AppCompatActivity {
             String type = spinner.getSelectedItem().toString();
             switch (type) {
                 case "Count": {
-                    IntegerCountExperiment experiment = new IntegerCountExperiment(69420, description_string, region_string, minimum_int, location_bool);
+                    IntegerCountExperiment experiment = new IntegerCountExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Binomial": {
-                    BinomialExperiment experiment = new BinomialExperiment(69420, description_string, region_string, minimum_int, location_bool);
+                    BinomialExperiment experiment = new BinomialExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Non-Negative Count": {
-                    NonNegativeCountExperiment experiment = new NonNegativeCountExperiment(69420, description_string, region_string, minimum_int, location_bool);
+                    NonNegativeCountExperiment experiment = new NonNegativeCountExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 default: {
-                    MeasureExperiment experiment = new MeasureExperiment(69420, description_string, region_string, minimum_int, location_bool);
+                    MeasureExperiment experiment = new MeasureExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }

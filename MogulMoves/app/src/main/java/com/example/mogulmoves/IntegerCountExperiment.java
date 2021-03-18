@@ -15,8 +15,8 @@ public class IntegerCountExperiment extends NonNegativeCountExperiment {
      * @param locationRequired whether or not the trials of this experiment require a location
      */
     public IntegerCountExperiment(int owner, String description, String region,
-                             int minTrials, boolean locationRequired) {
-        super(owner, description, region, minTrials, locationRequired);
+                             int minTrials, boolean locationRequired, boolean visible) {
+        super(owner, description, region, minTrials, locationRequired, visible);
     }
 
     /**
@@ -30,7 +30,7 @@ public class IntegerCountExperiment extends NonNegativeCountExperiment {
      * @param locationRequired whether or not the trials of this experiment require a location
      */
     public IntegerCountExperiment(int id, int owner, String description, String region,
-                             int minTrials, boolean locationRequired) {
-        super(id, owner, description, region, minTrials, locationRequired);
+                             int minTrials, boolean locationRequired, boolean visible) {
+        super(id, owner, description, region, minTrials, locationRequired, visible);
     }
 }

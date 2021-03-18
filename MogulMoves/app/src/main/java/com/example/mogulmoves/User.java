@@ -13,6 +13,7 @@ public class User extends SavedObject {
     private String phone;
 
     private ArrayList<Integer> subscribed;
+    private ArrayList<Integer> ignored;
 
     /**
      * Creates the user.
@@ -117,5 +118,23 @@ public class User extends SavedObject {
      */
     public ArrayList<Integer> getSubscribed() {
         return subscribed;
+    }
+
+    /**
+     * Adds an experiment to the list of ignored experimenters.
+     *
+     * @param experimenter the id of an experimenter to ignore
+     */
+    public void addIgnore(int experimenter) {
+        ignored.add(experimenter);
+    }
+
+    /**
+     * Returns the list of experimenters that have been ignored.
+     *
+     * @return the list of ignored experimenters
+     */
+    public ArrayList<Integer> getIgnored() {
+        return ignored;
     }
 }

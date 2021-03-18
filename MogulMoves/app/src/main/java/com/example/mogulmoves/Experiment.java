@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public abstract class Experiment extends SavedObject {
 
     private boolean active = true;
+    private boolean visible = true;
     private boolean locationRequired = false;
     private String description;
     private String region;
@@ -27,7 +28,7 @@ public abstract class Experiment extends SavedObject {
      * @param locationRequired whether or not the trials of this experiment require a location
      */
     public Experiment(int owner, String description, String region,
-                      int minTrials, boolean locationRequired) {
+                      int minTrials, boolean locationRequired, boolean visible) {
         super();
 
         this.owner = owner;
@@ -35,6 +36,7 @@ public abstract class Experiment extends SavedObject {
         this.region = region;
         this.minTrials = minTrials;
         this.locationRequired = locationRequired;
+        this.visible = visible;
 
         trials = new ArrayList<>();
         messages = new ArrayList<>();
@@ -51,7 +53,7 @@ public abstract class Experiment extends SavedObject {
      * @param locationRequired whether or not the trials of this experiment require a location
      */
     public Experiment(int id, int owner, String description, String region,
-                      int minTrials, boolean locationRequired) {
+                      int minTrials, boolean locationRequired, boolean visible) {
         super(id);
 
         this.owner = owner;
@@ -59,6 +61,7 @@ public abstract class Experiment extends SavedObject {
         this.region = region;
         this.minTrials = minTrials;
         this.locationRequired = locationRequired;
+        this.visible = visible;
 
         trials = new ArrayList<>();
         messages = new ArrayList<>();
@@ -75,6 +78,15 @@ public abstract class Experiment extends SavedObject {
      */
     public boolean getActive() {
         return active;
+    }
+
+    /**
+     * Returns the visibility of the experiment.
+     *
+     * @return the visibility of the experiment
+     */
+    public boolean getVisible() {
+        return visible;
     }
 
     /**

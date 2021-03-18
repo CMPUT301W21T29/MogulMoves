@@ -22,6 +22,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
         map.put("region", experiment.getRegion());
         map.put("minTrials", experiment.getMinTrials());
         map.put("locationRequired", experiment.getLocationRequired());
+        map.put("visible", experiment.getVisible());
         map.put("active", experiment.getActive());
         map.put("owner", experiment.getOwner());
         map.put("trials", experiment.getTrials());
@@ -64,6 +65,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
 
         boolean locationRequired = (boolean) map.get("locationRequired");
         boolean active = (boolean) map.get("active");
+        boolean visible = (boolean) map.get("visible");
 
         int owner = (int) (long) map.get("owner");
         int id = (int) (long) map.get("id");
@@ -73,19 +75,19 @@ public class ExperimentSerializer implements Serializer<Experiment> {
 
         if(type == 0) {
             experiment = new BinomialExperiment(id, owner, description, region,
-                    minTrials, locationRequired);
+                    minTrials, locationRequired, visible);
 
         } else if(type == 1) {
             experiment = new NonNegativeCountExperiment(id, owner, description, region,
-                    minTrials, locationRequired);
+                    minTrials, locationRequired, visible);
 
         } else if (type == 2) {
             experiment = new IntegerCountExperiment(id, owner, description, region,
-                    minTrials, locationRequired);
+                    minTrials, locationRequired, visible);
 
         } else {
             experiment = new MeasureExperiment(id, owner, description, region,
-                    minTrials, locationRequired);
+                    minTrials, locationRequired, visible);
         }
 
         experiment.setActive(active);
