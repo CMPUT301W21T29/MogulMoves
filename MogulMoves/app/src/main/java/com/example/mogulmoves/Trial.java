@@ -49,7 +49,8 @@ public abstract class Trial extends SavedObject {
     }
 
     public void addExperimenterGeo() {
-        this.trialLocation = experimenter.getDefaultLocation();
+        User experimenterObject = (User) ObjectContext.getObjectById(experimenter);
+        trialLocation = experimenterObject.getDefaultLocation();
     }
 
     public Location getExperimenterGeo() throws IOException {
