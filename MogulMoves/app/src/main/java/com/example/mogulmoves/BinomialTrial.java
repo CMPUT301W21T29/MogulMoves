@@ -5,21 +5,18 @@ package com.example.mogulmoves;
  */
 public class BinomialTrial extends Trial {
 
-    private int successes;
-    private int failures;
+    private final boolean isSuccess;
 
     /**
      * Creates the trial.
      *
      * @param experimenter the id of the user that did the trial
-     * @param successes the number of successes of the trial
-     * @param failures the number of failures of the trial
+     * @param isSuccess whether or not the trial was a success
      */
-    public BinomialTrial(int experimenter, int successes, int failures) {
+    public BinomialTrial(int experimenter, boolean isSuccess) {
         super(experimenter);
 
-        this.successes = successes;
-        this.failures = failures;
+        this.isSuccess = isSuccess;
     }
 
     /**
@@ -27,40 +24,20 @@ public class BinomialTrial extends Trial {
      *
      * @param id the object id of the trial
      * @param experimenter the id of the user that did the trial
-     * @param successes the number of successes of the trial
-     * @param failures the number of failures of the trial
+     * @param isSuccess whether or not the trial was a success
      */
-    public BinomialTrial(int id, int experimenter, int successes, int failures) {
+    public BinomialTrial(int id, int experimenter, boolean isSuccess) {
         super(id, experimenter);
 
-        this.successes = successes;
-        this.failures = failures;
+        this.isSuccess = isSuccess;
     }
 
     /**
-     * Returns the number of successes of the trial.
+     * Returns a boolean representing if the trial succeeded.
      *
-     * @return the number of successes of the trial
+     * @return the success value of the trial
      */
-    public int getSuccesses() {
-        return successes;
-    }
-
-    /**
-     * Returns the number of failures of the trial.
-     *
-     * @return the number of failures of the trial
-     */
-    public int getFailures() {
-        return failures;
-    }
-
-    /**
-     * Returns the total number of results of the trial.
-     *
-     * @return the total number of results of the trial
-     */
-    public int getNumResults(){
-        return successes + failures;
+    public boolean getIsSuccess() {
+        return isSuccess;
     }
 }

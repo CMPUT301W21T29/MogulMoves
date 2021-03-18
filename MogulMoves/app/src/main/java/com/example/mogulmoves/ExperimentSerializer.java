@@ -68,8 +68,8 @@ public class ExperimentSerializer implements Serializer<Experiment> {
         int owner = (int) (long) map.get("owner");
         int id = (int) (long) map.get("id");
 
-        List<Integer> trials = (List<Integer>) map.get("trials");
-        List<Integer> messages = (List<Integer>) map.get("messages");
+        List<Long> trials = (List<Long>) map.get("trials");
+        List<Long> messages = (List<Long>) map.get("messages");
 
         if(type == 0) {
             experiment = new BinomialExperiment(id, owner, description, region,
@@ -91,15 +91,15 @@ public class ExperimentSerializer implements Serializer<Experiment> {
         experiment.setActive(active);
 
         try {
-            for(int trial: trials){
-                experiment.addTrial(trial);
+            for(long trial: trials){
+                experiment.addTrial((int) trial);
             }
         } catch (java.lang.NullPointerException e) {
         }
 
         try {
-            for (int message : messages) {
-                experiment.addMessage(message);
+            for (long message: messages) {
+                experiment.addMessage((int) message);
             }
         } catch (java.lang.NullPointerException e) {
         }
