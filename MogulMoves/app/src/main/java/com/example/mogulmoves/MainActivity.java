@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
     ListView expList;
     ArrayAdapter<Experiment> expAdapter;
 
+    final ListView.OnItemClickListener expOCL = new ListView.OnItemClickListener() {
+        public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+            toViewExperimentActivity(view, ObjectContext.experiments.get(pos).getId());
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
         expAdapter = new ExperimentList(this, ObjectContext.experiments);
 
         expList.setAdapter(expAdapter);
+        expList.setOnItemClickListener(expOCL);
+
         ObjectContext.adapters.add(expAdapter);
+
     }
 
     @Override
@@ -193,6 +202,13 @@ public class MainActivity extends AppCompatActivity {
     public void toNewExperimentActivity (View view)
     {
         Intent i = new Intent(getApplicationContext(), NewExperimentActivity.class);
+        startActivity(i);
+    }
+
+    public void toViewExperimentActivity(View v, int exp_id)
+    {
+        Intent i = new Intent(getApplicationContext(), ViewExperimentActivity.class);
+        i.putExtra("expID", exp_id);
         startActivity(i);
     }
 
