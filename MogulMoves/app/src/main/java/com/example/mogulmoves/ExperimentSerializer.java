@@ -25,6 +25,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
         map.put("active", experiment.getActive());
         map.put("owner", experiment.getOwner());
         map.put("trials", experiment.getTrials());
+        map.put("messages", experiment.getMessages());
         map.put("id", experiment.getId());
 
         if(experiment instanceof BinomialExperiment){
@@ -68,6 +69,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
         int id = (int) (long) map.get("id");
 
         List<Integer> trials = (List<Integer>) map.get("trials");
+        List<Integer> messages = (List<Integer>) map.get("messages");
 
         if(type == 0) {
             experiment = new BinomialExperiment(id, owner, description, region,
@@ -90,6 +92,10 @@ public class ExperimentSerializer implements Serializer<Experiment> {
 
         for(int trial: trials){
             experiment.addTrial(trial);
+        }
+
+        for(int message: messages){
+            experiment.addMessage(message);
         }
 
         return experiment;

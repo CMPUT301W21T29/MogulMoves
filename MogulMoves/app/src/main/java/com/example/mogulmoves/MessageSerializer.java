@@ -17,22 +17,10 @@ public class MessageSerializer implements Serializer<Message> {
     public HashMap<String, Object> toData(Message message) {
 
         HashMap<String, Object> map = new HashMap<>();
-        int type;
 
         map.put("text", message.getText());
         map.put("user", message.getUser());
         map.put("id", message.getId());
-
-        if(message instanceof Question) {
-
-            map.put("replies", ((Question) message).getReplies());
-            type = 1;
-
-        } else {
-            type = 0;
-        }
-
-        map.put("type", type);
 
         return map;
 
@@ -46,24 +34,11 @@ public class MessageSerializer implements Serializer<Message> {
      */
     public Message fromData(HashMap<String, Object> map) {
 
-        Message message;
-
         String text = (String) map.get("text");
         int user = (int) (long) map.get("user");
-        int type = (int) (long) map.get("type");
-        int id =  (int) (long) map.get("type");
+        int id =  (int) (long) map.get("id");
 
-        if (type == 0) {
-            message = new Message(id, user, text);
-
-        } else {
-
-            message = new Question(id, user, text);
-
-            for(int messageId: (List<Integer>) map.get("replies")) {
-                ((Question) message).addReply(messageId);
-            }
-        }
+        Message message = new Message(id, user, text);
 
         return message;
 
