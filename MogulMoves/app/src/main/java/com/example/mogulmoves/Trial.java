@@ -7,6 +7,10 @@ public abstract class Trial extends SavedObject {
 
     private final int experimenter;
 
+    private boolean isGeoRequired;
+
+    private final int parentExperiment;
+
     // TODO add locations
 
     /**
