@@ -35,6 +35,7 @@ public class AddMeasureTrialFragment extends DialogFragment {
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
+            //code below adapted from https://stackoverflow.com/a/7636468
             public void onShow(DialogInterface dialog) {
                 Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
                 button.setOnClickListener(new View.OnClickListener() {
