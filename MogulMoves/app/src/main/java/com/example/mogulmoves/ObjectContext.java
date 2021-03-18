@@ -100,6 +100,10 @@ public class ObjectContext {
         TrialSerializer serializer = new TrialSerializer();
         DatabaseHandler.pushData("trials", "" + trial.getId(),
                 serializer.toData(trial));
+
+        ExperimentSerializer eSerializer = new ExperimentSerializer();
+        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
+                eSerializer.toData(experiment));
     }
 
     /**
@@ -116,6 +120,10 @@ public class ObjectContext {
         MessageSerializer serializer = new MessageSerializer();
         DatabaseHandler.pushData("messages", "" + message.getId(),
                 serializer.toData(message));
+
+        ExperimentSerializer eSerializer = new ExperimentSerializer();
+        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
+                eSerializer.toData(experiment));
     }
 
     public static void refreshAdapters() {
