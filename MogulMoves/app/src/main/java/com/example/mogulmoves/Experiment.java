@@ -15,6 +15,7 @@ public abstract class Experiment extends SavedObject {
     private final int owner;
 
     protected final ArrayList<Integer> trials;
+    private final ArrayList<Integer> messages;
 
     /**
      * Creates the experiment.
@@ -36,6 +37,7 @@ public abstract class Experiment extends SavedObject {
         this.locationRequired = locationRequired;
 
         trials = new ArrayList<>();
+        messages = new ArrayList<>();
     }
 
     /**
@@ -59,6 +61,7 @@ public abstract class Experiment extends SavedObject {
         this.locationRequired = locationRequired;
 
         trials = new ArrayList<>();
+        messages = new ArrayList<>();
     }
 
     public void setActive(boolean active){
@@ -120,15 +123,6 @@ public abstract class Experiment extends SavedObject {
     }
 
     /**
-     * Returns the list of trials added to the experiment.
-     *
-     * @return the list of trials added to the experiment
-     */
-    public ArrayList<Integer> getTrials() {
-        return trials;
-    }
-
-    /**
      * Returns the id of the owner of the experiment.
      *
      * @return the id of the owner of the experiment.
@@ -138,11 +132,38 @@ public abstract class Experiment extends SavedObject {
     }
 
     /**
+     * Returns the list of trials added to the experiment.
+     *
+     * @return the list of trials added to the experiment
+     */
+    public ArrayList<Integer> getTrials() {
+        return trials;
+    }
+
+    /**
+     * Returns the list of messages added to the experiment.
+     *
+     * @return the list of messages added to the experiment
+     */
+    public ArrayList<Integer> getMessages() {
+        return messages;
+    }
+
+    /**
      * Adds a trial to the experiment.
      *
      * @param trial the id of a trial to add to this experiment
      */
     public void addTrial(int trial){
         trials.add(trial);
+    }
+
+    /**
+     * Adds a reply to the experiment thread.
+     *
+     * @param message the id of a message to add to this experiment
+     */
+    public void addMessage(int message){
+        messages.add(message);
     }
 }
