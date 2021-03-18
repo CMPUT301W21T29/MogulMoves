@@ -16,6 +16,8 @@ public class User extends SavedObject {
 
     private ArrayList<Integer> subscribed;
 
+    private Location defaultLocation;
+
     /**
      * Creates the user.
      *
@@ -122,6 +124,6 @@ public class User extends SavedObject {
     }
 
     public Location getDefaultLocation() {
-        return deaultLocation;
+        return defaultLocation;
     }
 }
