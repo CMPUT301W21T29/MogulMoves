@@ -7,9 +7,6 @@ public abstract class Trial extends SavedObject {
 
     private final int experimenter;
 
-    private boolean isGeoRequired;
-
-    private final int parentExperiment;
 
     // TODO add locations
 
@@ -45,8 +42,8 @@ public abstract class Trial extends SavedObject {
         return experimenter;
     }
 
-    public void setGeoRequired() {
-        this.isGeoRequired = ;
+    public void addExperimenterGeo() {
+        
     }
 
 }
