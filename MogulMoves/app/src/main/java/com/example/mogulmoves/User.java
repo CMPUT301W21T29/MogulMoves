@@ -122,6 +122,6 @@ public class User extends SavedObject {
     }
 
     public Location getDefaultLocation() {
-        
+        return deaultLocation;
     }
 }
