@@ -110,9 +110,7 @@ public class User extends SavedObject {
      *
      * @param experiment the id of an experiment to subscribe to
      */
-    public void addSubscription(int experiment) {
-        subscribed.add(experiment);
-    }
+    public void addSubscription(int experiment)
 
     /**
      * Returns the list of experiments that have been subscribed to.
