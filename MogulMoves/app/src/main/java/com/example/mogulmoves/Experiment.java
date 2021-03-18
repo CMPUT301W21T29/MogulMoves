@@ -153,7 +153,15 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     }
 
     /**
-<<<<<<< HEAD
+     * Adds a reply to the experiment thread.
+     *
+     * @param message the id of a message to add to this experiment
+     */
+    public void addMessage(int message){
+        messages.add(message);
+    }
+
+    /**
      * Returns whether locations are required for this experiment.
      *
      * @return a boolean representing whether locations are required for this experiment
@@ -199,13 +207,6 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         return locations;
     }
 
-    /**
-     * Adds a reply to the experiment thread.
-     *
-     * @param message the id of a message to add to this experiment
-     */
-    public void addMessage(int message){
-        messages.add(message);
-    }
+
 
 }
