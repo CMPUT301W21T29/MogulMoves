@@ -41,11 +41,5 @@ public class NonNegativeCountTrial extends Trial {
         return count;
     }
 
-    /**
-     * Increments the count of the trial.
-     */
-    public void increment(){
-        count++;
-    }
 
 }

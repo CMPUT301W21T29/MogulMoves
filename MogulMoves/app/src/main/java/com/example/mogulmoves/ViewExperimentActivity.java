@@ -41,7 +41,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     }
 
     public void openAddTrialFragment (View view) {
-        AddNNCountMeasureFragment newFragment = AddNNCountMeasureFragment.newInstance(exp_id);
+        AddNNCountTrialFragment newFragment = AddNNCountTrialFragment.newInstance(exp_id);
         newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
     }
 

@@ -7,19 +7,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class AddNNCountMeasureFragment extends DialogFragment {
-    private EditText count;
+public class AddBinomialTrialFragment extends DialogFragment {
+    private RadioButton success;
 
     @NonNull
     @Override
     public Dialog onCreateDialog (@Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.nn_count_measurement_trial_fragment, null);
-        count = view.findViewById(R.id.count);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.binomial_trial_fragment, null);
+        success = view.findViewById(R.id.success);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
@@ -30,30 +31,23 @@ public class AddNNCountMeasureFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int exp_id = (int) getArguments().getSerializable("exp_id");
-                        int count_int = Integer.parseInt(count.getText().toString());
+                        boolean bool = success.isChecked();
 
                         Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
 
-                    //    if (experiment instanceof NonNegativeCountExperiment) {
-                            NonNegativeCountTrial trial = new NonNegativeCountTrial(ObjectContext.userDatabaseId, count_int);
-                            ObjectContext.addTrial(trial, experiment);
-                       /* } else {
-                            MeasureTrial trial = new MeasureTrial(ObjectContext.userDatabaseId, count_int);
-                            ObjectContext.addTrial(trial, experiment);
-                        }*/
-
-
+                        BinomialTrial trial = new BinomialTrial(ObjectContext.userDatabaseId, 0, 0);
+                        ObjectContext.addTrial(trial, experiment);
 
                     }
                 })
                 .create();
     }
 
-    static AddNNCountMeasureFragment newInstance(int exp_id) {
+    static AddNNCountTrialFragment newInstance(int exp_id) {
         Bundle args = new Bundle();
         args.putSerializable("exp_id", exp_id);
 
-        AddNNCountMeasureFragment fragment = new AddNNCountMeasureFragment();
+        AddNNCountTrialFragment fragment = new AddNNCountTrialFragment();
         fragment.setArguments(args);
         return fragment;
     }

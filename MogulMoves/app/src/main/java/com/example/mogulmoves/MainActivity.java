@@ -66,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         expAdapter.notifyDataSetChanged();
 
-        TextView e = findViewById(R.id.textView);
-        e.setText(Integer.toString(ObjectContext.experiments.get(3).getId()));
     }
 
     private void setupDatabaseListeners() {
