@@ -2,6 +2,8 @@ package com.example.mogulmoves;
 
 import android.location.Location;
 
+import java.io.IOException;
+
 /**
  * Abstract class to represent a trial of an experiment.
  */
@@ -48,6 +50,10 @@ public abstract class Trial extends SavedObject {
 
     public void addExperimenterGeo() {
         this.trialLocation = experimenter.getDefaultLocation();
+    }
+
+    public void getExperimenterGeo() throws IOException {
+        
     }
 
 }
