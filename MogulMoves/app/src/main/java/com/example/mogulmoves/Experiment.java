@@ -1,11 +1,14 @@
 package com.example.mogulmoves;
 
+import android.location.Location;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Abstract class to represent an experiment and all of its data.
  */
-public abstract class Experiment extends SavedObject {
+public abstract class Experiment extends SavedObject implements GeoExperiment{
 
     private boolean active = true;
     private boolean visible = true;
@@ -177,6 +180,60 @@ public abstract class Experiment extends SavedObject {
      */
     public void addMessage(int message){
         messages.add(message);
+    }
+
+    /**
+     * Returns whether locations are required for this experiment.
+     *
+     * @return a boolean representing whether locations are required for this experiment
+     */
+    @Override
+    public boolean getLocationRequired() {
+        return locationRequired;
+    }
+
+
+    /**
+     * @param locationRequired a boolean representing whether locations are required for this experiment
+     * @param user the user who try to set if locations are required for this experiment
+     * @throws IOException
+     */
+    @Override
+    public void setLocationRequired(boolean locationRequired, int user) throws IOException {
+        if (owner == user) {
+            this.locationRequired = locationRequired;
+        }
+        else {
+            throw new IOException("Permission Denied");
+        }
+    }
+
+    /**
+     * @param user the user who tries to subscribe to this experiment, or owner who tries to set geo requirement
+     * @return
+     */
+    @Override
+    public String GeoExperimentWarning(int user) {
+        if (owner == user) {
+            return "Do you want to require user location for this experiment?";
+        }
+        else {
+            return "This experiment requires collection of your location, do you want to continue?";
+        }
+    }
+
+
+    /**
+     * @return a list of locations of all existent trials of this experiment if geo required
+     * @throws IOException
+     */
+    @Override
+    public ArrayList<Location> getAllLocations() throws IOException {
+        ArrayList<Location> locations = new ArrayList<>();
+        for (int i = 0; i < trials.size(); i++) {
+            locations.add(((Trial) ObjectContext.getObjectById(trials.get(i))).getExperimenterGeo());
+        }
+        return locations;
     }
 
     /**

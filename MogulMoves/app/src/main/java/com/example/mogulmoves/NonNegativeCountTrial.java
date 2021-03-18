@@ -20,7 +20,7 @@ public class NonNegativeCountTrial extends Trial {
     }
     
     /**
-     * Creates the trial with a set it.
+     * Creates the trial with a set id.
      *
      * @param id the object id of the trial
      * @param experimenter the id of the user that did the trial
@@ -41,11 +41,5 @@ public class NonNegativeCountTrial extends Trial {
         return count;
     }
 
-    /**
-     * Increments the count of the trial.
-     */
-    public void increment(){
-        count++;
-    }
 
 }

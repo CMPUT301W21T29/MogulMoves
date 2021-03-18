@@ -1,5 +1,7 @@
 package com.example.mogulmoves;
 
+import android.location.Location;
+
 import java.util.ArrayList;
 
 /**
@@ -14,6 +16,8 @@ public class User extends SavedObject {
 
     private ArrayList<Integer> subscribed;
     private ArrayList<Integer> ignored;
+
+    private Location defaultLocation;
 
     /**
      * Creates the user.
@@ -136,5 +140,11 @@ public class User extends SavedObject {
      */
     public ArrayList<Integer> getIgnored() {
         return ignored;
+
+    /**
+     * @return the default location of this user
+     */
+    public Location getDefaultLocation() {
+        return defaultLocation;
     }
 }

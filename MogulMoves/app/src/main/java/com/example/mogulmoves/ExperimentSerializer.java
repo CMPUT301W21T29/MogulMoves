@@ -3,6 +3,8 @@ package com.example.mogulmoves;
 import java.util.HashMap;
 import java.util.List;
 
+import static java.sql.Types.NULL;
+
 /**
  * Class to convert Experiment objects into savable data and vice-versa.
  */
@@ -100,7 +102,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
         }
 
         try {
-            for (long message: messages) {
+            for (long message : messages) {
                 experiment.addMessage((int) message);
             }
         } catch (java.lang.NullPointerException e) {

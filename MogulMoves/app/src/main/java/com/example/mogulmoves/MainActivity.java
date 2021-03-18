@@ -65,9 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
 
         expAdapter.notifyDataSetChanged();
-    }
 
-    private void identifyUser() {
     }
 
     private void setupDatabaseListeners() {
