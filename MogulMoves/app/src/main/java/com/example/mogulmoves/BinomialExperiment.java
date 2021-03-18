@@ -34,6 +34,27 @@ public class BinomialExperiment extends Experiment {
         super(id, owner, description, region, minTrials, locationRequired);
     }
 
+    protected float[] getValues() {
+
+        int length = trials.size();
+        float[] values = new float[length];
+
+        for(int i = 0; i < length; i++) {
+
+            BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(trials.get(i));
+
+            if(trial.getIsSuccess()) {
+                values[i] = 1;
+
+            }else{
+                values[i] = 0;
+            }
+        }
+
+        return values;
+
+    }
+
     /**
      * Calculates the total number of successes across all trials.
      *
@@ -43,7 +64,9 @@ public class BinomialExperiment extends Experiment {
         int sum = 0;
 
         for(int trial: trials){
-            sum += ((BinomialTrial) ObjectContext.getObjectById(trial)).getSuccesses();
+            if(((BinomialTrial) ObjectContext.getObjectById(trial)).getIsSuccess()) {
+                sum++;
+            }
         }
 
         return sum;
@@ -58,7 +81,9 @@ public class BinomialExperiment extends Experiment {
         int sum = 0;
 
         for(int trial: trials){
-            sum += ((BinomialTrial) ObjectContext.getObjectById(trial)).getFailures();
+            if(!((BinomialTrial) ObjectContext.getObjectById(trial)).getIsSuccess()) {
+                sum++;
+            }
         }
 
         return sum;
