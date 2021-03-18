@@ -215,10 +215,8 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         }
         return locations;
     }
-
-
-
-=======
+    
+    /**
      * Returns the values of every trial in the experiment.
      *
      * @return an array of the values
@@ -260,5 +258,4 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     public float getStdDev() {
         return StatCalculator.getStdDev(getValues());
     }
->>>>>>> c948a15970020a4573337b14cce3c5cbf72ff28d
 }
