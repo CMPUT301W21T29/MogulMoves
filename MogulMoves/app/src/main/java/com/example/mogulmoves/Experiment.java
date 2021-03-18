@@ -201,6 +201,11 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         }
     }
 
+
+    /**
+     * @return a list of locations of all existent trials of this experiment if geo required
+     * @throws IOException
+     */
     @Override
     public ArrayList<Location> getAllLocations() throws IOException {
         ArrayList<Location> locations = new ArrayList<>();
