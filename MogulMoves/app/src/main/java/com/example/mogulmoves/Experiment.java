@@ -165,8 +165,8 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
 
 
     /**
-     * @param locationRequired 
-     * @param user
+     * @param locationRequired a boolean representing whether locations are required for this experiment
+     * @param user the user who try to set if locations are required for this experiment
      * @throws IOException
      */
     @Override
