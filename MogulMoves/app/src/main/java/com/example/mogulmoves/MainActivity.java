@@ -1,8 +1,6 @@
 package com.example.mogulmoves;
 
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 
@@ -12,14 +10,13 @@ import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.widget.TextView;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -30,7 +27,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.installations.FirebaseInstallations;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
         expList.setAdapter(expAdapter);
         expList.setOnItemClickListener(expOCL);
+
+        ObjectContext.adapters.add(expAdapter);
+
     }
 
     @Override
@@ -114,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                         ObjectContext.nextId = (int) (long) doc.getData().get("nextId");
                     }
                 }
+                ObjectContext.refreshAdapters();
             }
         });
 
@@ -143,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
 
                 User user = new User(ObjectContext.installationId, "", "", "");
                 ObjectContext.addUser(user);
+
+                ObjectContext.refreshAdapters();
             }
         });
 
@@ -154,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     FirebaseFirestoreException error) {
 
                 ObjectContext.experiments.clear();
+                System.out.println(ObjectContext.experiments.size());
 
                 for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
                     // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
@@ -165,7 +168,8 @@ public class MainActivity extends AppCompatActivity {
 
                     ObjectContext.experiments.add(experiment);
                 }
-                // notify any adapters that things have changed here
+
+                ObjectContext.refreshAdapters();
             }
         });
 
@@ -188,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
 
                     ObjectContext.trials.add(trial);
                 }
-                // notify any adapters that things have changed here
+
+                ObjectContext.refreshAdapters();
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.mogulmoves;
 
+import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 
 /**
@@ -11,11 +13,14 @@ public class ObjectContext {
 
     public static int nextId;
     public static String installationId;
+    public static int userDatabaseID;
 
     public static ArrayList<User> users = new ArrayList<>();
     public static ArrayList<Experiment> experiments = new ArrayList<>();
     public static ArrayList<Trial> trials = new ArrayList<>();
     public static ArrayList<Question> questions = new ArrayList<>();
+
+    public static ArrayList<ArrayAdapter> adapters = new ArrayList<>();
 
     /**
      * Returns the object with the given id, or null if that object does not exist.
@@ -125,5 +130,11 @@ public class ObjectContext {
         MessageSerializer serializer = new MessageSerializer();
         DatabaseHandler.pushData("messages", "" + question.getId(),
                 serializer.toData(question));
+    }
+
+    public static void refreshAdapters() {
+        for(ArrayAdapter adapter: adapters) {
+            adapter.notifyDataSetChanged();
+        }
     }
 }
