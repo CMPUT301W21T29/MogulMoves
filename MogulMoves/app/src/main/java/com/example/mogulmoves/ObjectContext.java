@@ -18,7 +18,7 @@ public class ObjectContext {
     public static ArrayList<User> users = new ArrayList<>();
     public static ArrayList<Experiment> experiments = new ArrayList<>();
     public static ArrayList<Trial> trials = new ArrayList<>();
-    public static ArrayList<Question> questions = new ArrayList<>();
+    public static ArrayList<Message> messages = new ArrayList<>();
 
     public static ArrayList<ArrayAdapter> adapters = new ArrayList<>();
 
@@ -48,9 +48,9 @@ public class ObjectContext {
             }
         }
 
-        for(Question question: questions) {
-            if(question.getId() == id) {
-                return question;
+        for(Message message: messages) {
+            if(message.getId() == id) {
+                return message;
             }
         }
 
@@ -107,29 +107,15 @@ public class ObjectContext {
      * Pushes its data to the database, will cause refresh of all messages.
      *
      * @param message a Message object to add
-     * @param question the parent question to add the reply to
+     * @param experiment the parent experiment to add the reply to
      */
-    public static void addReply(Message message, Question question) {
+    public static void addMessage(Message message, Experiment experiment) {
 
-        question.addReply(message.getId());
+        experiment.addMessage(message.getId());
 
         MessageSerializer serializer = new MessageSerializer();
         DatabaseHandler.pushData("messages", "" + message.getId(),
                 serializer.toData(message));
-    }
-
-
-    /**
-     * Adds a question to the list of questions.
-     * Pushes its data to the database, will cause refresh of all messages.
-     *
-     * @param question a Question object to add
-     */
-    public static void addQuestion(Question question) {
-
-        MessageSerializer serializer = new MessageSerializer();
-        DatabaseHandler.pushData("messages", "" + question.getId(),
-                serializer.toData(question));
     }
 
     public static void refreshAdapters() {

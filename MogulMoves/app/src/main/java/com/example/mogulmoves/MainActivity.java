@@ -1,24 +1,18 @@
 package com.example.mogulmoves;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,12 +22,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.installations.FirebaseInstallations;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     ListView expList;
     ArrayAdapter<Experiment> expAdapter;
+
+    final ListView.OnItemClickListener expOCL = new ListView.OnItemClickListener() {
+        public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+            toViewExperimentActivity(view, ObjectContext.experiments.get(pos).getId());
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
         expAdapter = new ExperimentList(this, ObjectContext.experiments);
 
         expList.setAdapter(expAdapter);
+        expList.setOnItemClickListener(expOCL);
+
         ObjectContext.adapters.add(expAdapter);
+
     }
 
     @Override
@@ -200,6 +202,13 @@ public class MainActivity extends AppCompatActivity {
     public void toNewExperimentActivity (View view)
     {
         Intent i = new Intent(getApplicationContext(), NewExperimentActivity.class);
+        startActivity(i);
+    }
+
+    public void toViewExperimentActivity(View v, int exp_id)
+    {
+        Intent i = new Intent(getApplicationContext(), ViewExperimentActivity.class);
+        i.putExtra("expID", exp_id);
         startActivity(i);
     }
 

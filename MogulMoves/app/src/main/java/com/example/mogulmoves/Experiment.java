@@ -18,6 +18,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     private final int owner;
 
     protected final ArrayList<Integer> trials;
+    private final ArrayList<Integer> messages;
 
     /**
      * Creates the experiment.
@@ -39,6 +40,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         this.locationRequired = locationRequired;
 
         trials = new ArrayList<>();
+        messages = new ArrayList<>();
     }
 
     /**
@@ -62,6 +64,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         this.locationRequired = locationRequired;
 
         trials = new ArrayList<>();
+        messages = new ArrayList<>();
     }
 
     public void setActive(boolean active){
@@ -114,6 +117,15 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     }
 
     /**
+     * Returns the id of the owner of the experiment.
+     *
+     * @return the id of the owner of the experiment.
+     */
+    public int getOwner() {
+        return owner;
+    }
+
+    /**
      * Returns the list of trials added to the experiment.
      *
      * @return the list of trials added to the experiment
@@ -123,12 +135,12 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     }
 
     /**
-     * Returns the id of the owner of the experiment.
+     * Returns the list of messages added to the experiment.
      *
-     * @return the id of the owner of the experiment.
+     * @return the list of messages added to the experiment
      */
-    public int getOwner() {
-        return owner;
+    public ArrayList<Integer> getMessages() {
+        return messages;
     }
 
     /**
@@ -141,6 +153,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     }
 
     /**
+<<<<<<< HEAD
      * Returns whether locations are required for this experiment.
      *
      * @return a boolean representing whether locations are required for this experiment
@@ -179,4 +192,13 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         return locations;
     }
 
+=======
+     * Adds a reply to the experiment thread.
+     *
+     * @param message the id of a message to add to this experiment
+     */
+    public void addMessage(int message){
+        messages.add(message);
+    }
+>>>>>>> 19bf8a47b743ef2966d97707ca0c8a0327674866
 }
