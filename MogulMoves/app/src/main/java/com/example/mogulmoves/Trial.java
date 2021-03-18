@@ -1,11 +1,15 @@
 package com.example.mogulmoves;
 
+import android.location.Location;
+
 /**
  * Abstract class to represent a trial of an experiment.
  */
 public abstract class Trial extends SavedObject {
 
     private final int experimenter;
+
+    private Location trialLocation;
 
 
     // TODO add locations
@@ -43,7 +47,7 @@ public abstract class Trial extends SavedObject {
     }
 
     public void addExperimenterGeo() {
-        
+        this.trialLocation = experimenter.getDefaultLocation();
     }
 
 }
