@@ -3,7 +3,7 @@ package com.example.mogulmoves;
 /**
  * Class to represent an experiment using integer valued trials.
  */
-public class IntegerCountExperiment extends Experiment {
+public class IntegerCountExperiment extends NonNegativeCountExperiment {
 
     /**
      * Creates the experiment.
