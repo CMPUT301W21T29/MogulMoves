@@ -52,8 +52,8 @@ public abstract class Trial extends SavedObject {
         this.trialLocation = experimenter.getDefaultLocation();
     }
 
-    public void getExperimenterGeo() throws IOException {
-        
+    public Location getExperimenterGeo() throws IOException {
+        return trialLocation;
     }
 
 }
