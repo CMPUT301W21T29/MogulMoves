@@ -111,7 +111,9 @@ public class User extends SavedObject {
      * @param experiment the id of an experiment to subscribe to
      */
     public void addSubscription(int experiment) {
-
+        if (((Experiment) ObjectContext.getObjectById(experiment)).getLocationRequired() == true) {
+            
+        }
         subscribed.add(experiment);
     }
 
