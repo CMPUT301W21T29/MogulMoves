@@ -69,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
 
         expAdapter.notifyDataSetChanged();
-    }
 
-    private void identifyUser() {
+        TextView e = findViewById(R.id.textView);
+        e.setText(Integer.toString(ObjectContext.experiments.get(3).getId()));
     }
 
     private void setupDatabaseListeners() {

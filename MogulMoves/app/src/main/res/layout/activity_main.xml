@@ -19,11 +19,19 @@
             android:id="@+id/header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginLeft="9dp"
             android:text="Subscribed Experiments"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
 
     </LinearLayout>
   

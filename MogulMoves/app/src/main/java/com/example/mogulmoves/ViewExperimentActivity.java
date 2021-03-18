@@ -12,14 +12,17 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 
 public class ViewExperimentActivity extends AppCompatActivity {
 
+    int exp_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_experiment);
 
-        Experiment experiment = (Experiment) ObjectContext.getObjectById(getIntent().getIntExtra("expID", -1));
+        exp_id = getIntent().getIntExtra("expID", -1);
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
+
+        Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
 
         TextView description = findViewById(R.id.experiment_description);
         description.setText(experiment.getDescription());
@@ -35,7 +38,11 @@ public class ViewExperimentActivity extends AppCompatActivity {
             region.setText(experiment.getRegion());
         }
 
-        /* for deck: write statistics code here */
+    }
+
+    public void openAddTrialFragment (View view) {
+        AddNNCountMeasureFragment newFragment = AddNNCountMeasureFragment.newInstance(exp_id);
+        newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
     }
 
     public void toProfileActivity (View view)
