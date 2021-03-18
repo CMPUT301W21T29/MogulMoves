@@ -188,7 +188,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     }
 
     /**
-     * @param user the owner of this experiment who tries to set
+     * @param user the user who tries to subscribe to this experiment, or owner who tries to set geo requirement
      * @return
      */
     @Override
