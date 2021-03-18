@@ -109,7 +109,7 @@ public class ObjectContext {
      * @param message a Message object to add
      * @param experiment the parent experiment to add the reply to
      */
-    public static void addReply(Message message, Experiment experiment) {
+    public static void addMessage(Message message, Experiment experiment) {
 
         experiment.addMessage(message.getId());
 
