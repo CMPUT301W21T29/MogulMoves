@@ -52,6 +52,7 @@ public abstract class Trial extends SavedObject {
     /**
      * Set experimenter's default location as this trial's location
      */
+    @Override
     public void addExperimenterGeo() {
         User experimenterObject = (User) ObjectContext.getObjectById(experimenter);
         trialLocation = experimenterObject.getDefaultLocation();
@@ -61,6 +62,7 @@ public abstract class Trial extends SavedObject {
      * @return the location of this trial
      * @throws IOException
      */
+    @Override
     public Location getExperimenterGeo() throws IOException {
         return trialLocation;
     }
