@@ -5,7 +5,7 @@ package com.example.mogulmoves;
  */
 public class MeasureTrial extends Trial {
 
-    private float measurement;
+    private final float measurement;
 
     /**
      * Creates the trial.

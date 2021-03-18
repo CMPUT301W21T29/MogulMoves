@@ -18,7 +18,7 @@ public class NonNegativeCountTrial extends Trial {
 
         this.count = count;
     }
-
+    
     /**
      * Creates the trial with a set id.
      *

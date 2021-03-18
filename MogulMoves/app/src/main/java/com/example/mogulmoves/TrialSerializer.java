@@ -23,8 +23,7 @@ public class TrialSerializer implements Serializer<Trial> {
         if(trial instanceof BinomialTrial){
 
             map.put("type", 0);
-            map.put("successes", ((BinomialTrial) trial).getSuccesses());
-            map.put("failures", ((BinomialTrial) trial).getFailures());
+            map.put("isSuccess", ((BinomialTrial) trial).getIsSuccess());
 
         }else if(trial instanceof NonNegativeCountTrial &&
                 !(trial instanceof IntegerCountTrial)){
@@ -63,9 +62,8 @@ public class TrialSerializer implements Serializer<Trial> {
 
         if(type == 0) {
 
-            int successes = (int) (long) map.get("successes");
-            int failures = (int) (long) map.get("failures");
-            trial = new BinomialTrial(id, owner, successes, failures);
+            boolean isSuccess = (boolean) map.get("isSuccess");
+            trial = new BinomialTrial(id, owner, isSuccess);
 
         } else if(type == 1) {
 
