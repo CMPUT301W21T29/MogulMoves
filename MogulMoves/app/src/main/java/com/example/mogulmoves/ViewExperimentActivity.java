@@ -13,6 +13,7 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 public class ViewExperimentActivity extends AppCompatActivity {
 
     int exp_id;
+    Experiment experiment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,14 @@ public class ViewExperimentActivity extends AppCompatActivity {
         exp_id = getIntent().getIntExtra("expID", -1);
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
 
-        Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+        experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+
+        updateDataDisplay();
+
+    }
+
+    public void updateDataDisplay() {
+        experiment = (Experiment) ObjectContext.getObjectById(exp_id);
 
         TextView description = findViewById(R.id.experiment_description);
         description.setText(experiment.getDescription());
@@ -37,12 +45,27 @@ public class ViewExperimentActivity extends AppCompatActivity {
         } else {
             region.setText(experiment.getRegion());
         }
-
     }
 
     public void openAddTrialFragment (View view) {
-        AddNNCountTrialFragment newFragment = AddNNCountTrialFragment.newInstance(exp_id);
-        newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
+        if (experiment instanceof BinomialExperiment) {
+            AddBinomialTrialFragment newFragment = AddBinomialTrialFragment.newInstance(exp_id);
+            newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
+
+        } else if (experiment instanceof NonNegativeCountExperiment &&
+                !(experiment instanceof IntegerCountExperiment)) {
+            AddNNCountTrialFragment newFragment = AddNNCountTrialFragment.newInstance(exp_id);
+            newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
+
+        } else if(experiment instanceof IntegerCountExperiment) {
+            AddCountTrialFragment newFragment = AddCountTrialFragment.newInstance(exp_id);
+            newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
+
+        } else {
+            AddMeasureTrialFragment newFragment = AddMeasureTrialFragment.newInstance(exp_id);
+            newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
+        }
+
     }
 
     public void toProfileActivity (View view)
