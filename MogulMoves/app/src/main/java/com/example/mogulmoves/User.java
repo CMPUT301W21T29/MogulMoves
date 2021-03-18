@@ -1,5 +1,7 @@
 package com.example.mogulmoves;
 
+import android.location.Location;
+
 import java.util.ArrayList;
 
 /**
@@ -117,5 +119,9 @@ public class User extends SavedObject {
      */
     public ArrayList<Integer> getSubscribed() {
         return subscribed;
+    }
+
+    public Location getDefaultLocation() {
+        
     }
 }
