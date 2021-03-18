@@ -33,4 +33,22 @@ public class NonNegativeCountExperiment extends Experiment {
                                   int minTrials, boolean locationRequired) {
         super(id, owner, description, region, minTrials, locationRequired);
     }
+
+    /**
+     * Returns the values of every trial in the experiment.
+     *
+     * @return an array of the values
+     */
+    private float[] getValues() {
+
+        int length = trials.size();
+        float[] values = new float[length];
+
+        for(int i = 0; i < length; i++) {
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(trials.get(i));
+            values[i] = (float) trial.getCount();
+        }
+
+        return values;
+    }
 }
