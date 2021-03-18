@@ -90,12 +90,18 @@ public class ExperimentSerializer implements Serializer<Experiment> {
 
         experiment.setActive(active);
 
-        for(int trial: trials){
-            experiment.addTrial(trial);
+        try {
+            for(int trial: trials){
+                experiment.addTrial(trial);
+            }
+        } catch (java.lang.NullPointerException e) {
         }
 
-        for(int message: messages){
-            experiment.addMessage(message);
+        try {
+            for (int message : messages) {
+                experiment.addMessage(message);
+            }
+        } catch (java.lang.NullPointerException e) {
         }
 
         return experiment;

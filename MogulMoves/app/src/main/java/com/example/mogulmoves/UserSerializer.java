@@ -45,8 +45,11 @@ public class UserSerializer implements Serializer<User> {
 
         User user = new User(id, installationId, username, email, phone);
 
-        for(int experiment: (List<Integer>) map.get("subscribed")) {
-            user.addSubscription(experiment);
+        try {
+            for (int experiment : (List<Integer>) map.get("subscribed")) {
+                user.addSubscription(experiment);
+            }
+        } catch (java.lang.NullPointerException e) {
         }
 
         return user;
