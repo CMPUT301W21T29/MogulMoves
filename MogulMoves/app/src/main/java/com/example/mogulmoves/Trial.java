@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Abstract class to represent a trial of an experiment.
  */
-public abstract class Trial extends SavedObject {
+public abstract class Trial extends SavedObject implements GeoTrial{
 
     private final int experimenter;
 
