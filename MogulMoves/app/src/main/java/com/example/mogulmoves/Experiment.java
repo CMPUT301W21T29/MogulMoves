@@ -188,6 +188,10 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     }
 
 
+    /**
+     * @param user 
+     * @return
+     */
     @Override
     public String GeoExperimentWarning(int user) {
         if (owner == user) {
