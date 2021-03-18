@@ -13,9 +13,6 @@ public abstract class Trial extends SavedObject implements GeoTrial{
 
     private Location trialLocation;
 
-
-    // TODO add locations
-
     /**
      * Creates the trial.
      *
