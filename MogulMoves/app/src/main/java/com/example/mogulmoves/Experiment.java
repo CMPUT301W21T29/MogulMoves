@@ -215,7 +215,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         }
         return locations;
     }
-    
+
     /**
      * Returns the values of every trial in the experiment.
      *
