@@ -187,9 +187,8 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
         }
     }
 
-
     /**
-     * @param user 
+     * @param user the owner of this experiment
      * @return
      */
     @Override
