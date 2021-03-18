@@ -12,8 +12,8 @@ public class ObjectContext {
     public static String TAG = "MogulMoves";
 
     public static int nextId;
-    public static String installationId;
     public static int userDatabaseId;
+    public static String installationId;
 
     public static ArrayList<User> users = new ArrayList<>();
     public static ArrayList<Experiment> experiments = new ArrayList<>();
@@ -100,6 +100,10 @@ public class ObjectContext {
         TrialSerializer serializer = new TrialSerializer();
         DatabaseHandler.pushData("trials", "" + trial.getId(),
                 serializer.toData(trial));
+
+        ExperimentSerializer eSerializer = new ExperimentSerializer();
+        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
+                eSerializer.toData(experiment));
     }
 
     /**
@@ -116,6 +120,10 @@ public class ObjectContext {
         MessageSerializer serializer = new MessageSerializer();
         DatabaseHandler.pushData("messages", "" + message.getId(),
                 serializer.toData(message));
+
+        ExperimentSerializer eSerializer = new ExperimentSerializer();
+        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
+                eSerializer.toData(experiment));
     }
 
     public static void refreshAdapters() {
