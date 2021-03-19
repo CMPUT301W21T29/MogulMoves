@@ -13,7 +13,7 @@ public class ObjectContext {
 
     public static String TAG = "MogulMoves";
 
-    public static int nextId = new Random().nextInt();
+    public static int nextId;
     public static int userDatabaseId;
     public static String installationId;
 
