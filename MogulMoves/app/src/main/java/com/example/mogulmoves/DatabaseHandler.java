@@ -70,5 +70,5 @@ public class DatabaseHandler {
 
         return result;
 
-    } depreciated for now*/
+    } commented out for now*/
 }
