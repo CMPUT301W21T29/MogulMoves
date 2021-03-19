@@ -9,12 +9,13 @@ import java.util.ArrayList;
  */
 public class User extends SavedObject {
 
-    private String installationId;
+    private final String installationId;
     private String username;
     private String email;
     private String phone;
 
     private ArrayList<Integer> subscribed;
+    private ArrayList<Integer> ignored;
 
     private Location defaultLocation;
 
@@ -35,6 +36,8 @@ public class User extends SavedObject {
         this.phone = phone;
 
         subscribed = new ArrayList<>();
+        ignored = new ArrayList<>();
+
     }
 
     /**
@@ -55,6 +58,8 @@ public class User extends SavedObject {
         this.phone = phone;
 
         subscribed = new ArrayList<>();
+        ignored = new ArrayList<>();
+
     }
 
     /**
@@ -115,6 +120,15 @@ public class User extends SavedObject {
     }
 
     /**
+     * Removes an experiment from the list of subscribed experiments.
+     *
+     * @param experiment the id of an experiment to unsubscribe to
+     */
+    public void removeSubscription(int experiment) {
+        subscribed.remove(experiment);
+    }
+
+    /**
      * Returns the list of experiments that have been subscribed to.
      *
      * @return the list of subscribed experiments
@@ -123,6 +137,32 @@ public class User extends SavedObject {
         return subscribed;
     }
 
+    /**
+     * Adds an experiment to the list of ignored experimenters.
+     *
+     * @param experimenter the id of an experimenter to ignore
+     */
+    public void addIgnore(int experimenter) {
+        ignored.add(experimenter);
+    }
+
+    /**
+     * Removes an experiment from the list of ignored experimenters.
+     *
+     * @param experimenter the id of an experimenter to unignore
+     */
+    public void removeIgnore(int experimenter) {
+        ignored.remove(experimenter);
+    }
+
+    /**
+     * Returns the list of experimenters that have been ignored.
+     *
+     * @return the list of ignored experimenters
+     */
+    public ArrayList<Integer> getIgnored() {
+        return ignored;
+    }
 
     /**
      * @return the default location of this user
