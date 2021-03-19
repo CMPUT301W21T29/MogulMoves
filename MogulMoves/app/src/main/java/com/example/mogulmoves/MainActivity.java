@@ -25,6 +25,12 @@ import com.google.firebase.installations.FirebaseInstallations;
 import java.util.HashMap;
 import java.util.Map;
 
+/*Main activity. Displays a list of all experiments on the server. Clicking on any of them takes
+you to the respective experiment page. The toolbar also contains buttons to add a new experiment
+or view profile information, as well as scan QR and bar codes and search for specific experiments
+(last two not functional yet).
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     ListView expList;
@@ -201,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void toProfileActivity (View view)
+    public void toUserProfilePage (View view)
     {
         Intent i = new Intent(getApplicationContext(), UserProfilePage.class);
         startActivity(i);

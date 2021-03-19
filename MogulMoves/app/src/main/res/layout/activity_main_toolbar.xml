@@ -17,7 +17,7 @@
             style="@style/ButtonCustom"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:onClick="toProfileActivity"
+            android:onClick="toUserProfilePage"
             android:src="@drawable/ic_baseline_person" />
 
         <View
