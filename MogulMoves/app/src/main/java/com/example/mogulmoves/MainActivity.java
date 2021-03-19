@@ -23,6 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.installations.FirebaseInstallations;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
                         // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
                         // some kind of log message here
 
-                        ObjectContext.nextId = (int) (long) doc.getData().get("nextId");
+                        Map<String, Object> data = doc.getData();
+
+                        ObjectContext.nextId = (int) (long) data.get("nextId");
+                        ObjectContext.nextPostId = (int) (long) data.get("nextPostId");
+
                     }
                 }
 

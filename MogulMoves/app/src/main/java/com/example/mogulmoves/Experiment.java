@@ -92,8 +92,6 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
         return visible;
     }
 
-    public boolean getLocationRequired() { return locationRequired; } //temporary
-
     /**
      * Returns the description of the experiment.
      *
@@ -175,11 +173,9 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
         messages.add(message);
     }
 
-
     /**
      * @return a boolean representing whether locations are required for this experiment
      */
-    @Override
     public boolean getLocationRequired() {
         return locationRequired;
     }
