@@ -140,6 +140,7 @@ public class User extends SavedObject {
      */
     public ArrayList<Integer> getIgnored() {
         return ignored;
+    }
 
     /**
      * @return the default location of this user

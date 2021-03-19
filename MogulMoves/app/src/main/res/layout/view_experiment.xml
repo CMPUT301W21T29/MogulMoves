@@ -9,6 +9,7 @@
     <include layout="@layout/view_experiment_toolbar" />
 
     <ScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -272,6 +273,21 @@
                 android:layout_marginRight="20dp">
             </androidx.recyclerview.widget.RecyclerView>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="20dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lstPosts"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -282,6 +298,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/new_post_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
