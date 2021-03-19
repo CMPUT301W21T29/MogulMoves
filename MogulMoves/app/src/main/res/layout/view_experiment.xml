@@ -69,6 +69,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
+                    android:onClick="subscribe"
                     android:text="SUBSCRIBE" />
 
             </LinearLayout>
@@ -171,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="8sp"
-                    android:text="Mean:\n1st quartile:\nMedian:\n3rd quartile:\nStandard deviation:"
+                    android:text="Mean:\nStandard deviation:\n1st quartile:\nMedian:\n3rd quartile:"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -182,7 +183,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:lineSpacingExtra="8sp"
-                    android:text="3\n2\n3\n4\n1"
+                    android:text="N/A\nN/A\nN/A\nN/A\nN/A"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
