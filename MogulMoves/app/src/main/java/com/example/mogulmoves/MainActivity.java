@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void toProfileActivity (View view)
     {
-        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+        Intent i = new Intent(getApplicationContext(), UserProfilePage.class);
         startActivity(i);
     }
 
