@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ObjectContext.randomizeNextId();
         setupDatabaseListeners();
 
         expList = findViewById(R.id.experiment_list);
@@ -127,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                                         return;
                                     }
                                 }
+
+                                ObjectContext.randomizeNextId();
 
                                 User user = new User(ObjectContext.installationId, "", "", "");
                                 ObjectContext.userDatabaseId = user.getId();
