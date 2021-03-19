@@ -173,6 +173,10 @@ public abstract class Experiment extends SavedObject implements GeoExperiment {
         messages.add(message);
     }
 
+
+    /**
+     * @return 
+     */
     @Override
     public boolean getLocationRequired() {
         return locationRequired;
