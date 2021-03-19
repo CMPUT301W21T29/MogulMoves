@@ -56,7 +56,7 @@ public class DatabaseHandler {
      * @param collection the id of collection to pull the data from
      * @returns an ArrayList of HashMap objects, each one containing the data from a document
      */
-    public static ArrayList<HashMap<String, Object>> pullData(String collection) {
+    /*public static ArrayList<HashMap<String, Object>> pullData(String collection) {
 
         ArrayList<HashMap<String, Object>> result = new ArrayList<>();
 
@@ -70,5 +70,5 @@ public class DatabaseHandler {
 
         return result;
 
-    }
+    } depreciated for now*/
 }

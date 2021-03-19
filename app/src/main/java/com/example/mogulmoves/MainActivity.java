@@ -1,6 +1,7 @@
 package com.example.mogulmoves;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.installations.FirebaseInstallations;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -80,21 +83,30 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(ObjectContext.TAG, "UIID could not be grabbed!" + e.toString()); // hopefully doesnt happen ohp
                     }
                 });
-
-        for(User user: ObjectContext.users){
-            if(user.getInstallationId().equals(ObjectContext.installationId)){
-                return;
-            }
-        }
-
-        User user = new User(ObjectContext.installationId, "", "", "");
-        ObjectContext.addUser(user);
-
     }
 
     private void setupDatabaseListeners() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference;
+
+        // global data listener
+        collectionReference = db.collection("globals");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+
+                    if(doc.getId().equals("globals")) {
+                        // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                        // some kind of log message here
+
+                        ObjectContext.nextId = (int) (long) doc.getData().get("nextId");
+                    }
+                }
+            }
+        });
 
         // user data listener
         collectionReference = db.collection("users");
@@ -113,7 +125,15 @@ public class MainActivity extends AppCompatActivity {
                     HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
                     ObjectContext.users.add(serializer.fromData(data));
                 }
-                // notify any adapters that things have changed here
+
+                for(User user: ObjectContext.users){
+                    if(user.getInstallationId().equals(ObjectContext.installationId)){
+                        return;
+                    }
+                }
+
+                User user = new User(ObjectContext.installationId, "", "", "");
+                ObjectContext.addUser(user);
             }
         });
 
@@ -160,25 +180,6 @@ public class MainActivity extends AppCompatActivity {
                     ObjectContext.trials.add(trial);
                 }
                 // notify any adapters that things have changed here
-            }
-        });
-
-        // global data listener
-        collectionReference = db.collection("globals");
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                    FirebaseFirestoreException error) {
-
-                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
-
-                    if(doc.getId().equals("globals")) {
-                        // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
-                        // some kind of log message here
-
-                        ObjectContext.nextId = (int) (long) doc.getData().get("nextId");
-                    }
-                }
             }
         });
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class ObjectContext {
 
-    public static String TAG = "Sample";
+    public static String TAG = "MogulMoves";
 
     public static int nextId;
     public static String installationId;
