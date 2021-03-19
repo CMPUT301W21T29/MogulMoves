@@ -27,15 +27,21 @@ public class UserProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile);
 
-
         fullName = findViewById(R.id.full_name);
         email = findViewById(R.id.email_address);
         phone = findViewById(R.id.phone_number);
 
+        User currentUser = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+
+        fullName.setText(currentUser.getUsername());
+        email.setText(currentUser.getEmail());
+        phone.setText(currentUser.getPhone());
+
+        /*
+
         fullName.setText(editedName);
         email.setText(editedEmail);
         phone.setText(editedPhone);
-
 
         Intent backIntent = getIntent();
         if (getIntent() != null){
@@ -45,7 +51,7 @@ public class UserProfilePage extends AppCompatActivity {
             fullName.setText(editedName);
             email.setText(editedEmail);
             phone.setText(editedPhone);
-        }
+        }*/
 
     }
 
