@@ -40,4 +40,9 @@ public class BinomialTrial extends Trial {
     public boolean getIsSuccess() {
         return isSuccess;
     }
+
+    @Override
+    public boolean setGeoRequired() {
+        return false;
+    }
 }
