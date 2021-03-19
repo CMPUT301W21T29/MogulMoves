@@ -4,6 +4,7 @@ import android.widget.ArrayAdapter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Class to contain methods and attributes that can be accessed globally.
@@ -12,7 +13,7 @@ public class ObjectContext {
 
     public static String TAG = "MogulMoves";
 
-    public static int nextId;
+    public static int nextId = new Random().nextInt();
     public static int userDatabaseId;
     public static String installationId;
 
