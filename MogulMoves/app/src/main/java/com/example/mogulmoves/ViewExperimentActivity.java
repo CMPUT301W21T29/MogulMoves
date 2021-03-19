@@ -37,13 +37,21 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
     }
 
+    public void autoSub() {
+        self.addSubscription(exp_id);
+
+        ObjectContext.pushUserData(self);
+        updateDataDisplay();
+    }
+
     public void subscribe(View view) {
-        /*if (self.getSubscribed().contains(exp_id)) {
-            self.
+        if (self.getSubscribed().contains(exp_id)) {
+            self.removeSubscription(exp_id);
+        } else {
+            self.addSubscription(exp_id);
         }
 
-        self.addSubscription(exp_id);*/
-
+        ObjectContext.pushUserData(self);
         updateDataDisplay();
     }
 
@@ -65,7 +73,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
             region.setText(experiment.getRegion());
         }
 
-        User self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
         Button sub_button = findViewById(R.id.subscribe_button);
         if (self.getSubscribed().contains(exp_id)) {
             sub_button.setText("UNSUBSCRIBE");
@@ -75,17 +82,23 @@ public class ViewExperimentActivity extends AppCompatActivity {
             sub_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
         }
 
-        TextView stats = findViewById(R.id.experiment_stats_2);
-        //some code below adapted from https://stackoverflow.com/a/154354
-        ArrayList<BigDecimal> stats_list = new ArrayList<BigDecimal>();
-        stats_list.add(new BigDecimal(String.valueOf(experiment.getMean())).setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros());
-        stats_list.add(new BigDecimal(String.valueOf(experiment.getQuartiles()[0])).setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros());
-        stats_list.add(new BigDecimal(String.valueOf(experiment.getMedian())).setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros());
-        stats_list.add(new BigDecimal(String.valueOf(experiment.getQuartiles()[1])).setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros());
-        stats_list.add(new BigDecimal(String.valueOf(experiment.getStdDev())).setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros());
-        String stats_string = stats_list.get(0) + "\n" + stats_list.get(4) + "\n"
-                + stats_list.get(1) + "\n" + stats_list.get(2) + "\n" + stats_list.get(3);
         if (experiment.getNumTrials() > 0) {
+            TextView stats = findViewById(R.id.experiment_stats_2);
+
+            //some code below adapted from https://stackoverflow.com/a/154354
+
+            String mean = new BigDecimal(String.valueOf(experiment.getMean()))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String q1 = new BigDecimal(String.valueOf(experiment.getQuartiles()[0]))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String median = new BigDecimal(String.valueOf(experiment.getMedian()))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String q3 = new BigDecimal(String.valueOf(experiment.getQuartiles()[1]))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String stdev = new BigDecimal(String.valueOf(experiment.getStdDev()))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String stats_string = mean + "\n" + stdev + "\n"
+                    + q1 + "\n" + median + "\n" + q3;
             stats.setText(stats_string);
         }
 

@@ -106,6 +106,7 @@ public class ObjectContext {
     public static void addTrial(Trial trial, Experiment experiment) {
 
         experiment.addTrial(trial.getId());
+        trials.add(trial);
 
         pushTrialData(trial);
         pushExperimentData(experiment);

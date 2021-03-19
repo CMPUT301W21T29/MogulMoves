@@ -125,7 +125,7 @@ public class User extends SavedObject {
      * @param experiment the id of an experiment to unsubscribe to
      */
     public void removeSubscription(int experiment) {
-        subscribed.remove(experiment);
+        subscribed.remove(Integer.valueOf(experiment));
     }
 
     /**

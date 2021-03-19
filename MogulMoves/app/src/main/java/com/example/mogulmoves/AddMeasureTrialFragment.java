@@ -54,6 +54,11 @@ public class AddMeasureTrialFragment extends DialogFragment {
                             MeasureTrial trial = new MeasureTrial(ObjectContext.userDatabaseId, count_float);
                             ObjectContext.addTrial(trial, experiment);
 
+                            User self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+                            if (!self.getSubscribed().contains(exp_id)) {
+                                ((ViewExperimentActivity)getActivity()).autoSub();
+                            }
+
                             ((ViewExperimentActivity)getActivity()).updateDataDisplay();
 
                             dialog.dismiss();
