@@ -56,10 +56,14 @@ public class AddBinomialTrialFragment extends DialogFragment {
                             BinomialTrial trial = new BinomialTrial(ObjectContext.userDatabaseId, bool);
                             ObjectContext.addTrial(trial, experiment);
 
+                            User self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+                            if (!self.getSubscribed().contains(exp_id)) {
+                                ((ViewExperimentActivity)getActivity()).autoSub();
+                            }
+
                             ((ViewExperimentActivity)getActivity()).updateDataDisplay();
 
                             dialog.dismiss();
-
                         }
                     }
                 });

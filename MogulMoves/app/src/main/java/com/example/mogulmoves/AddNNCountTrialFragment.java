@@ -54,6 +54,11 @@ public class AddNNCountTrialFragment extends DialogFragment {
                             NonNegativeCountTrial trial = new NonNegativeCountTrial(ObjectContext.userDatabaseId, count_int);
                             ObjectContext.addTrial(trial, experiment);
 
+                            User self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+                            if (!self.getSubscribed().contains(exp_id)) {
+                                ((ViewExperimentActivity)getActivity()).autoSub();
+                            }
+
                             ((ViewExperimentActivity)getActivity()).updateDataDisplay();
 
                             dialog.dismiss();
