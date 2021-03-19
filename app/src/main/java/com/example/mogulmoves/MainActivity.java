@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView expList;
     ArrayAdapter<Experiment> expAdapter;
+    User loggedInUser;
 
     final ListView.OnItemClickListener expOCL = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
@@ -41,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ObjectContext.randomizeNextId();
         setupDatabaseListeners();
+        // Fix this by finishing user part
+        setupDummyUser();
 
         expList = findViewById(R.id.experiment_list);
         expAdapter = new ExperimentList(this, ObjectContext.experiments);
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
         ObjectContext.adapters.add(expAdapter);
 
+    }
+
+    private void setupDummyUser() {
+        loggedInUser = new User("installationId", "DummyUser", "DummyEmail", "DummyPhone");
     }
 
     @Override
@@ -128,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 }
 
+                                ObjectContext.randomizeNextId();
+
                                 User user = new User(ObjectContext.installationId, "", "", "");
                                 ObjectContext.userDatabaseId = user.getId();
                                 ObjectContext.addUser(user);
@@ -194,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void toProfileActivity (View view)
     {
-        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+        Intent i = new Intent(getApplicationContext(), UserProfilePage.class);
         startActivity(i);
     }
 
@@ -206,8 +216,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void toViewExperimentActivity(View v, int exp_id)
     {
+        if(loggedInUser == null) {
+            System.out.println("Logged In User cannot be null. Please fix this.");
+            System.out.println("System will not exit");
+            System.exit(0);
+        }
+
         Intent i = new Intent(getApplicationContext(), ViewExperimentActivity.class);
         i.putExtra("expID", exp_id);
+        i.putExtra("loggedInUser", loggedInUser.getUsername());
         startActivity(i);
     }
 

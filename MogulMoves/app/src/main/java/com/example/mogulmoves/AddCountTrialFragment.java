@@ -32,6 +32,13 @@ public class AddCountTrialFragment extends DialogFragment {
                         IntegerCountTrial trial = new IntegerCountTrial(ObjectContext.userDatabaseId, 0);
                         ObjectContext.addTrial(trial, experiment);
 
+                        User self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+                        if (!self.getSubscribed().contains(exp_id)) {
+                            ((ViewExperimentActivity)getActivity()).autoSub();
+                        }
+
+                        ((ViewExperimentActivity)getActivity()).updateDataDisplay();
+
                     }
                 })
                 .create();

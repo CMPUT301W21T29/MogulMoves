@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 public class ExperimentList extends ArrayAdapter<Experiment> {
@@ -38,6 +40,7 @@ public class ExperimentList extends ArrayAdapter<Experiment> {
         TextView owner = view.findViewById(R.id.exp_list_item_owner);
         TextView trials = view.findViewById(R.id.exp_list_item_trials);
         TextView region = view.findViewById(R.id.exp_list_item_region);
+        TextView subbed = view.findViewById(R.id.subbed);
 
         desc.setText(experiment.getDescription());
         //User exp_owner = (User) ObjectContext.getObjectById(experiment.getOwner());
@@ -50,6 +53,13 @@ public class ExperimentList extends ArrayAdapter<Experiment> {
             region.setText("");
         } else {
             region.setText(experiment.getRegion());
+        }
+
+        User app_user = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+        if (app_user.getSubscribed().contains(experiment.getId())) {
+            subbed.setVisibility(VISIBLE);
+        } else {
+            subbed.setVisibility(INVISIBLE);
         }
 
         return view;

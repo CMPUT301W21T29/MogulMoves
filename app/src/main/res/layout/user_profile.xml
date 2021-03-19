@@ -30,6 +30,7 @@
             android:layout_marginLeft="10dp"/>
 
         <TextView
+            android:id="@+id/full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gengda Mao"
@@ -76,6 +77,7 @@
             android:layout_marginLeft="10dp"/>
 
         <TextView
+            android:id="@+id/email_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="gengda@ualberta.ca"
@@ -121,6 +123,7 @@
             android:layout_marginLeft="10dp"/>
 
         <TextView
+            android:id="@+id/phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1234567890"
@@ -148,6 +151,9 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/edit_profile_button"
+            android:clickable="true"
+            android:onClick="switch_to_edit"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:background="@drawable/edit_button"

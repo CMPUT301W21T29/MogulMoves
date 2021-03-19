@@ -4,6 +4,7 @@ import android.widget.ArrayAdapter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Class to contain methods and attributes that can be accessed globally.
@@ -22,6 +23,14 @@ public class ObjectContext {
     public static ArrayList<Message> messages = new ArrayList<>();
 
     public static ArrayList<ArrayAdapter> adapters = new ArrayList<>();
+
+    public static void randomizeNextId() {
+        nextId = new Random().nextInt();
+
+        if(getObjectById(nextId) != null) {
+            randomizeNextId();
+        }
+    }
 
     /**
      * Returns the object with the given id, or null if that object does not exist.
@@ -106,6 +115,7 @@ public class ObjectContext {
     public static void addTrial(Trial trial, Experiment experiment) {
 
         experiment.addTrial(trial.getId());
+        trials.add(trial);
 
         pushTrialData(trial);
         pushExperimentData(experiment);
