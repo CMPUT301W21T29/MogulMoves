@@ -26,9 +26,9 @@
                 android:layout_marginTop="20dp">
 
                 <TextView
+                    android:id="@+id/experiment_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="15dp"
                     android:text="Experiment Description"
                     android:textColor="@color/black"
                     android:textSize="24sp" />
@@ -85,6 +85,7 @@
                 android:paddingRight="20dp">
 
                 <TextView
+                    android:id="@+id/experiment_trials"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
@@ -98,6 +99,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/experiment_region"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
@@ -120,6 +122,7 @@
                     android:id="@+id/add_trial_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="openAddTrialFragment"
                     android:text="ADD TRIAL" />
 
             </LinearLayout>
@@ -249,14 +252,6 @@
                     android:textColor="@color/black"
                     android:textSize="21dp" />
 
-                <Button
-                    android:id="@+id/new_question_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:text="NEW QUESTION" />
-
             </LinearLayout>
 
 
@@ -274,7 +269,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp">
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="20dp">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingRight="15dp"
+                    android:text="New post..."
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/new_post_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="POST" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

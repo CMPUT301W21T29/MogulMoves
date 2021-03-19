@@ -3,6 +3,8 @@ package com.example.mogulmoves;
 import java.util.HashMap;
 import java.util.List;
 
+import static java.sql.Types.NULL;
+
 /**
  * Class to convert Experiment objects into savable data and vice-versa.
  */
@@ -22,9 +24,11 @@ public class ExperimentSerializer implements Serializer<Experiment> {
         map.put("region", experiment.getRegion());
         map.put("minTrials", experiment.getMinTrials());
         map.put("locationRequired", experiment.getLocationRequired());
+        map.put("visible", experiment.getVisible());
         map.put("active", experiment.getActive());
         map.put("owner", experiment.getOwner());
         map.put("trials", experiment.getTrials());
+        map.put("messages", experiment.getMessages());
         map.put("id", experiment.getId());
 
         if(experiment instanceof BinomialExperiment){
@@ -63,33 +67,45 @@ public class ExperimentSerializer implements Serializer<Experiment> {
 
         boolean locationRequired = (boolean) map.get("locationRequired");
         boolean active = (boolean) map.get("active");
+        boolean visible = (boolean) map.get("visible");
 
         int owner = (int) (long) map.get("owner");
         int id = (int) (long) map.get("id");
 
-        List<Integer> trials = (List<Integer>) map.get("trials");
+        List<Long> trials = (List<Long>) map.get("trials");
+        List<Long> messages = (List<Long>) map.get("messages");
 
         if(type == 0) {
             experiment = new BinomialExperiment(id, owner, description, region,
-                    minTrials, locationRequired);
+                    minTrials, locationRequired, visible);
 
         } else if(type == 1) {
             experiment = new NonNegativeCountExperiment(id, owner, description, region,
-                    minTrials, locationRequired);
+                    minTrials, locationRequired, visible);
 
         } else if (type == 2) {
             experiment = new IntegerCountExperiment(id, owner, description, region,
-                    minTrials, locationRequired);
+                    minTrials, locationRequired, visible);
 
         } else {
             experiment = new MeasureExperiment(id, owner, description, region,
-                    minTrials, locationRequired);
+                    minTrials, locationRequired, visible);
         }
 
         experiment.setActive(active);
 
-        for(int trial: trials){
-            experiment.addTrial(trial);
+        try {
+            for(long trial: trials){
+                experiment.addTrial((int) trial);
+            }
+        } catch (java.lang.NullPointerException e) {
+        }
+
+        try {
+            for (long message : messages) {
+                experiment.addMessage((int) message);
+            }
+        } catch (java.lang.NullPointerException e) {
         }
 
         return experiment;

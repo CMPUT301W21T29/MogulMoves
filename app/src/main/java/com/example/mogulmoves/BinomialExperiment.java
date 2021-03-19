@@ -15,8 +15,8 @@ public class BinomialExperiment extends Experiment {
      * @param locationRequired whether or not the trials of this experiment require a location
      */
     public BinomialExperiment(int owner, String description, String region,
-                              int minTrials, boolean locationRequired) {
-        super(owner, description, region, minTrials, locationRequired);
+                              int minTrials, boolean locationRequired, boolean visible) {
+        super(owner, description, region, minTrials, locationRequired, visible);
     }
 
     /**
@@ -30,7 +30,80 @@ public class BinomialExperiment extends Experiment {
      * @param locationRequired whether or not the trials of this experiment require a location
      */
     public BinomialExperiment(int id, int owner, String description, String region,
-                              int minTrials, boolean locationRequired) {
-        super(id, owner, description, region, minTrials, locationRequired);
+                              int minTrials, boolean locationRequired, boolean visible) {
+        super(id, owner, description, region, minTrials, locationRequired, visible);
+    }
+
+    protected float[] getValues() {
+
+        int length = trials.size();
+        float[] values = new float[length];
+
+        for(int i = 0; i < length; i++) {
+
+            BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(trials.get(i));
+
+            if(trial.getIsSuccess()) {
+                values[i] = 1;
+
+            }else{
+                values[i] = 0;
+            }
+        }
+
+        return values;
+
+    }
+
+    /**
+     * Calculates the total number of successes across all trials.
+     *
+     * @return the number of successes
+     */
+    public int getTotalSuccesses() {
+        int sum = 0;
+
+        for(int trial: trials){
+            if(((BinomialTrial) ObjectContext.getObjectById(trial)).getIsSuccess()) {
+                sum++;
+            }
+        }
+
+        return sum;
+    }
+
+    /**
+     * Calculates the total number of failures across all trials.
+     *
+     * @return the number of failures
+     */
+    public int getTotalFailures() {
+        int sum = 0;
+
+        for(int trial: trials){
+            if(!((BinomialTrial) ObjectContext.getObjectById(trial)).getIsSuccess()) {
+                sum++;
+            }
+        }
+
+        return sum;
+    }
+
+    /**
+     * Calculates the total number of results (successes + failures) across all trials.
+     *
+     * @return the number of results
+     */
+    public int getTotalResults() {
+        return getTotalSuccesses() + getTotalFailures();
+    }
+
+    /**
+     * Calculates the success rate across all trials.
+     *
+     * @return the success rate
+     */
+    public float getSuccessRate() {
+        return (float) getTotalSuccesses() / getTotalFailures();
     }
 }
