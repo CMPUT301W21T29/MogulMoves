@@ -109,23 +109,6 @@ public class HistogramFragment extends DialogFragment {
     }
 
     /**
-     * Part of the setup for a fragment of any kind.
-     *
-     * @param context Part of some android studio setup.
-     */
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener){
-            listener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    /**
      * Builds the actual fragment with the xml file for a histogram fragment.
      *
      * @param savedInstanceState
@@ -142,6 +125,7 @@ public class HistogramFragment extends DialogFragment {
         barChart = view.findViewById(R.id.histogram_graph);
         BarData barData;
         BarDataSet barDataSet, barDataSet1;
+
 
         switch(experimentType) {
             case 0:
@@ -161,6 +145,9 @@ public class HistogramFragment extends DialogFragment {
                 break;
         }
 
+        histogramData.add(new BarEntry(1, 4));
+        histogramData.add(new BarEntry(3, 8));
+
         if (experimentType == 1) {
             barDataSet = new BarDataSet(histogramData, "Successes");
             barDataSet1 = new BarDataSet(histogramData, "Failures");
@@ -175,15 +162,15 @@ public class HistogramFragment extends DialogFragment {
 
             barDataSet.setColor(Color.GREEN);
 
-            barData = new BarData(barDataSet);
+            barData = new BarData();
+            barData.addDataSet(barDataSet);
 
         }
 
         barChart.setData(barData);
+        barChart.invalidate();
 
         XAxis xAxis = barChart.getXAxis();
-        String[] months = new String[] {}; // what is going on
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(months)); // what is going on pt. 2
 
         barChart.getAxisLeft().setAxisMinimum(0);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -193,14 +180,10 @@ public class HistogramFragment extends DialogFragment {
 
         float barSpace = 0.02f;
         float groupSpace = 0.3f;
-        int groupCount;
-        if (experimentType == 1) groupCount = 2;
-        else groupCount = 1;
 
-        barData.setBarWidth(0.15f);
+        barData.setBarWidth(0.5f);
         barChart.getXAxis().setAxisMinimum(0);
-        barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
-        barChart.groupBars(0, groupSpace, barSpace); // perform the "explicit" grouping
+        barChart.getXAxis().setAxisMaximum(10 + barChart.getBarData().getGroupWidth(groupSpace, barSpace));
 
         return builder
                 .setView(view)
@@ -209,6 +192,33 @@ public class HistogramFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}
                 }).create();
+    }
+
+    static HistogramFragment newInstance(int exp_id) {
+        Bundle args = new Bundle();
+        args.putSerializable("exp_id", exp_id);
+
+        Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+
+        HistogramFragment fragment;
+
+        if (experiment instanceof BinomialExperiment) {
+            fragment = new HistogramFragment((BinomialExperiment) experiment);
+
+        } else if (experiment instanceof NonNegativeCountExperiment &&
+                !(experiment instanceof IntegerCountExperiment)) {
+            fragment = new HistogramFragment((NonNegativeCountExperiment) experiment);
+
+        } else if(experiment instanceof IntegerCountExperiment) {
+            fragment = new HistogramFragment((IntegerCountExperiment) experiment);
+
+        } else {
+            fragment = new HistogramFragment((MeasureExperiment) experiment);
+        }
+
+
+        fragment.setArguments(args);
+        return fragment;
     }
 
 }

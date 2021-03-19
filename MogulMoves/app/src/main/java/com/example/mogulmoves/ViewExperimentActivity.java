@@ -316,6 +316,16 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
     }
 
+    public void openHistogramFragment (View view) {
+        HistogramFragment newFragment = HistogramFragment.newInstance(exp_id);
+        newFragment.show(getSupportFragmentManager(), "VIEW_HISTOGRAM");
+    }
+
+    public void openTimePlotFragment (View view) {
+        TimePlotFragment newFragment = TimePlotFragment.newInstance(exp_id);
+        newFragment.show(getSupportFragmentManager(), "VIEW_TIME_PLOT");
+    }
+
     public void toProfileActivity (View view)
     {
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);

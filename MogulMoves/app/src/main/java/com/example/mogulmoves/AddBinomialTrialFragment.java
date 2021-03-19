@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+// import com.google.firebase.firestore.auth.User;
+
 import static android.view.View.VISIBLE;
 
 public class AddBinomialTrialFragment extends DialogFragment {

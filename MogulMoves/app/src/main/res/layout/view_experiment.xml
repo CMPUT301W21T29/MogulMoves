@@ -204,6 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:onClick="openHistogramFragment"
                     android:text="VIEW HISTOGRAM" />
 
                 <View
@@ -216,6 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:onClick="openTimePlotFragment"
                     android:text="VIEW TIME PLOT" />
 
             </LinearLayout>

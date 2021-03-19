@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="30dp">
-    <com.github.mikephil.charting.charts.LineChart
+    <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/histogram_graph"
         android:layout_width="match_parent"
         android:layout_height="230dp"

@@ -120,23 +120,6 @@ public class TimePlotFragment extends DialogFragment {
     }
 
     /**
-     * Part of the setup for a fragment of any kind.
-     *
-     * @param context Part of some android studio setup.
-     */
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener){
-            listener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    /**
      * Builds the actual fragment with the xml file for a time plot fragment.
      *
      * @param savedInstanceState
@@ -194,6 +177,33 @@ public class TimePlotFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}
                 }).create();
+    }
+
+    static TimePlotFragment newInstance(int exp_id) {
+        Bundle args = new Bundle();
+        args.putSerializable("exp_id", exp_id);
+
+        Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+
+        TimePlotFragment fragment;
+
+        if (experiment instanceof BinomialExperiment) {
+            fragment = new TimePlotFragment((BinomialExperiment) experiment);
+
+        } else if (experiment instanceof NonNegativeCountExperiment &&
+                !(experiment instanceof IntegerCountExperiment)) {
+            fragment = new TimePlotFragment((NonNegativeCountExperiment) experiment);
+
+        } else if(experiment instanceof IntegerCountExperiment) {
+            fragment = new TimePlotFragment((IntegerCountExperiment) experiment);
+
+        } else {
+            fragment = new TimePlotFragment((MeasureExperiment) experiment);
+        }
+
+
+        fragment.setArguments(args);
+        return fragment;
     }
 
 }

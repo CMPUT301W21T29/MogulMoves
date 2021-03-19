@@ -20,6 +20,10 @@
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_launcher_foreground.png"
+    },
+    {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },
@@ -40,12 +44,12 @@
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_baseline_add.png"
     },
     {
-        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_baseline_qr_code.png.flat",
-        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_baseline_qr_code.png"
-    },
-    {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\layout_edit_user_profile.xml.flat",
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\src\\main\\res\\layout\\edit_user_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_baseline_qr_code.png.flat",
+        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_baseline_qr_code.png"
     },
     {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_baseline_qr_code.png.flat",
@@ -68,12 +72,12 @@
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\src\\main\\res\\layout\\user_profile.xml"
     },
     {
-        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_baseline_search.png.flat",
-        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_baseline_search.png"
-    },
-    {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_baseline_arrow_back.png.flat",
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_baseline_arrow_back.png"
+    },
+    {
+        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_baseline_search.png.flat",
+        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_baseline_search.png"
     },
     {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_baseline_settings.png.flat",
@@ -122,6 +126,10 @@
     {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
@@ -176,6 +184,10 @@
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_baseline_settings.xml"
     },
     {
+        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_launcher_foreground.png"
+    },
+    {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_baseline_phone.png.flat",
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_baseline_phone.png"
     },
@@ -196,6 +208,10 @@
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_baseline_phone.png"
     },
     {
+        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_launcher_foreground.png"
+    },
+    {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_baseline_qr_code.png.flat",
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_baseline_qr_code.png"
     },
@@ -210,6 +226,10 @@
     {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_baseline_qr_code.png.flat",
@@ -288,12 +308,12 @@
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_baseline_add.png"
     },
     {
-        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\layout_nn_count_trial_fragment.xml.flat",
-        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\src\\main\\res\\layout\\nn_count_trial_fragment.xml"
-    },
-    {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_baseline_phone.png.flat",
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_baseline_phone.png"
+    },
+    {
+        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\layout_nn_count_trial_fragment.xml.flat",
+        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\src\\main\\res\\layout\\nn_count_trial_fragment.xml"
     },
     {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\layout_time_plot_fragment.xml.flat",
@@ -302,6 +322,10 @@
     {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_baseline_add.png.flat",
         "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_baseline_add.png"
+    },
+    {
+        "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_baseline_search.png.flat",
