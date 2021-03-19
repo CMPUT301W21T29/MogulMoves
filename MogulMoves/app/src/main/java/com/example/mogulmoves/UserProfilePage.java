@@ -18,9 +18,9 @@ public class UserProfilePage extends AppCompatActivity {
 
     String editedName, editedEmail, editedPhone;
 
-    public static final String EXTRA_NAME = "com.example.mogulmoves.EXTRA_NAME";
-    public static final String EXTRA_EMAIL = "com.example.mogulmoves.EXTRA_EMAIL";
-    public static final String EXTRA_PHONE = "com.example.mogulmoves.EXTRA_PHONE";
+    //public static final String EXTRA_NAME = "com.example.mogulmoves.EXTRA_NAME";
+    //public static final String EXTRA_EMAIL = "com.example.mogulmoves.EXTRA_EMAIL";
+    //public static final String EXTRA_PHONE = "com.example.mogulmoves.EXTRA_PHONE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +56,21 @@ public class UserProfilePage extends AppCompatActivity {
     }
 
     public void switch_to_edit(View view) {
+        User currentUser = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+
+        String username = currentUser.getUsername();
+        String email = currentUser.getEmail();
+        String phone = currentUser.getPhone();
+
         TextView editButton = findViewById(R.id.edit_profile_button);
-        switchToEditUserProfile(editedName,editedEmail,editedPhone);
+        switchToEditUserProfile(username, email, phone);
     }
 
     public void switchToEditUserProfile(String CurrentName, String CurrentEmail, String CurrentPhone){
         Intent intent = new Intent(this, EditProfilePage.class);
-        intent.putExtra(EXTRA_NAME, CurrentName);
-        intent.putExtra(EXTRA_EMAIL, CurrentEmail);
-        intent.putExtra(EXTRA_PHONE, CurrentPhone);
+        intent.putExtra("EXTRA_NAME", CurrentName);
+        intent.putExtra("EXTRA_EMAIL", CurrentEmail);
+        intent.putExtra("EXTRA_PHONE", CurrentPhone);
         startActivity(intent);
     }
 

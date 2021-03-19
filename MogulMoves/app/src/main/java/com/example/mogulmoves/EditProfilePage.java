@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class EditProfilePage extends AppCompatActivity {
-    EditText NameEditing, EmailEditing, PhoneEditing;
+    EditText NameEditing;
+    EditText EmailEditing;
+    EditText PhoneEditing;
 
     public static final String BACK_NAME = "com.example.mogulmoves.BACK_NAME";
     public static final String BACK_EMAIL = "com.example.mogulmoves.BACK_EMAIL";
@@ -22,9 +25,10 @@ public class EditProfilePage extends AppCompatActivity {
         setContentView(R.layout.edit_user_profile);
 
         Intent intent = getIntent();
-        String originalName = intent.getStringExtra(UserProfilePage.EXTRA_NAME);
-        String originalEmail = intent.getStringExtra(UserProfilePage.EXTRA_EMAIL);
-        String originalPhone = intent.getStringExtra(UserProfilePage.EXTRA_PHONE);
+        String originalName = intent.getStringExtra("EXTRA_NAME");
+        String originalEmail = intent.getStringExtra("EXTRA_EMAIL");
+        String originalPhone = intent.getStringExtra("EXTRA_PHONE");
+        Log.d("wide", originalName);
 
         NameEditing = findViewById(R.id.edit_name_field);
         EmailEditing = findViewById(R.id.edit_email_field);
