@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.content.ContextCompat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,37 +13,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.widget.Button;
-import android.widget.TextView;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
@@ -215,7 +202,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
         loggedInUserName = getIntent().getStringExtra("loggedInUser");
         if(loggedInUserName.length() <= 0 || loggedInUserName == null) {
-            return;
+            loggedInUserName = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
         }
 
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
@@ -271,6 +258,13 @@ public class ViewExperimentActivity extends AppCompatActivity {
             sub_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
         }
 
+        Button trial_button = findViewById(R.id.add_trial_button);
+        if (experiment instanceof IntegerCountExperiment) {
+            if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
+                trial_button.setText("EDIT TRIAL");
+            }
+        }
+
         if (experiment.getNumTrials() > 0) {
             TextView stats = findViewById(R.id.experiment_stats_2);
 
@@ -295,6 +289,11 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
     }
 
+    public void openAddTrialFragment2 () {
+        Button b = findViewById(R.id.add_trial_button);
+        openAddTrialFragment(b);
+    }
+
     public void openAddTrialFragment (View view) {
         if (experiment instanceof BinomialExperiment) {
             AddBinomialTrialFragment newFragment = AddBinomialTrialFragment.newInstance(exp_id);
@@ -306,9 +305,13 @@ public class ViewExperimentActivity extends AppCompatActivity {
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
 
         } else if(experiment instanceof IntegerCountExperiment) {
-            AddCountTrialFragment newFragment = AddCountTrialFragment.newInstance(exp_id);
-            newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
-
+                if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
+                    EditCountTrialFragment newFragment = EditCountTrialFragment.newInstance(exp_id);
+                    newFragment.show(getSupportFragmentManager(), "EDIT_TRIAL");
+                } else {
+                    AddCountTrialFragment newFragment = AddCountTrialFragment.newInstance(exp_id);
+                    newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
+                }
         } else {
             AddMeasureTrialFragment newFragment = AddMeasureTrialFragment.newInstance(exp_id);
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
@@ -387,6 +390,11 @@ public class ViewExperimentActivity extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     System.out.println("Post Added");
                                     ObjectContext.nextPostId++;
+
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    map.put("nextPostId", ObjectContext.nextPostId);
+                                    map.put("nextId", ObjectContext.nextId);
+                                    DatabaseHandler.pushData("globals", "globals", map);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

@@ -20,6 +20,7 @@ public abstract class SavedObject {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("nextId", ObjectContext.nextId);
+        map.put("nextPostId", ObjectContext.nextPostId);
         DatabaseHandler.pushData("globals", "globals", map);
 
     }
