@@ -147,8 +147,7 @@ public class TimePlotFragment extends DialogFragment {
         tpLineChart.invalidate();
 
 
-        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        lineDataSet.setLineWidth(4f);
+        lineDataSet.setLineWidth(2f);
         lineDataSet.setColor(Color.BLUE);
 
 
@@ -182,10 +181,6 @@ public class TimePlotFragment extends DialogFragment {
                 }
                 break;
         }
-
-        timePlotData.add(new Entry(1, 4));
-        timePlotData.add(new Entry(2, 6));
-        timePlotData.add(new Entry(3, 3));
 
         return timePlotData;
     }

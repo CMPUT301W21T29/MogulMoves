@@ -145,9 +145,6 @@ public class HistogramFragment extends DialogFragment {
                 break;
         }
 
-        histogramData.add(new BarEntry(1, 4));
-        histogramData.add(new BarEntry(3, 8));
-
         if (experimentType == 1) {
             barDataSet = new BarDataSet(histogramData, "Successes");
             barDataSet1 = new BarDataSet(histogramData, "Failures");

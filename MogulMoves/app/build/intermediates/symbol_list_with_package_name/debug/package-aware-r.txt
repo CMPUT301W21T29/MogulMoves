@@ -1816,6 +1816,7 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
+id back_button
 id barrier
 id baseline
 id beginOnFirstDraw
@@ -1877,6 +1878,7 @@ id disableHome
 id disablePostScroll
 id disableScroll
 id disjoint
+id display_count
 id dragDown
 id dragEnd
 id dragLeft
@@ -1950,6 +1952,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id increment_button
 id info
 id invisible
 id inward
@@ -2275,6 +2278,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout edit_count_trial_fragment
 layout edit_user_profile
 layout experiment_list_item
 layout histogram_fragment
