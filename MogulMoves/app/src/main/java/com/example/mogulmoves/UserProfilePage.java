@@ -61,4 +61,10 @@ public class UserProfilePage extends AppCompatActivity {
         intent.putExtra(EXTRA_PHONE, CurrentPhone);
         startActivity(intent);
     }
+
+    public void goBack(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 }
