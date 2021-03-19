@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
@@ -190,6 +198,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     ListItemAdapter adapter;
     ListItemAdapter2 adapter2;
     ListItemAdapter3 adapter3;
+    User self;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,11 +220,31 @@ public class ViewExperimentActivity extends AppCompatActivity {
         }
 
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+        self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
 
         updateDataDisplay();
         addListeners();
         loadPosts();
     }
+
+    public void autoSub() {
+        self.addSubscription(exp_id);
+
+        ObjectContext.pushUserData(self);
+        updateDataDisplay();
+    }
+
+    public void subscribe(View view) {
+        if (self.getSubscribed().contains(exp_id)) {
+            self.removeSubscription(exp_id);
+        } else {
+            self.addSubscription(exp_id);
+        }
+
+        ObjectContext.pushUserData(self);
+        updateDataDisplay();
+    }
+
 
     public void updateDataDisplay() {
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
@@ -233,6 +262,37 @@ public class ViewExperimentActivity extends AppCompatActivity {
         } else {
             region.setText(experiment.getRegion());
         }
+
+        Button sub_button = findViewById(R.id.subscribe_button);
+        if (self.getSubscribed().contains(exp_id)) {
+            sub_button.setText("UNSUBSCRIBE");
+            sub_button.setBackgroundColor(Color.RED);
+        } else {
+            sub_button.setText("SUBSCRIBE");
+            sub_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
+        }
+
+        if (experiment.getNumTrials() > 0) {
+            TextView stats = findViewById(R.id.experiment_stats_2);
+
+            //some code below adapted from https://stackoverflow.com/a/154354
+
+            String mean = new BigDecimal(String.valueOf(experiment.getMean()))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String q1 = new BigDecimal(String.valueOf(experiment.getQuartiles()[0]))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String median = new BigDecimal(String.valueOf(experiment.getMedian()))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String q3 = new BigDecimal(String.valueOf(experiment.getQuartiles()[1]))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String stdev = new BigDecimal(String.valueOf(experiment.getStdDev()))
+                    .setScale(3, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+            String stats_string = mean + "\n" + stdev + "\n"
+                    + q1 + "\n" + median + "\n" + q3;
+            stats.setText(stats_string);
+        }
+
+
     }
 
     public void openAddTrialFragment (View view) {

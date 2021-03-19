@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ObjectContext.randomizeNextId();
         setupDatabaseListeners();
         // Fix this by finishing user part
         setupDummyUser();
@@ -135,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 }
 
+                                ObjectContext.randomizeNextId();
+
                                 User user = new User(ObjectContext.installationId, "", "", "");
                                 ObjectContext.userDatabaseId = user.getId();
                                 ObjectContext.addUser(user);
@@ -201,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void toProfileActivity (View view)
     {
-        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+        Intent i = new Intent(getApplicationContext(), UserProfilePage.class);
         startActivity(i);
     }
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Abstract class to represent an experiment and all of its data.
  */
-public abstract class Experiment extends SavedObject implements GeoExperiment{
+public abstract class Experiment extends SavedObject implements GeoExperiment {
 
     private boolean active = true;
     private boolean visible = true;
@@ -172,17 +172,6 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
     public void addMessage(int message){
         messages.add(message);
     }
-
-    /**
-     * Returns whether locations are required for this experiment.
-     *
-     * @return a boolean representing whether locations are required for this experiment
-     */
-    @Override
-    public boolean getLocationRequired() {
-        return locationRequired;
-    }
-
 
     /**
      * @param locationRequired a boolean representing whether locations are required for this experiment

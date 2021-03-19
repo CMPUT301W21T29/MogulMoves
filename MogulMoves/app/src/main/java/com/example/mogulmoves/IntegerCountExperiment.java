@@ -33,4 +33,17 @@ public class IntegerCountExperiment extends NonNegativeCountExperiment {
                              int minTrials, boolean locationRequired, boolean visible) {
         super(id, owner, description, region, minTrials, locationRequired, visible);
     }
+
+    public boolean userHasTrial(int user) {
+
+        for(int trial: trials) {
+            if(((Trial) ObjectContext.getObjectById(trial)).getExperimenter() == user) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
 }

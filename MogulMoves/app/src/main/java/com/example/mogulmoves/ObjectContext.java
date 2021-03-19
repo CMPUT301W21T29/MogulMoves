@@ -4,6 +4,7 @@ import android.widget.ArrayAdapter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Class to contain methods and attributes that can be accessed globally.
@@ -22,6 +23,14 @@ public class ObjectContext {
     public static ArrayList<Message> messages = new ArrayList<>();
 
     public static ArrayList<ArrayAdapter> adapters = new ArrayList<>();
+
+    public static void randomizeNextId() {
+        nextId = new Random().nextInt();
+
+        if(getObjectById(nextId) != null) {
+            randomizeNextId();
+        }
+    }
 
     /**
      * Returns the object with the given id, or null if that object does not exist.
@@ -81,11 +90,7 @@ public class ObjectContext {
      * @param experiment an Experiment object to add
      */
     public static void addExperiment(Experiment experiment) {
-
-        ExperimentSerializer serializer = new ExperimentSerializer();
-        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
-                serializer.toData(experiment));
-
+        pushExperimentData(experiment);
     }
 
     /**
@@ -96,9 +101,7 @@ public class ObjectContext {
      */
     public static void addUser(User user) {
 
-        UserSerializer serializer = new UserSerializer();
-        DatabaseHandler.pushData("users", "" + user.getId(),
-                serializer.toData(user));
+        pushUserData(user);
 
     }
 
@@ -112,14 +115,10 @@ public class ObjectContext {
     public static void addTrial(Trial trial, Experiment experiment) {
 
         experiment.addTrial(trial.getId());
+        trials.add(trial);
 
-        TrialSerializer serializer = new TrialSerializer();
-        DatabaseHandler.pushData("trials", "" + trial.getId(),
-                serializer.toData(trial));
-
-        ExperimentSerializer eSerializer = new ExperimentSerializer();
-        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
-                eSerializer.toData(experiment));
+        pushTrialData(trial);
+        pushExperimentData(experiment);
     }
 
     /**
@@ -133,13 +132,41 @@ public class ObjectContext {
 
         experiment.addMessage(message.getId());
 
+        pushMessageData(message);
+        pushExperimentData(experiment);
+
+    }
+
+    public static void pushExperimentData(Experiment experiment) {
+
+        ExperimentSerializer serializer = new ExperimentSerializer();
+        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
+                serializer.toData(experiment));
+
+    }
+
+    public static void pushUserData(User user) {
+
+        UserSerializer serializer = new UserSerializer();
+        DatabaseHandler.pushData("users", "" + user.getId(),
+                serializer.toData(user));
+
+    }
+
+    public static void pushTrialData(Trial trial) {
+
+        TrialSerializer serializer = new TrialSerializer();
+        DatabaseHandler.pushData("trials", "" + trial.getId(),
+                serializer.toData(trial));
+
+    }
+
+    public static void pushMessageData(Message message) {
+
         MessageSerializer serializer = new MessageSerializer();
         DatabaseHandler.pushData("messages", "" + message.getId(),
                 serializer.toData(message));
 
-        ExperimentSerializer eSerializer = new ExperimentSerializer();
-        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
-                eSerializer.toData(experiment));
     }
 
     public static void refreshAdapters() {

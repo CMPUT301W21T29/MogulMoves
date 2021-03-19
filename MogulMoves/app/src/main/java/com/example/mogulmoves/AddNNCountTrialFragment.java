@@ -35,6 +35,7 @@ public class AddNNCountTrialFragment extends DialogFragment {
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
+            //code below adapted from https://stackoverflow.com/a/7636468
             public void onShow(DialogInterface dialog) {
                 Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
                 button.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +53,11 @@ public class AddNNCountTrialFragment extends DialogFragment {
 
                             NonNegativeCountTrial trial = new NonNegativeCountTrial(ObjectContext.userDatabaseId, count_int);
                             ObjectContext.addTrial(trial, experiment);
+
+                            User self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+                            if (!self.getSubscribed().contains(exp_id)) {
+                                ((ViewExperimentActivity)getActivity()).autoSub();
+                            }
 
                             ((ViewExperimentActivity)getActivity()).updateDataDisplay();
 
