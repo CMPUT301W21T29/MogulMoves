@@ -30,126 +30,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="426a650a-74c0-41dc-9e9d-7de03b9b6306" name="Default Changelist" comment="github please">
-      <change beforePath="$PROJECT_DIR$/../.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/google-services.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/androidTest/java/com/example/mogulmoves/ExampleInstrumentedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/AddBinomialTrialFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/AddCountTrialFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/AddMeasureTrialFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/AddNNCountTrialFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/BinomialExperiment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/BinomialTrial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/DatabaseHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/EditProfilePage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/Experiment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/ExperimentList.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/ExperimentSerializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/GeoExperiment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/GeoTrial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/HistogramFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/IntegerCountExperiment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/IntegerCountTrial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/MeasureExperiment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/MeasureTrial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/Message.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/MessageSerializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/NewExperimentActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/NonNegativeCountExperiment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/NonNegativeCountTrial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/ObjectContext.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/ProfileActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/QuestionActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/SavedObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/Serializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/StatCalculator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/TimePlotFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/Trial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/TrialSerializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/UserProfilePage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/UserSerializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/mogulmoves/ViewExperimentActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/edit_button.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_baseline_add.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_baseline_arrow_back.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_baseline_edit.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_baseline_email.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_baseline_person.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_baseline_phone.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_baseline_qr_code.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_baseline_search.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_baseline_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main_toolbar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_question.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/binomial_trial_fragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/count_trial_fragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/edit_user_profile.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/experiment_list_item.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/histogram_fragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/measurement_trial_fragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/new_experiment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/new_experiment_toolbar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/nn_count_trial_fragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/time_plot_fragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/user_profile.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/user_profile_toolbar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/view_experiment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/view_experiment_post_item.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/view_experiment_toolbar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values-night/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/test/java/com/example/mogulmoves/ExampleUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/UML.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/gui mockups/edit profile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/gui mockups/experiment settings.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/gui mockups/main.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/gui mockups/new experiment.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/gui mockups/qr codes.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/gui mockups/search.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/gui mockups/user profile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/gui mockups/view experiment.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/storyboard.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doc/team.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../settings.gradle" beforeDir="false" />
-    </list>
+    <list default="true" id="426a650a-74c0-41dc-9e9d-7de03b9b6306" name="Default Changelist" comment="github please" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -193,6 +74,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -307,22 +189,26 @@
     </state>
     <state x="750" y="298" key="FileChooserDialogImpl/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616179950222" />
     <state x="2670" y="297" key="FileChooserDialogImpl/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@1920.-1.1920.1080" timestamp="1616172834414" />
-    <state width="1876" height="242" key="GridCell.Tab.0.bottom" timestamp="1616181135480">
+    <state width="1876" height="242" key="GridCell.Tab.0.bottom" timestamp="1616184306379">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.bottom/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616181135480" />
-    <state width="1876" height="242" key="GridCell.Tab.0.center" timestamp="1616181135479">
+    <state width="1876" height="242" key="GridCell.Tab.0.bottom/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616184306379" />
+    <state width="1876" height="242" key="GridCell.Tab.0.center" timestamp="1616184306379">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.center/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616181135479" />
-    <state width="1876" height="242" key="GridCell.Tab.0.left" timestamp="1616181135479">
+    <state width="1876" height="242" key="GridCell.Tab.0.center/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616184306379" />
+    <state width="1876" height="242" key="GridCell.Tab.0.left" timestamp="1616184306379">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.left/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616181135479" />
-    <state width="1876" height="242" key="GridCell.Tab.0.right" timestamp="1616181135479">
+    <state width="1876" height="242" key="GridCell.Tab.0.left/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616184306379" />
+    <state width="1876" height="242" key="GridCell.Tab.0.right" timestamp="1616184306379">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.right/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616181135479" />
+    <state width="1876" height="242" key="GridCell.Tab.0.right/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616184306379" />
+    <state x="461" y="185" key="SettingsEditor" timestamp="1616182460293">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="461" y="185" key="SettingsEditor/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616182460293" />
     <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1616175964224">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

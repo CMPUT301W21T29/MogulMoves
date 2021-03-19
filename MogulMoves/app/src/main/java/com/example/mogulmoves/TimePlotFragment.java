@@ -43,7 +43,6 @@ public class TimePlotFragment extends DialogFragment {
     private List<Float> binomialData = new ArrayList<>();
     private int experimentType;
     private ArrayList<Entry> timePlotData = new ArrayList<>();
-    private ArrayList<Entry> timePlotData1 = new ArrayList<>();
     private LineChart tpLineChart;
 
 
@@ -132,43 +131,27 @@ public class TimePlotFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.time_plot_fragment, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        tpLineChart = view.findViewById(R.id.time_plot_graph);
+        tpLineChart = (LineChart) view.findViewById(R.id.time_plot_graph);
         LineData lineData;
-        LineDataSet lineDataSet, lineDataSet1;
+        LineDataSet lineDataSet;
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
-        switch(experimentType) {
-            case 0:
-                for (int i=0; i<integerData.size(); i++) {
-                    timePlotData.add(new BarEntry(i, integerData.get(i)));
-                }
-                break;
-            case 1:
-                for (int i=0; i<binomialData.size(); i++) {
-                    timePlotData.add(new BarEntry(i, binomialData.get(i)));
-                }
-                break;
-            case 2:
-                for (int i=0; i<floatData.size(); i++) {
-                    timePlotData.add(new BarEntry(i, floatData.get(i)));
-                }
-                break;
-        }
 
-        if (experimentType == 1) {
-            lineDataSet = new LineDataSet(timePlotData, "Successes");
-            lineDataSet1 = new LineDataSet(timePlotData, "Failures"); //
+        lineDataSet = new LineDataSet(dataValues(), "Data");
 
-            lineData = new LineData(lineDataSet, lineDataSet1);
+        dataSets.add(lineDataSet);
 
-        }
-        else {
-            lineDataSet = new LineDataSet(timePlotData, "Data");
-
-            lineData = new LineData(lineDataSet);
-        }
+        lineData = new LineData(dataSets);
 
         tpLineChart.setData(lineData);
         tpLineChart.invalidate();
+
+
+        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        lineDataSet.setLineWidth(4f);
+        lineDataSet.setColor(Color.BLUE);
+
+
 
         return builder
                 .setView(view)
@@ -177,6 +160,34 @@ public class TimePlotFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}
                 }).create();
+    }
+
+    private ArrayList<Entry> dataValues() {
+        ArrayList<Entry> timePlotData = new ArrayList<Entry>();
+
+        switch(experimentType) {
+            case 0:
+                for (int i=0; i<integerData.size(); i++) {
+                    timePlotData.add(new Entry(i, integerData.get(i)));
+                }
+                break;
+            case 1:
+                for (int i=0; i<binomialData.size(); i++) {
+                    timePlotData.add(new Entry(i, binomialData.get(i)));
+                }
+                break;
+            case 2:
+                for (int i=0; i<floatData.size(); i++) {
+                    timePlotData.add(new Entry(i, floatData.get(i)));
+                }
+                break;
+        }
+
+        timePlotData.add(new Entry(1, 4));
+        timePlotData.add(new Entry(2, 6));
+        timePlotData.add(new Entry(3, 3));
+
+        return timePlotData;
     }
 
     static TimePlotFragment newInstance(int exp_id) {

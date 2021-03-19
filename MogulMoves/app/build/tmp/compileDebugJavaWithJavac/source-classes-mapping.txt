@@ -5,26 +5,16 @@ com/example/mogulmoves/MeasureExperiment.java
  com.example.mogulmoves.MeasureExperiment
 com/example/mogulmoves/IntegerCountTrial.java
  com.example.mogulmoves.IntegerCountTrial
-com/example/mogulmoves/ViewExperimentActivity.java
- com.example.mogulmoves.ListItemAdapter
- com.example.mogulmoves.ListItemAdapter2
- com.example.mogulmoves.ListItemAdapter3
- com.example.mogulmoves.ListItemAdapter3$ViewHolder
- com.example.mogulmoves.ViewExperimentActivity
- com.example.mogulmoves.ViewExperimentActivity$1
- com.example.mogulmoves.ViewExperimentActivity$2
- com.example.mogulmoves.ViewExperimentActivity$2$1
- com.example.mogulmoves.ViewExperimentActivity$2$2
+com/example/mogulmoves/NonNegativeCountExperiment.java
+ com.example.mogulmoves.NonNegativeCountExperiment
 com/example/mogulmoves/ProfileActivity.java
  com.example.mogulmoves.ProfileActivity
 com/example/mogulmoves/BinomialExperiment.java
  com.example.mogulmoves.BinomialExperiment
 com/example/mogulmoves/UserProfilePage.java
  com.example.mogulmoves.UserProfilePage
-com/example/mogulmoves/TimePlotFragment.java
- com.example.mogulmoves.TimePlotFragment
- com.example.mogulmoves.TimePlotFragment$1
- com.example.mogulmoves.TimePlotFragment$OnFragmentInteractionListener
+com/example/mogulmoves/IntegerCountExperiment.java
+ com.example.mogulmoves.IntegerCountExperiment
 com/example/mogulmoves/AddMeasureTrialFragment.java
  com.example.mogulmoves.AddMeasureTrialFragment
  com.example.mogulmoves.AddMeasureTrialFragment$1
@@ -77,10 +67,10 @@ com/example/mogulmoves/NewExperimentActivity.java
  com.example.mogulmoves.NewExperimentActivity
 com/example/mogulmoves/Experiment.java
  com.example.mogulmoves.Experiment
-com/example/mogulmoves/GeoExperiment.java
- com.example.mogulmoves.GeoExperiment
 com/example/mogulmoves/GeoTrial.java
  com.example.mogulmoves.GeoTrial
+com/example/mogulmoves/GeoExperiment.java
+ com.example.mogulmoves.GeoExperiment
 com/example/mogulmoves/MeasureTrial.java
  com.example.mogulmoves.MeasureTrial
 com/example/mogulmoves/UserSerializer.java
@@ -97,7 +87,15 @@ com/example/mogulmoves/Serializer.java
  com.example.mogulmoves.Serializer
 com/example/mogulmoves/BinomialTrial.java
  com.example.mogulmoves.BinomialTrial
-com/example/mogulmoves/NonNegativeCountExperiment.java
- com.example.mogulmoves.NonNegativeCountExperiment
-com/example/mogulmoves/IntegerCountExperiment.java
- com.example.mogulmoves.IntegerCountExperiment
+com/example/mogulmoves/TimePlotFragment.java
+ com.example.mogulmoves.TimePlotFragment
+ com.example.mogulmoves.TimePlotFragment$1
+ com.example.mogulmoves.TimePlotFragment$OnFragmentInteractionListener
+com/example/mogulmoves/ViewExperimentActivity.java
+ com.example.mogulmoves.ListItemAdapter3
+ com.example.mogulmoves.ListItemAdapter3$ViewHolder
+ com.example.mogulmoves.ViewExperimentActivity
+ com.example.mogulmoves.ViewExperimentActivity$1
+ com.example.mogulmoves.ViewExperimentActivity$2
+ com.example.mogulmoves.ViewExperimentActivity$2$1
+ com.example.mogulmoves.ViewExperimentActivity$2$2
