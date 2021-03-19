@@ -125,7 +125,7 @@ public class User extends SavedObject {
      * @param experiment the id of an experiment to unsubscribe to
      */
     public void removeSubscription(int experiment) {
-        subscribed.remove(experiment);
+        subscribed.remove(Integer.valueOf(experiment));
     }
 
     /**
@@ -152,7 +152,7 @@ public class User extends SavedObject {
      * @param experimenter the id of an experimenter to unignore
      */
     public void removeIgnore(int experimenter) {
-        ignored.remove(experimenter);
+        ignored.remove(Integer.valueOf(experimenter));
     }
 
     /**
