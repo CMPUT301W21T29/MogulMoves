@@ -66,22 +66,22 @@ public class NewExperimentActivity extends AppCompatActivity {
             String type = spinner.getSelectedItem().toString();
             switch (type) {
                 case "Count": {
-                    IntegerCountExperiment experiment = new IntegerCountExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
+                    IntegerCountExperiment experiment = new IntegerCountExperiment(ObjectContext.userDatabaseId, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Binomial": {
-                    BinomialExperiment experiment = new BinomialExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
+                    BinomialExperiment experiment = new BinomialExperiment(ObjectContext.userDatabaseId, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Non-Negative Count": {
-                    NonNegativeCountExperiment experiment = new NonNegativeCountExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
+                    NonNegativeCountExperiment experiment = new NonNegativeCountExperiment(ObjectContext.userDatabaseId, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 default: {
-                    MeasureExperiment experiment = new MeasureExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
+                    MeasureExperiment experiment = new MeasureExperiment(ObjectContext.userDatabaseId, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }

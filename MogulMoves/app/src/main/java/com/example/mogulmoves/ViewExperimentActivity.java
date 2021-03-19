@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -237,6 +238,18 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
         TextView description = findViewById(R.id.experiment_description);
         description.setText(experiment.getDescription());
+
+        TextView owner = findViewById(R.id.exp_list_item_owner);
+        User exp_owner = (User)ObjectContext.getObjectById(experiment.getOwner());
+
+        Log.d("e", exp_owner.getUsername());
+
+        if(exp_owner.getUsername().length() <= 0 || exp_owner.getUsername() == null) {
+            String str = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
+            owner.setText(str);
+        } else {
+            owner.setText(exp_owner.getUsername());
+        }
 
         TextView trials = findViewById(R.id.experiment_trials);
         String trials_text = "Trials: " + experiment.getNumTrials() + "/" + experiment.getMinTrials();

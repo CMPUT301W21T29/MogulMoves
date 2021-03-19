@@ -43,8 +43,14 @@ public class ExperimentList extends ArrayAdapter<Experiment> {
         TextView subbed = view.findViewById(R.id.subbed);
 
         desc.setText(experiment.getDescription());
-        //User exp_owner = (User) ObjectContext.getObjectById(experiment.getOwner());
-        //owner.setText(exp_owner.getUsername());
+
+        User exp_owner = (User) ObjectContext.getObjectById(experiment.getOwner());
+        if(exp_owner.getUsername().length() <= 0 || exp_owner.getUsername() == null) {
+            String str = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
+            owner.setText(str);
+        } else {
+            owner.setText(exp_owner.getUsername());
+        }
 
         String trials_text = "Trials: " + experiment.getNumTrials() + "/" + experiment.getMinTrials();
         trials.setText(trials_text);

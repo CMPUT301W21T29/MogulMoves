@@ -25,17 +25,13 @@ public class ObjectContext {
 
     public static ArrayList<ArrayAdapter> adapters = new ArrayList<>();
 
-    /**
-     * Sets the nextId value to a random 32 bit value to prevent overlap with other ids in case
-     * something goes wrong.
-     */
-    public static void randomizeNextId() {
+    /*public static void randomizeNextId() {
         nextId = new Random().nextInt();
 
         if(getObjectById(nextId) != null) {
             randomizeNextId();
         }
-    }
+    }*/
 
     /**
      * Returns the object with the given id, or null if that object does not exist.

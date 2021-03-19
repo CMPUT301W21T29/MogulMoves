@@ -21,13 +21,16 @@ public class EditCountTrialFragment extends DialogFragment {
 
     View.OnClickListener incrementOCL =  new View.OnClickListener() {
         public void onClick(View view) {
-            count = view.findViewById(R.id.display_count);
+            count = view.getRootView().findViewById(R.id.display_count);
             int exp_id = (int) getArguments().getSerializable("exp_id");
 
             IntegerCountTrial trial = fetchTrial(exp_id);
 
             trial.increment();
-            count.setText(trial.getCount());
+            String count_string = "Count: " + Integer.toString(trial.getCount());
+            count.setText(count_string);
+            ObjectContext.pushTrialData(trial);
+            ObjectContext.pushExperimentData((Experiment)ObjectContext.getObjectById(exp_id));
 
             ((ViewExperimentActivity) getActivity()).updateDataDisplay();
         }
@@ -48,12 +51,14 @@ public class EditCountTrialFragment extends DialogFragment {
 
         IntegerCountTrial trial = fetchTrial(exp_id);
 
-        count.setText(trial.getCount());
+        String count_string = "Count: " + Integer.toString(trial.getCount());
 
-        CustomDialog dialog = new CustomDialog(getContext());
+        count.setText(count_string);
+
+        CustomDialog dialog = new CustomDialog(getContext(), view);
 
         dialog.setView(view);
-        dialog.setTitle("ADD NEW TRIAL");
+        dialog.setTitle("EDIT TRIAL");
         dialog.setPositiveButton("INCREMENT", incrementOCL);
         dialog.setNegativeButton("BACK", backOCL);
 
