@@ -380,6 +380,11 @@ public class ViewExperimentActivity extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     System.out.println("Post Added");
                                     ObjectContext.nextPostId++;
+
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    map.put("nextPostId", ObjectContext.nextPostId);
+                                    map.put("nextId", ObjectContext.nextId);
+                                    DatabaseHandler.pushData("globals", "globals", map);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
