@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ListView expList;
     ArrayAdapter<Experiment> expAdapter;
     User loggedInUser;
+    boolean initialBootComplete = false;
 
     final ListView.OnItemClickListener expOCL = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
@@ -42,30 +43,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ObjectContext.randomizeNextId();
         setupDatabaseListeners();
-        // Fix this by finishing user part
-        setupDummyUser();
 
         expList = findViewById(R.id.experiment_list);
-        expAdapter = new ExperimentList(this, ObjectContext.experiments);
 
-        expList.setAdapter(expAdapter);
-        expList.setOnItemClickListener(expOCL);
-
-        ObjectContext.adapters.add(expAdapter);
-
-    }
-
-    private void setupDummyUser() {
-        loggedInUser = new User("installationId", "DummyUser", "DummyEmail", "DummyPhone");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        expAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -96,111 +77,123 @@ public class MainActivity extends AppCompatActivity {
                         ObjectContext.nextId = (int) (long) doc.getData().get("nextId");
                     }
                 }
-            }
-        });
 
-        FirebaseInstallations installation = FirebaseInstallations.getInstance();
+                FirebaseInstallations installation = FirebaseInstallations.getInstance();
 
-        installation.getId()
-                .addOnSuccessListener(new OnSuccessListener<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Log.d(ObjectContext.TAG, "UIID grabbed successfully!");
-                        ObjectContext.installationId = result;
-
-                        // user data listener
-                        CollectionReference collectionReference = db.collection("users");
-                        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                installation.getId()
+                        .addOnSuccessListener(new OnSuccessListener<String>() {
                             @Override
-                            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                                    FirebaseFirestoreException error) {
+                            public void onSuccess(String result) {
+                                Log.d(ObjectContext.TAG, "UIID grabbed successfully!");
+                                ObjectContext.installationId = result;
 
-                                ObjectContext.randomizeNextId();
+                                // user data listener
+                                CollectionReference collectionReference = db.collection("users");
+                                collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                                            FirebaseFirestoreException error) {
 
-                                User self = new User(ObjectContext.installationId, "", "", "");
-                                ObjectContext.userDatabaseId = self.getId();
+                                        ObjectContext.users.clear();
 
-                                ObjectContext.users.clear();
+                                        for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                                            // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                                            // some kind of log message here
 
-                                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
-                                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
-                                    // some kind of log message here
+                                            UserSerializer serializer = new UserSerializer();
+                                            HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+                                            ObjectContext.users.add(serializer.fromData(data));
 
-                                    UserSerializer serializer = new UserSerializer();
-                                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
-                                    ObjectContext.users.add(serializer.fromData(data));
-                                }
+                                        }
 
-                                for(User user: ObjectContext.users){
-                                    if(user.getInstallationId().equals(ObjectContext.installationId)){
-                                        ObjectContext.userDatabaseId = user.getId();
-                                        ObjectContext.refreshAdapters();
-                                        return;
+                                        if (!initialBootComplete) {
+
+                                            boolean isUserFound = false;
+
+                                            for (User user : ObjectContext.users) {
+                                                if (user.getInstallationId().equals(ObjectContext.installationId)) {
+                                                    ObjectContext.userDatabaseId = user.getId();
+                                                    Log.d("help", "3rd" + Integer.toString(ObjectContext.userDatabaseId));
+                                                    isUserFound = true;
+                                                }
+                                            }
+
+                                            if (!isUserFound) {
+                                                User self = new User(ObjectContext.installationId, "", "", "");
+                                                ObjectContext.userDatabaseId = self.getId();
+                                                ObjectContext.addUser(self);
+                                            }
+
+                                            expAdapter = new ExperimentList(getApplicationContext(), ObjectContext.experiments);
+                                            expList.setAdapter(expAdapter);
+                                            expList.setOnItemClickListener(expOCL);
+
+                                            ObjectContext.adapters.add(expAdapter);
+
+                                            initialBootComplete = true;
+                                        }
+
+                                        // experiment data listener
+                                        CollectionReference collectionReference2 = db.collection("experiments");
+                                        collectionReference2.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                                                    FirebaseFirestoreException error) {
+
+                                                ObjectContext.experiments.clear();
+                                                System.out.println(ObjectContext.experiments.size());
+
+                                                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                                                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                                                    // some kind of log message here
+
+                                                    ExperimentSerializer serializer = new ExperimentSerializer();
+                                                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+                                                    Experiment experiment = serializer.fromData(data);
+
+                                                    ObjectContext.experiments.add(experiment);
+
+                                                    ObjectContext.refreshAdapters();
+                                                }
+                                            }
+                                        });
+
+                                        // trial data listener
+                                        CollectionReference collectionReference3 = db.collection("trials");
+                                        collectionReference3.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                                                    FirebaseFirestoreException error) {
+
+                                                ObjectContext.trials.clear();
+
+                                                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                                                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                                                    // some kind of log message here
+
+                                                    TrialSerializer serializer = new TrialSerializer();
+                                                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+                                                    Trial trial = serializer.fromData(data);
+
+                                                    ObjectContext.trials.add(trial);
+
+                                                    ObjectContext.refreshAdapters();
+                                                }
+                                            }
+                                        });
                                     }
-                                }
-
-                                ObjectContext.addUser(self);
-
-                                ObjectContext.refreshAdapters();
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(ObjectContext.TAG, "UIID could not be grabbed!" + e.toString()); // hopefully doesnt happen ohp
                             }
                         });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(ObjectContext.TAG, "UIID could not be grabbed!" + e.toString()); // hopefully doesnt happen ohp
-                    }
-                });
-
-        // experiment data listener
-        collectionReference = db.collection("experiments");
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                    FirebaseFirestoreException error) {
-
-                ObjectContext.experiments.clear();
-                System.out.println(ObjectContext.experiments.size());
-
-                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
-                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
-                    // some kind of log message here
-
-                    ExperimentSerializer serializer = new ExperimentSerializer();
-                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
-                    Experiment experiment = serializer.fromData(data);
-
-                    ObjectContext.experiments.add(experiment);
-                }
-
-                ObjectContext.refreshAdapters();
             }
         });
 
-        // trial data listener
-        collectionReference = db.collection("trials");
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                    FirebaseFirestoreException error) {
-
-                ObjectContext.trials.clear();
-
-                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
-                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
-                    // some kind of log message here
-
-                    TrialSerializer serializer = new TrialSerializer();
-                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
-                    Trial trial = serializer.fromData(data);
-
-                    ObjectContext.trials.add(trial);
-                }
-
-                ObjectContext.refreshAdapters();
-            }
-        });
     }
 
     public void toProfileActivity (View view)
@@ -217,15 +210,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void toViewExperimentActivity(View v, int exp_id)
     {
-        if(loggedInUser == null) {
-            System.out.println("Logged In User cannot be null. Please fix this.");
-            System.out.println("System will not exit");
-            System.exit(0);
-        }
 
         Intent i = new Intent(getApplicationContext(), ViewExperimentActivity.class);
         i.putExtra("expID", exp_id);
-        i.putExtra("loggedInUser", loggedInUser.getUsername());
+        User self = (User)ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+        i.putExtra("loggedInUser", self.getUsername());
         startActivity(i);
     }
 
