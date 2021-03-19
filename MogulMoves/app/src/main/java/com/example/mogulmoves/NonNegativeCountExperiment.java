@@ -15,8 +15,8 @@ public class NonNegativeCountExperiment extends Experiment {
      * @param locationRequired whether or not the trials of this experiment require a location
      */
     public NonNegativeCountExperiment(int owner, String description, String region,
-                                  int minTrials, boolean locationRequired) {
-        super(owner, description, region, minTrials, locationRequired);
+                                  int minTrials, boolean locationRequired, boolean visible) {
+        super(owner, description, region, minTrials, locationRequired, visible);
     }
 
     /**
@@ -30,7 +30,25 @@ public class NonNegativeCountExperiment extends Experiment {
      * @param locationRequired whether or not the trials of this experiment require a location
      */
     public NonNegativeCountExperiment(int id, int owner, String description, String region,
-                                  int minTrials, boolean locationRequired) {
-        super(id, owner, description, region, minTrials, locationRequired);
+                                  int minTrials, boolean locationRequired, boolean visible) {
+        super(id, owner, description, region, minTrials, locationRequired, visible);
+    }
+
+    /**
+     * Returns the values of every trial in the experiment.
+     *
+     * @return an array of the values
+     */
+    protected float[] getValues() {
+
+        int length = trials.size();
+        float[] values = new float[length];
+
+        for(int i = 0; i < length; i++) {
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(trials.get(i));
+            values[i] = (float) trial.getCount();
+        }
+
+        return values;
     }
 }

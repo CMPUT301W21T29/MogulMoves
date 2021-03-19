@@ -23,6 +23,7 @@ public class UserSerializer implements Serializer<User> {
         map.put("phone", user.getPhone());
         map.put("id", user.getId());
         map.put("subscribed", user.getSubscribed());
+        map.put("ignored", user.getIgnored());
         map.put("installationId", user.getInstallationId());
 
         return map;
@@ -45,8 +46,18 @@ public class UserSerializer implements Serializer<User> {
 
         User user = new User(id, installationId, username, email, phone);
 
-        for(int experiment: (List<Integer>) map.get("subscribed")) {
-            user.addSubscription(experiment);
+        try {
+            for (long experiment: (List<Long>) map.get("subscribed")) {
+                user.addSubscription((int) experiment);
+            }
+        } catch (java.lang.NullPointerException e) {
+        }
+
+        try {
+            for (long experiment: (List<Long>) map.get("ignored")) {
+                user.addIgnore((int) experiment);
+            }
+        } catch (java.lang.NullPointerException e) {
         }
 
         return user;

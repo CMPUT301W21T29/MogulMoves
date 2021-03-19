@@ -1,4 +1,4 @@
-package com.example.mogulmoves;
+/*package com.example.mogulmoves;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,17 +56,17 @@ public class QuestionActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            System.out.println("Question Added");
+                            System.out.println("Added");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            System.out.println("Question Addition Failed");
+                            System.out.println("Addition Failed");
                         }
                     });
 
             }
         });
     }
-}
+}*/

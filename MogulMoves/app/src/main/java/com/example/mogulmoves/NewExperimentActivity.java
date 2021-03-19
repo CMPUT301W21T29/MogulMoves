@@ -2,7 +2,6 @@ package com.example.mogulmoves;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,6 +17,7 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 public class NewExperimentActivity extends AppCompatActivity {
 
     Spinner spinner;
+    ArrayAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class NewExperimentActivity extends AppCompatActivity {
 
         spinner = findViewById(R.id.experiment_type);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        adapter = ArrayAdapter.createFromResource(this,
                 R.array.experiment_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -35,9 +35,9 @@ public class NewExperimentActivity extends AppCompatActivity {
 
     }
 
-    public void goBack (View view)
-    {
+    public void goBack (View view) {
         finish();
+        ObjectContext.adapters.remove(adapter);
     }
 
     public void publishExperiment(View view) {
@@ -66,22 +66,22 @@ public class NewExperimentActivity extends AppCompatActivity {
             String type = spinner.getSelectedItem().toString();
             switch (type) {
                 case "Count": {
-                    IntegerCountExperiment experiment = new IntegerCountExperiment(69420, description_string, region_string, minimum_int, location_bool);
+                    IntegerCountExperiment experiment = new IntegerCountExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Binomial": {
-                    BinomialExperiment experiment = new BinomialExperiment(69420, description_string, region_string, minimum_int, location_bool);
+                    BinomialExperiment experiment = new BinomialExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Non-Negative Count": {
-                    NonNegativeCountExperiment experiment = new NonNegativeCountExperiment(69420, description_string, region_string, minimum_int, location_bool);
+                    NonNegativeCountExperiment experiment = new NonNegativeCountExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 default: {
-                    MeasureExperiment experiment = new MeasureExperiment(69420, description_string, region_string, minimum_int, location_bool);
+                    MeasureExperiment experiment = new MeasureExperiment(69420, description_string, region_string, minimum_int, location_bool, true);
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
