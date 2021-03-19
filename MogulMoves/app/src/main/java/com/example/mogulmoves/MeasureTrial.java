@@ -41,8 +41,8 @@ public class MeasureTrial extends Trial {
         return measurement;
     }
 
-
+    /*@Override
     public boolean setGeoRequired() {
         return false;
-    }
+    }*/
 }

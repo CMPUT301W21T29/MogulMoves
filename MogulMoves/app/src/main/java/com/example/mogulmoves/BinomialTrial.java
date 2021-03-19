@@ -41,8 +41,8 @@ public class BinomialTrial extends Trial {
         return isSuccess;
     }
 
-
+    /*@Override
     public boolean setGeoRequired() {
         return false;
-    }
+    }*/
 }
