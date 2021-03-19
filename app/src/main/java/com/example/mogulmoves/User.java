@@ -1,176 +1,201 @@
 package com.example.mogulmoves;
 
-import android.location.Location;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
+import android.view.View;
 
-import java.util.ArrayList;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-/**
- * Class to represent a user and their profile data.
- */
-public class User extends SavedObject {
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 
-    private final String installationId;
-    private String username;
-    private String email;
-    private String phone;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-    private ArrayList<Integer> subscribed;
-    private ArrayList<Integer> ignored;
+import android.content.Intent;
 
-    private Location defaultLocation;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
+import com.google.firebase.installations.FirebaseInstallations;
 
-    /**
-     * Creates the user.
-     *
-     * @param installationId the Firebase installation id of the user
-     * @param username the username of the user
-     * @param email the email address of the user
-     * @param phone the phone number of the user
-     */
-    public User(String installationId, String username, String email, String phone) {
-        super();
+import java.util.HashMap;
+import java.util.List;
 
-        this.installationId = installationId;
-        this.username = username;
-        this.email = email;
-        this.phone = phone;
+public class MainActivity extends AppCompatActivity {
 
-        subscribed = new ArrayList<>();
-        ignored = new ArrayList<>();
+    ListView expList;
+    ArrayAdapter<Experiment> expAdapter;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        identifyUser();
+        setupDatabaseListeners();
+
+        expList = findViewById(R.id.experiment_list);
+        expAdapter = new ExperimentList(this, ObjectContext.experiments);
+
+        expList.setAdapter(expAdapter);
     }
 
-    /**
-     * Creates the user with a set id.
-     *
-     * @param installationId the Firebase installation id of the user
-     * @param id the object id of the user
-     * @param username the username of the user
-     * @param email the email address of the user
-     * @param phone the phone number of the user
-     */
-    public User(int id, String installationId, String username, String email, String phone) {
-        super(id);
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-        this.installationId = installationId;
-        this.username = username;
-        this.email = email;
-        this.phone = phone;
-
-        subscribed = new ArrayList<>();
-        ignored = new ArrayList<>();
-
+        expAdapter.notifyDataSetChanged();
     }
 
-    public User() {
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        expAdapter.notifyDataSetChanged();
     }
 
-    /**
-     * Returns the Firebase installation id of the user.
-     *
-     * @return the Firebase installation id of the user
-     */
-    public String getInstallationId() {
-        return installationId;
+    private void identifyUser() {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseInstallations installation = FirebaseInstallations.getInstance();
+
+        installation.getId()
+                .addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Log.d(ObjectContext.TAG, "UIID grabbed successfully!");
+                        ObjectContext.installationId = result;
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(ObjectContext.TAG, "UIID could not be grabbed!" + e.toString()); // hopefully doesnt happen ohp
+                    }
+                });
     }
 
-    /**
-     * Returns the username of the user.
-     *
-     * @return the username of the user
-     */
-    public String getUsername() {
-        return username;
+    private void setupDatabaseListeners() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference;
+
+        // global data listener
+        collectionReference = db.collection("globals");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+
+                    if(doc.getId().equals("globals")) {
+                        // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                        // some kind of log message here
+
+                        ObjectContext.nextId = (int) (long) doc.getData().get("nextId");
+                    }
+                }
+            }
+        });
+
+        // user data listener
+        collectionReference = db.collection("users");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+
+                ObjectContext.users.clear();
+
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                    // some kind of log message here
+
+                    UserSerializer serializer = new UserSerializer();
+                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+                    ObjectContext.users.add(serializer.fromData(data));
+                }
+
+                for(User user: ObjectContext.users){
+                    if(user.getInstallationId().equals(ObjectContext.installationId)){
+                        return;
+                    }
+                }
+
+                @SuppressLint("RestrictedApi") User user = new User(ObjectContext.installationId, "", "", "");
+                ObjectContext.addUser(user);
+            }
+        });
+
+        // experiment data listener
+        collectionReference = db.collection("experiments");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+
+                ObjectContext.experiments.clear();
+
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                    // some kind of log message here
+
+                    ExperimentSerializer serializer = new ExperimentSerializer();
+                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+                    Experiment experiment = serializer.fromData(data);
+
+                    ObjectContext.experiments.add(experiment);
+                }
+                // notify any adapters that things have changed here
+            }
+        });
+
+        // trial data listener
+        collectionReference = db.collection("trials");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+
+                ObjectContext.trials.clear();
+
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                    // some kind of log message here
+
+                    TrialSerializer serializer = new TrialSerializer();
+                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+                    Trial trial = serializer.fromData(data);
+
+                    ObjectContext.trials.add(trial);
+                }
+                // notify any adapters that things have changed here
+            }
+        });
     }
 
-    /**
-     * Returns the email address of the user.
-     *
-     * @return the email address of the user
-     */
-    public String getEmail() {
-        return email;
+    public void toProfileActivity (View view)
+    {
+        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivity(i);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void toNewExperimentActivity (View view)
+    {
+        Intent i = new Intent(getApplicationContext(), NewExperimentActivity.class);
+        startActivity(i);
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    /**
-     * Returns the phone number of the user.
-     *
-     * @return the phone number of the user
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * Adds an experiment to the list of subscribed experiments.
-     *
-     * @param experiment the id of an experiment to subscribe to
-     */
-    public void addSubscription(int experiment) {
-        subscribed.add(experiment);
-    }
-
-    /**
-     * Removes an experiment from the list of subscribed experiments.
-     *
-     * @param experiment the id of an experiment to unsubscribe to
-     */
-    public void removeSubscription(int experiment) {
-        subscribed.remove(Integer.valueOf(experiment));
-    }
-
-    /**
-     * Returns the list of experiments that have been subscribed to.
-     *
-     * @return the list of subscribed experiments
-     */
-    public ArrayList<Integer> getSubscribed() {
-        return subscribed;
-    }
-
-    /**
-     * Adds an experiment to the list of ignored experimenters.
-     *
-     * @param experimenter the id of an experimenter to ignore
-     */
-    public void addIgnore(int experimenter) {
-        ignored.add(experimenter);
-    }
-
-    /**
-     * Removes an experiment from the list of ignored experimenters.
-     *
-     * @param experimenter the id of an experimenter to unignore
-     */
-    public void removeIgnore(int experimenter) {
-        ignored.remove(Integer.valueOf(experimenter));
-    }
-
-    /**
-     * Returns the list of experimenters that have been ignored.
-     *
-     * @return the list of ignored experimenters
-     */
-    public ArrayList<Integer> getIgnored() {
-        return ignored;
-    }
-
-    /**
-     * @return the default location of this user
-     */
-    public Location getDefaultLocation() {
-        return defaultLocation;
-    }
 }

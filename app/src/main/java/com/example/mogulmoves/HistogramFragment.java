@@ -31,7 +31,7 @@ public class HistogramFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
     private List<Float> floatData = new ArrayList<>();
     private List<Integer> integerData = new ArrayList<>();
-    private List<int[]> binomialData = new ArrayList<>();
+    private List<Float> binomialData = new ArrayList<>();
     private BarChart barChart;
     private int experimentType;
     private ArrayList<BarEntry> histogramData = new ArrayList<>();
@@ -78,12 +78,8 @@ public class HistogramFragment extends DialogFragment {
 
     public HistogramFragment(BinomialExperiment experiment) {
         // binomial
-        ArrayList<Integer> countTrials = experiment.getTrials();
-        for (int i=0; i<countTrials.size(); i++) {
-            BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-            int[] trialPair = {trial.getSuccesses(), trial.getFailures()};
-            binomialData.add(trialPair);
-        }
+        binomialData.add(experiment.getSuccessRate());
+        binomialData.add((float) 1.0 - experiment.getSuccessRate());
 
         experimentType = 1;
     }
@@ -155,8 +151,7 @@ public class HistogramFragment extends DialogFragment {
                 break;
             case 1:
                 for (int i=0; i<binomialData.size(); i++) {
-                    histogramData.add(new BarEntry(i, binomialData.get(i)[0]));
-                    histogramData1.add(new BarEntry(i, binomialData.get(i)[1]));
+                    histogramData.add(new BarEntry(i, binomialData.get(i)));
                 }
                 break;
             case 2:

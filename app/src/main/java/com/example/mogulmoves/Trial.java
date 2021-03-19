@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Abstract class to represent a trial of an experiment.
  */
-public abstract class Trial extends SavedObject implements GeoTrial{
+public abstract class Trial extends SavedObject{
 
     private final int experimenter;
 
@@ -49,7 +49,7 @@ public abstract class Trial extends SavedObject implements GeoTrial{
     /**
      * Set experimenter's default location as this trial's location
      */
-    @Override
+
     public void addExperimenterGeo() {
         User experimenterObject = (User) ObjectContext.getObjectById(experimenter);
         trialLocation = experimenterObject.getDefaultLocation();
@@ -59,7 +59,7 @@ public abstract class Trial extends SavedObject implements GeoTrial{
      * @return the location of this trial
      * @throws IOException
      */
-    @Override
+
     public Location getExperimenterGeo() throws IOException {
         return trialLocation;
     }

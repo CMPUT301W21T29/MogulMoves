@@ -104,6 +104,11 @@ public class BinomialExperiment extends Experiment {
      * @return the success rate
      */
     public float getSuccessRate() {
-        return (float) getTotalSuccesses() / getTotalFailures();
+        if (getTotalResults() > 0) {
+            return (float) getTotalSuccesses() / getTotalResults();
+        }
+        else {
+            return (float) 0.0;
+        }
     }
 }

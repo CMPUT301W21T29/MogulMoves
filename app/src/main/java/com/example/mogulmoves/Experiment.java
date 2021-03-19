@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Abstract class to represent an experiment and all of its data.
  */
-public abstract class Experiment extends SavedObject implements GeoExperiment{
+public abstract class Experiment extends SavedObject{
 
     private boolean active = true;
     private boolean visible = true;
@@ -187,7 +187,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
      * @param user the user who try to set if locations are required for this experiment
      * @throws IOException
      */
-    @Override
+
     public void setLocationRequired(boolean locationRequired, int user) throws IOException {
         if (owner == user) {
             this.locationRequired = locationRequired;
@@ -201,7 +201,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
      * @param user the user who tries to subscribe to this experiment, or owner who tries to set geo requirement
      * @return
      */
-    @Override
+
     public String GeoExperimentWarning(int user) {
         if (owner == user) {
             return "Do you want to require user location for this experiment?";
@@ -216,7 +216,7 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
      * @return a list of locations of all existent trials of this experiment if geo required
      * @throws IOException
      */
-    @Override
+
     public ArrayList<Location> getAllLocations() throws IOException {
         ArrayList<Location> locations = new ArrayList<>();
         for (int i = 0; i < trials.size(); i++) {
@@ -237,34 +237,35 @@ public abstract class Experiment extends SavedObject implements GeoExperiment{
      *
      * @return the median
      */
-    public float getMedian() {
-        return StatCalculator.getMedian(getValues());
-    }
+
+//    public float getMedian() {
+//        return StatCalculator.getMedian(getValues());
+//    }
 
     /**
      * Calculates the mean value of all the trials.
      *
      * @return the mean
      */
-    public float getMean() {
-        return StatCalculator.getMean(getValues());
-    }
+//    public float getMean() {
+//        return StatCalculator.getMean(getValues());
+//    }
 
     /**
      * Calculates the quartiles of the values of all the trials.
      *
      * @return a 2 element array representing the 1st and 3rd quartiles
      */
-    public float[] getQuartiles() {
-        return StatCalculator.getQuartiles(getValues());
-    }
+//    public float[] getQuartiles() {
+//        return StatCalculator.getQuartiles(getValues());
+//    }
 
     /**
      * Calculates the standard deviation of the values of all the trials
      *
      * @return the standard deviation
      */
-    public float getStdDev() {
-        return StatCalculator.getStdDev(getValues());
-    }
+//    public float getStdDev() {
+//        return StatCalculator.getStdDev(getValues());
+//    }
 }
