@@ -174,7 +174,9 @@ public abstract class Experiment extends SavedObject implements GeoExperiment {
     }
 
     @Override
-    public boolean getLocationRequired()
+    public boolean getLocationRequired() {
+        return
+    }
 
     /**
      * @param locationRequired a boolean representing whether locations are required for this experiment
