@@ -41,7 +41,6 @@ public class AddCountTrialFragment extends DialogFragment {
                         ((ViewExperimentActivity)getActivity()).updateDataDisplay();
 
                         getDialog().dismiss();
-                        Log.d("omega", "test");
                         ((ViewExperimentActivity)getActivity()).openAddTrialFragment2();
 
                     }

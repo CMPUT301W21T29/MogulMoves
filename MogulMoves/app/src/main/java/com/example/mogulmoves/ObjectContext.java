@@ -25,13 +25,13 @@ public class ObjectContext {
 
     public static ArrayList<ArrayAdapter> adapters = new ArrayList<>();
 
-    public static void randomizeNextId() {
+    /*public static void randomizeNextId() {
         nextId = new Random().nextInt();
 
         if(getObjectById(nextId) != null) {
             randomizeNextId();
         }
-    }
+    }*/
 
     /**
      * Returns the object with the given id, or null if that object does not exist.
