@@ -16,6 +16,7 @@ public class ObjectContext {
     public static int nextId;
     public static int userDatabaseId;
     public static String installationId;
+    public static int nextPostId = 10000;
 
     public static ArrayList<User> users = new ArrayList<>();
     public static ArrayList<Experiment> experiments = new ArrayList<>();

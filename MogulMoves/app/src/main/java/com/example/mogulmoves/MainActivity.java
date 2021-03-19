@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
                         ObjectContext.nextId = (int) (long) doc.getData().get("nextId");
                     }
                 }
-                ObjectContext.refreshAdapters();
             }
         });
 
@@ -116,6 +115,11 @@ public class MainActivity extends AppCompatActivity {
                             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                                     FirebaseFirestoreException error) {
 
+                                ObjectContext.randomizeNextId();
+
+                                User self = new User(ObjectContext.installationId, "", "", "");
+                                ObjectContext.userDatabaseId = self.getId();
+
                                 ObjectContext.users.clear();
 
                                 for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
@@ -127,20 +131,17 @@ public class MainActivity extends AppCompatActivity {
                                     ObjectContext.users.add(serializer.fromData(data));
                                 }
 
-                                ObjectContext.refreshAdapters();
-
                                 for(User user: ObjectContext.users){
                                     if(user.getInstallationId().equals(ObjectContext.installationId)){
                                         ObjectContext.userDatabaseId = user.getId();
+                                        ObjectContext.refreshAdapters();
                                         return;
                                     }
                                 }
 
-                                ObjectContext.randomizeNextId();
+                                ObjectContext.addUser(self);
 
-                                User user = new User(ObjectContext.installationId, "", "", "");
-                                ObjectContext.userDatabaseId = user.getId();
-                                ObjectContext.addUser(user);
+                                ObjectContext.refreshAdapters();
                             }
                         });
                     }
