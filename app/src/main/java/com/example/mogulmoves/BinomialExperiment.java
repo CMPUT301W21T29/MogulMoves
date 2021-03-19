@@ -111,4 +111,10 @@ public class BinomialExperiment extends Experiment {
             return (float) 0.0;
         }
     }
+
+
+    @Override
+    public boolean getLocationRequired() {
+        return false;
+    }
 }

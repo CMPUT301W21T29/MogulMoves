@@ -64,4 +64,5 @@ public abstract class Trial extends SavedObject{
         return trialLocation;
     }
 
+    public abstract boolean setGeoRequired();
 }

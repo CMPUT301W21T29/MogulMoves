@@ -40,4 +40,12 @@ public class BinomialTrial extends Trial {
     public boolean getIsSuccess() {
         return isSuccess;
     }
+<<<<<<< Updated upstream:app/src/main/java/com/example/mogulmoves/BinomialTrial.java
+=======
+
+
+    public boolean setGeoRequired() {
+        return false;
+    }
+>>>>>>> Stashed changes:MogulMoves/app/src/main/java/com/example/mogulmoves/BinomialTrial.java
 }

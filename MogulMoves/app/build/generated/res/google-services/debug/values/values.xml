@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">429228102494-0sbegfu4n2q2geod3jtp7v605pn3bm0f.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">429228102494</string>
+    <string name="google_api_key" translatable="false">AIzaSyCuFLUV3dR1tUlDO4DXTBldROSvjBKDJOk</string>
+    <string name="google_app_id" translatable="false">1:429228102494:android:8e10ba3b8f8822b03eb5cf</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCuFLUV3dR1tUlDO4DXTBldROSvjBKDJOk</string>
+    <string name="google_storage_bucket" translatable="false">mogulmoves-741cc.appspot.com</string>
+    <string name="project_id" translatable="false">mogulmoves-741cc</string>
+</resources>

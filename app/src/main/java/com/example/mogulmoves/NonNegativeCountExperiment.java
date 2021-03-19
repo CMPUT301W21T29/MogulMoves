@@ -51,4 +51,9 @@ public class NonNegativeCountExperiment extends Experiment {
 
         return values;
     }
+
+    @Override
+    public boolean getLocationRequired() {
+        return false;
+    }
 }
