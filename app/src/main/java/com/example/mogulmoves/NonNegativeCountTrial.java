@@ -42,7 +42,7 @@ public class NonNegativeCountTrial extends Trial {
     }
 
 
-    @Override
+
     public boolean setGeoRequired() {
         return false;
     }
