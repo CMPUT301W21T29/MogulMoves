@@ -31,6 +31,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to represent the data from the experiment's trials as a time plot based on when the data was collected.
+ */
+
 public class TimePlotFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
     // private List<Time> timeData = new ArrayList<>();
@@ -45,6 +49,12 @@ public class TimePlotFragment extends DialogFragment {
 
     // implement time storage whenever i figure out how exactly to store time variables
 
+    /**
+     * Creates a time plot fragment for an IntegerCountExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
+
     public TimePlotFragment(IntegerCountExperiment experiment) {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -55,6 +65,12 @@ public class TimePlotFragment extends DialogFragment {
         experimentType = 0;
     }
 
+    /**
+     * Creates a time plot fragment for an NonNegativeCountExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
+
     public TimePlotFragment(NonNegativeCountExperiment experiment) {
         // non negative count
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -64,6 +80,12 @@ public class TimePlotFragment extends DialogFragment {
         }
         experimentType = 0;
     }
+
+    /**
+     * Creates a time plot fragment for an BinomialExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
 
     public TimePlotFragment(BinomialExperiment experiment) {
         // binomial
@@ -77,6 +99,12 @@ public class TimePlotFragment extends DialogFragment {
         experimentType = 1;
     }
 
+    /**
+     * Creates a time plot fragment for an MeasureExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
+
     public TimePlotFragment(MeasureExperiment experiment) {
         // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -87,9 +115,19 @@ public class TimePlotFragment extends DialogFragment {
         experimentType = 2;
     }
 
+    /**
+     * Part of setup for a fragment of any kind.
+     */
+
     public interface OnFragmentInteractionListener {
         void onOkPressed(Experiment newExperiment);
     }
+
+    /**
+     * Part of the setup for a fragment of any kind.
+     *
+     * @param context Part of some android studio setup.
+     */
 
     @Override
     public void onAttach(Context context) {
@@ -102,6 +140,12 @@ public class TimePlotFragment extends DialogFragment {
         }
     }
 
+    /**
+     * Builds the actual fragment with the xml file for a time plot fragment.
+     *
+     * @param savedInstanceState
+     * @return a fragment for the time plot
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

@@ -23,6 +23,10 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to represent the data from the experiment's trials as a histogram based on when the data was collected.
+ */
+
 public class HistogramFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
     private List<Float> floatData = new ArrayList<>();
@@ -35,6 +39,11 @@ public class HistogramFragment extends DialogFragment {
 
     // different constructors for the fragment based on what kind of experiment is needing a histogram
 
+    /**
+     * Creates a histogram fragment for an IntegerCountExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
     public HistogramFragment(IntegerCountExperiment experiment) {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -45,6 +54,12 @@ public class HistogramFragment extends DialogFragment {
         experimentType = 0;
     }
 
+    /**
+     * Creates a histogram fragment for an NonNegativeCountExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
+
     public HistogramFragment(NonNegativeCountExperiment experiment) {
         // non negative count
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -54,6 +69,12 @@ public class HistogramFragment extends DialogFragment {
         }
         experimentType = 0;
     }
+
+    /**
+     * Creates a histogram fragment for an BinomialExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
 
     public HistogramFragment(BinomialExperiment experiment) {
         // binomial
@@ -67,6 +88,12 @@ public class HistogramFragment extends DialogFragment {
         experimentType = 1;
     }
 
+    /**
+     * Creates a histogram fragment for an MeasureExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
+
     public HistogramFragment(MeasureExperiment experiment) {
         // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -77,9 +104,19 @@ public class HistogramFragment extends DialogFragment {
         experimentType = 2;
     }
 
+    /**
+     * Part of setup for a fragment of any kind.
+     */
+
     public interface OnFragmentInteractionListener {
         void onOkPressed(Experiment newExperiment);
     }
+
+    /**
+     * Part of the setup for a fragment of any kind.
+     *
+     * @param context Part of some android studio setup.
+     */
 
     @Override
     public void onAttach(Context context) {
@@ -91,6 +128,13 @@ public class HistogramFragment extends DialogFragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+    /**
+     * Builds the actual fragment with the xml file for a histogram fragment.
+     *
+     * @param savedInstanceState
+     * @return a fragment for the time plot
+     */
 
     @NonNull
     @Override
