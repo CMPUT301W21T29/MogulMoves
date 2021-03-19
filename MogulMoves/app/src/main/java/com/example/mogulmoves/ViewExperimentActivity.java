@@ -35,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +48,7 @@ import java.util.ArrayList;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
-class ListItemAdapter extends ArrayAdapter<Map<String, Object>> {
+/*class ListItemAdapter extends ArrayAdapter<Map<String, Object>> {
     private final Context context;
     private final ArrayList<Map<String, Object>> docData;
 
@@ -131,7 +132,7 @@ class ListItemAdapter2 extends BaseAdapter {
 
         return rowView;
     }
-}
+}*/
 
 class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder> {
     private static final String TAG = "ListItemAdapter";
@@ -195,8 +196,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
     ArrayList<Map<String, Object>> items = new ArrayList<>();
 
     //ArrayAdapter<Map<String, Object>> adapter;
-    ListItemAdapter adapter;
-    ListItemAdapter2 adapter2;
     ListItemAdapter3 adapter3;
     User self;
 
@@ -290,6 +289,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
             String stats_string = mean + "\n" + stdev + "\n"
                     + q1 + "\n" + median + "\n" + q3;
             stats.setText(stats_string);
+
         }
 
 
@@ -370,21 +370,24 @@ public class ViewExperimentActivity extends AppCompatActivity {
                     docData.put("exp_id", exp_id);
 
                     db.collection("posts")
-                        .add(docData)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                System.out.println("Post Added");
-                                finish();
-                                startActivity(getIntent());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                System.out.println("Post Addition Failed");
-                            }
-                        });
+                            .document(Integer.toString(ObjectContext.nextPostId))
+                            .set(docData)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    System.out.println("Post Added");
+                                    ObjectContext.nextPostId++;
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    System.out.println("Post Addition Failed");
+                                }
+                            });
+                    items.add(docData);
+                    System.out.println("Added: " + docData.get("content").toString());
+                    adapter3.notifyDataSetChanged();
                 }
             }
         });
