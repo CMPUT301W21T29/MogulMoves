@@ -73,13 +73,38 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/past projects/CMPUT-301-lab6" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Android JUnit.HistogramFragmentTest">
+    <configuration name="HistogramFragmentTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MogulMoves.app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.mogulmoves.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.mogulmoves" />
+      <option name="MAIN_CLASS_NAME" value="com.example.mogulmoves.HistogramFragmentTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="mogulmoves in MogulMoves.app" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MogulMoves.app" />
+      <option name="TEST_OBJECT" value="directory" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <dir value="$PROJECT_DIR$/app/src/test/java/com/example/mogulmoves" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
@@ -141,6 +166,12 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Android JUnit.HistogramFragmentTest" />
+        <item itemvalue="Android JUnit.mogulmoves in MogulMoves.app" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -180,6 +211,14 @@
     <option name="LAST_COMMIT_MESSAGE" value="github please" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="414" y="195" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1616198028949">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="414" y="195" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616198028949" />
+    <state x="765" y="241" key="#com.intellij.ide.util.MemberChooser" timestamp="1616197094308">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="765" y="241" key="#com.intellij.ide.util.MemberChooser/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616197094308" />
     <state x="690" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1616141400490">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -188,27 +227,27 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="92" y="92" width="1736" height="896" key="AVDManager/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616185507770" />
-    <state x="750" y="298" key="FileChooserDialogImpl" timestamp="1616179950222">
+    <state x="750" y="298" key="FileChooserDialogImpl" timestamp="1616191247333">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="750" y="298" key="FileChooserDialogImpl/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616179950222" />
+    <state x="750" y="298" key="FileChooserDialogImpl/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616191247333" />
     <state x="2670" y="297" key="FileChooserDialogImpl/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@1920.-1.1920.1080" timestamp="1616172834414" />
-    <state width="1876" height="242" key="GridCell.Tab.0.bottom" timestamp="1616186111865">
+    <state width="1876" height="242" key="GridCell.Tab.0.bottom" timestamp="1616200006570">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.bottom/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616186111865" />
-    <state width="1876" height="242" key="GridCell.Tab.0.center" timestamp="1616186111865">
+    <state width="1876" height="242" key="GridCell.Tab.0.bottom/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616200006570" />
+    <state width="1876" height="242" key="GridCell.Tab.0.center" timestamp="1616200006570">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.center/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616186111865" />
-    <state width="1876" height="242" key="GridCell.Tab.0.left" timestamp="1616186111865">
+    <state width="1876" height="242" key="GridCell.Tab.0.center/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616200006570" />
+    <state width="1876" height="242" key="GridCell.Tab.0.left" timestamp="1616200006569">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.left/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616186111865" />
-    <state width="1876" height="242" key="GridCell.Tab.0.right" timestamp="1616186111865">
+    <state width="1876" height="242" key="GridCell.Tab.0.left/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616200006569" />
+    <state width="1876" height="242" key="GridCell.Tab.0.right" timestamp="1616200006570">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.right/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616186111865" />
+    <state width="1876" height="242" key="GridCell.Tab.0.right/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616200006570" />
     <state x="461" y="185" key="SettingsEditor" timestamp="1616182460293">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

@@ -35,7 +35,6 @@ public class HistogramFragment extends DialogFragment {
     private BarChart barChart;
     private int experimentType;
     private ArrayList<BarEntry> histogramData = new ArrayList<>();
-    private ArrayList<BarEntry> histogramData1 = new ArrayList<>();
 
     // different constructors for the fragment based on what kind of experiment is needing a histogram
 
@@ -127,22 +126,8 @@ public class HistogramFragment extends DialogFragment {
         BarDataSet barDataSet, barDataSet1;
 
 
-        switch(experimentType) {
-            case 0:
-                for (int i=0; i<integerData.size(); i++) {
-                    histogramData.add(new BarEntry(i, integerData.get(i)));
-                }
-                break;
-            case 1:
-                for (int i=0; i<binomialData.size(); i++) {
-                    histogramData.add(new BarEntry(i, binomialData.get(i)));
-                }
-                break;
-            case 2:
-                for (int i=0; i<floatData.size(); i++) {
-                    histogramData.add(new BarEntry(i, floatData.get(i)));
-                }
-                break;
+        for (int i=0; i<integerData.size(); i++) {
+            histogramData.add(new BarEntry(i, integerData.get(i)));
         }
 
         if (experimentType == 1) {
@@ -169,7 +154,8 @@ public class HistogramFragment extends DialogFragment {
 
         XAxis xAxis = barChart.getXAxis();
 
-        barChart.getAxisLeft().setAxisMinimum(0);
+        barChart.getAxisLeft().setAxisMinimum(0); // Y axis starting value
+        barChart.getAxisRight().setDrawLabels(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1);
         xAxis.setCenterAxisLabels(true);
@@ -218,4 +204,7 @@ public class HistogramFragment extends DialogFragment {
         return fragment;
     }
 
+    public int getExperimentType() {
+        return experimentType;
+    }
 }

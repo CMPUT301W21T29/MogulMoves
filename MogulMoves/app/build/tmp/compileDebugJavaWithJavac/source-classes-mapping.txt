@@ -1,17 +1,3 @@
-com/example/mogulmoves/Serializer.java
- com.example.mogulmoves.Serializer
-com/example/mogulmoves/StatCalculator.java
- com.example.mogulmoves.StatCalculator
-com/example/mogulmoves/BuildConfig.java
- com.example.mogulmoves.BuildConfig
-com/example/mogulmoves/DatabaseHandler.java
- com.example.mogulmoves.DatabaseHandler
- com.example.mogulmoves.DatabaseHandler$1
- com.example.mogulmoves.DatabaseHandler$2
-com/example/mogulmoves/GeoExperiment.java
- com.example.mogulmoves.GeoExperiment
-com/example/mogulmoves/GeoTrial.java
- com.example.mogulmoves.GeoTrial
 com/example/mogulmoves/EditProfilePage.java
  com.example.mogulmoves.EditProfilePage
  com.example.mogulmoves.EditProfilePage$1
@@ -19,16 +5,24 @@ com/example/mogulmoves/MeasureExperiment.java
  com.example.mogulmoves.MeasureExperiment
 com/example/mogulmoves/IntegerCountTrial.java
  com.example.mogulmoves.IntegerCountTrial
-com/example/mogulmoves/NonNegativeCountExperiment.java
- com.example.mogulmoves.NonNegativeCountExperiment
+com/example/mogulmoves/ViewExperimentActivity.java
+ com.example.mogulmoves.ListItemAdapter3
+ com.example.mogulmoves.ListItemAdapter3$ViewHolder
+ com.example.mogulmoves.ViewExperimentActivity
+ com.example.mogulmoves.ViewExperimentActivity$1
+ com.example.mogulmoves.ViewExperimentActivity$2
+ com.example.mogulmoves.ViewExperimentActivity$2$1
+ com.example.mogulmoves.ViewExperimentActivity$2$2
 com/example/mogulmoves/ProfileActivity.java
  com.example.mogulmoves.ProfileActivity
 com/example/mogulmoves/BinomialExperiment.java
  com.example.mogulmoves.BinomialExperiment
 com/example/mogulmoves/UserProfilePage.java
  com.example.mogulmoves.UserProfilePage
-com/example/mogulmoves/IntegerCountExperiment.java
- com.example.mogulmoves.IntegerCountExperiment
+com/example/mogulmoves/TimePlotFragment.java
+ com.example.mogulmoves.TimePlotFragment
+ com.example.mogulmoves.TimePlotFragment$1
+ com.example.mogulmoves.TimePlotFragment$OnFragmentInteractionListener
 com/example/mogulmoves/AddMeasureTrialFragment.java
  com.example.mogulmoves.AddMeasureTrialFragment
  com.example.mogulmoves.AddMeasureTrialFragment$1
@@ -37,14 +31,18 @@ com/example/mogulmoves/SavedObject.java
  com.example.mogulmoves.SavedObject
 com/example/mogulmoves/Trial.java
  com.example.mogulmoves.Trial
-com/example/mogulmoves/TimePlotFragment.java
- com.example.mogulmoves.TimePlotFragment
- com.example.mogulmoves.TimePlotFragment$1
- com.example.mogulmoves.TimePlotFragment$OnFragmentInteractionListener
+com/example/mogulmoves/HistogramFragment.java
+ com.example.mogulmoves.HistogramFragment
+ com.example.mogulmoves.HistogramFragment$1
+ com.example.mogulmoves.HistogramFragment$OnFragmentInteractionListener
 com/example/mogulmoves/Message.java
  com.example.mogulmoves.Message
 com/example/mogulmoves/TrialSerializer.java
  com.example.mogulmoves.TrialSerializer
+com/example/mogulmoves/DatabaseHandler.java
+ com.example.mogulmoves.DatabaseHandler
+ com.example.mogulmoves.DatabaseHandler$1
+ com.example.mogulmoves.DatabaseHandler$2
 com/example/mogulmoves/MainActivity.java
  com.example.mogulmoves.MainActivity
  com.example.mogulmoves.MainActivity$1
@@ -54,6 +52,10 @@ com/example/mogulmoves/MainActivity.java
  com.example.mogulmoves.MainActivity$2$2$1
  com.example.mogulmoves.MainActivity$2$2$1$1
  com.example.mogulmoves.MainActivity$2$2$1$2
+com/example/mogulmoves/BuildConfig.java
+ com.example.mogulmoves.BuildConfig
+com/example/mogulmoves/StatCalculator.java
+ com.example.mogulmoves.StatCalculator
 com/example/mogulmoves/AddCountTrialFragment.java
  com.example.mogulmoves.AddCountTrialFragment
  com.example.mogulmoves.AddCountTrialFragment$1
@@ -77,6 +79,10 @@ com/example/mogulmoves/EditCountTrialFragment.java
  com.example.mogulmoves.EditCountTrialFragment$2
 com/example/mogulmoves/Experiment.java
  com.example.mogulmoves.Experiment
+com/example/mogulmoves/GeoTrial.java
+ com.example.mogulmoves.GeoTrial
+com/example/mogulmoves/GeoExperiment.java
+ com.example.mogulmoves.GeoExperiment
 com/example/mogulmoves/MeasureTrial.java
  com.example.mogulmoves.MeasureTrial
 com/example/mogulmoves/UserSerializer.java
@@ -89,19 +95,13 @@ com/example/mogulmoves/ExperimentList.java
  com.example.mogulmoves.ExperimentList
 com/example/mogulmoves/ExperimentSerializer.java
  com.example.mogulmoves.ExperimentSerializer
+com/example/mogulmoves/Serializer.java
+ com.example.mogulmoves.Serializer
 com/example/mogulmoves/BinomialTrial.java
  com.example.mogulmoves.BinomialTrial
 com/example/mogulmoves/CustomDialog.java
  com.example.mogulmoves.CustomDialog
-com/example/mogulmoves/ViewExperimentActivity.java
- com.example.mogulmoves.ListItemAdapter3
- com.example.mogulmoves.ListItemAdapter3$ViewHolder
- com.example.mogulmoves.ViewExperimentActivity
- com.example.mogulmoves.ViewExperimentActivity$1
- com.example.mogulmoves.ViewExperimentActivity$2
- com.example.mogulmoves.ViewExperimentActivity$2$1
- com.example.mogulmoves.ViewExperimentActivity$2$2
-com/example/mogulmoves/HistogramFragment.java
- com.example.mogulmoves.HistogramFragment
- com.example.mogulmoves.HistogramFragment$1
- com.example.mogulmoves.HistogramFragment$OnFragmentInteractionListener
+com/example/mogulmoves/NonNegativeCountExperiment.java
+ com.example.mogulmoves.NonNegativeCountExperiment
+com/example/mogulmoves/IntegerCountExperiment.java
+ com.example.mogulmoves.IntegerCountExperiment
