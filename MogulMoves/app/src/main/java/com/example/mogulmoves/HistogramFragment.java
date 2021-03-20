@@ -166,7 +166,10 @@ public class HistogramFragment extends DialogFragment {
             barData = new BarData();
 
             barData.addDataSet(barDataSet);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         }
 
         barChart.setData(barData);
