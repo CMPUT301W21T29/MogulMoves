@@ -1,20 +1,15 @@
 package com.example.mogulmoves;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import static android.view.View.VISIBLE;
+//Fragment to increment the count of a pre-existing count trial.
 
 public class EditCountTrialFragment extends DialogFragment {
     private TextView count;
@@ -70,7 +65,8 @@ public class EditCountTrialFragment extends DialogFragment {
         Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
         IntegerCountTrial current_trial = null;
 
-        for(Trial trial: ObjectContext.trials) {
+        for(int trial_id: experiment.getTrials()) {
+            Trial trial = (Trial)ObjectContext.getObjectById(trial_id);
             if (trial.getExperimenter() == ObjectContext.userDatabaseId) {
                 current_trial = (IntegerCountTrial) trial;
             }

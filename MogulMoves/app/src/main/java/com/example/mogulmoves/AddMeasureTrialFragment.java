@@ -16,6 +16,8 @@ import androidx.fragment.app.DialogFragment;
 
 import static android.view.View.VISIBLE;
 
+//Fragment to add a new measurement trial.
+
 public class AddMeasureTrialFragment extends DialogFragment {
     private EditText count;
 

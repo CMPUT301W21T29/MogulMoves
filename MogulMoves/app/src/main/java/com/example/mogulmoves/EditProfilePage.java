@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+//Activity to edit profile information.
+
 public class EditProfilePage extends AppCompatActivity {
     EditText NameEditing;
     EditText EmailEditing;

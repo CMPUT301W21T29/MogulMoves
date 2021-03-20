@@ -8,4 +8,5 @@
         <item>Non-Negative Count</item>
         <item>Measurement</item>
     </string-array>
+    <string name="add_trial">ADD TRIAL</string>
 </resources>
