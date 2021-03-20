@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w550dp-land-v13\\values-w550dp-land-v13.xml",
+            "outputFile": "C:\\Users\\Jared\\AndroidStudioProjects\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w550dp-land-v13\\values-w550dp-land-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\trand\\.gradle\\caches\\transforms-2\\files-2.1\\63f8d9f9825783c71b8d4db7f1619ab9\\material-1.3.0\\res\\values-w550dp-land-v13\\values-w550dp-land-v13.xml",
+                    "source": "C:\\Users\\Jared\\.gradle\\caches\\transforms-2\\files-2.1\\63f8d9f9825783c71b8d4db7f1619ab9\\material-1.3.0\\res\\values-w550dp-land-v13\\values-w550dp-land-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

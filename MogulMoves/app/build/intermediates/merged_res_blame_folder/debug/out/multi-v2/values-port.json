@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\trand\\OneDrive\\Documents\\GitHub\\bruh\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-port\\values-port.xml",
+            "outputFile": "C:\\Users\\Jared\\AndroidStudioProjects\\MogulMoves\\MogulMoves\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-port\\values-port.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\trand\\.gradle\\caches\\transforms-2\\files-2.1\\9f231a1da60edbdce7fa6d5608cb98eb\\appcompat-1.2.0\\res\\values-port\\values-port.xml",
+                    "source": "C:\\Users\\Jared\\.gradle\\caches\\transforms-2\\files-2.1\\9f231a1da60edbdce7fa6d5608cb98eb\\appcompat-1.2.0\\res\\values-port\\values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
