@@ -65,7 +65,8 @@ public class EditCountTrialFragment extends DialogFragment {
         Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
         IntegerCountTrial current_trial = null;
 
-        for(Trial trial: ObjectContext.trials) {
+        for(int trial_id: experiment.getTrials()) {
+            Trial trial = (Trial)ObjectContext.getObjectById(trial_id);
             if (trial.getExperimenter() == ObjectContext.userDatabaseId) {
                 current_trial = (IntegerCountTrial) trial;
             }

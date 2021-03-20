@@ -14,6 +14,7 @@
 
 
         <ImageButton
+            android:id="@+id/user_button"
             style="@style/ButtonCustom"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -36,6 +37,7 @@
             android:src="@drawable/ic_baseline_search" />
 
         <ImageButton
+            android:id="@+id/add_exp_button"
             style="@style/ButtonCustom"
             android:layout_width="30dp"
             android:layout_height="30dp"
