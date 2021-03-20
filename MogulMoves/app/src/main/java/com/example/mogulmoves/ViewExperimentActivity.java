@@ -36,12 +36,6 @@ import java.math.BigDecimal;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
-/*Activity to view and interact with experiments. Has a button for subscribing and a button for adding
-trials (or editing them for pre-existing count trials). Displays statistics about the trial.
-Has buttons for viewing a histogram, time plot, or map of trials (map not implemented yet). Additionally
-has a Q&A forum that allows users to post about the experiment.
- */
-
 /*class ListItemAdapter extends ArrayAdapter<Map<String, Object>> {
     private final Context context;
     private final ArrayList<Map<String, Object>> docData;
@@ -128,6 +122,58 @@ class ListItemAdapter2 extends BaseAdapter {
     }
 }*/
 
+class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder> {
+    private static final String TAG = "ListItemAdapter";
+    ArrayList<Map<String, Object>> docData;
+
+    public ListItemAdapter3(ArrayList<Map<String, Object>> docData) {
+        this.docData = docData;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public final TextView txtPostItemUserName;
+        public final TextView txtPostItemDate;
+        public final TextView txtPostItemTime;
+        public final TextView txtPostItemContent;
+
+        public ViewHolder(View view) {
+            super(view);
+            // Define click listener for the ViewHolder's View
+            txtPostItemUserName = (TextView) view.findViewById(R.id.txtPostItemUserName);
+            txtPostItemDate = (TextView) view.findViewById(R.id.txtPostItemDate);
+            txtPostItemTime = (TextView) view.findViewById(R.id.txtPostItemTime);
+            txtPostItemContent = (TextView) view.findViewById(R.id.txtPostItemContent);
+            // txtPostItemUserName.setText(item.get("username").toString());
+            // txtPostItemDate.setText(item.get("date").toString());
+            // txtPostItemTime.setText(item.get("time").toString());
+            // txtPostItemContent.setText(item.get("content").toString());
+        }
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        // Create a new view, which defines the UI of the list item
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.view_experiment_post_item, viewGroup, false);
+
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Map<String, Object> item = docData.get(position);
+        holder.txtPostItemUserName.setText(item.get("username").toString());
+        holder.txtPostItemDate.setText(item.get("date").toString());
+        holder.txtPostItemTime.setText(item.get("time").toString());
+        holder.txtPostItemContent.setText(item.get("content").toString());
+    }
+
+    @Override
+    public int getItemCount() {
+        return docData.size();
+    }
+}
+
 public class ViewExperimentActivity extends AppCompatActivity {
 
     int exp_id;
@@ -138,7 +184,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     ArrayList<Map<String, Object>> items = new ArrayList<>();
 
     //ArrayAdapter<Map<String, Object>> adapter;
-    PostAdapter adapter3;
+    ListItemAdapter3 adapter3;
     User self;
 
     @Override
@@ -150,7 +196,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
 
         postList = (RecyclerView) findViewById(R.id.lstPosts);
-        adapter3 = new PostAdapter(items);
+        adapter3 = new ListItemAdapter3(items);
         postList.setAdapter(adapter3);
         postList.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -252,6 +298,8 @@ public class ViewExperimentActivity extends AppCompatActivity {
             stats.setText(stats_string);
 
         }
+
+
     }
 
     public void openAddTrialFragment2 () {
@@ -282,6 +330,22 @@ public class ViewExperimentActivity extends AppCompatActivity {
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
         }
 
+    }
+
+    public void openHistogramFragment (View view) {
+        HistogramFragment newFragment = HistogramFragment.newInstance(exp_id);
+        newFragment.show(getSupportFragmentManager(), "VIEW_HISTOGRAM");
+    }
+
+    public void openTimePlotFragment (View view) {
+        TimePlotFragment newFragment = TimePlotFragment.newInstance(exp_id);
+        newFragment.show(getSupportFragmentManager(), "VIEW_TIME_PLOT");
+    }
+
+    public void toProfileActivity (View view)
+    {
+        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivity(i);
     }
 
     private void loadPosts() {
