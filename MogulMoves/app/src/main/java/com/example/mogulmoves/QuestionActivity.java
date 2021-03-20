@@ -1,4 +1,4 @@
-/*package com.example.mogulmoves;
+package com.example.mogulmoves;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+//unused activity
+
 public class QuestionActivity extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -26,10 +28,10 @@ public class QuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
-        initQAModule();
+        //initQAModule();
     }
 
-    private void initQAModule() {
+    /*private void initQAModule() {
         Spinner expSpinner = findViewById(R.id.spinner);
 
         EditText txtSubject = findViewById(R.id.txtSubject);
@@ -68,5 +70,5 @@ public class QuestionActivity extends AppCompatActivity {
 
             }
         });
-    }
-}*/
+    }*/
+}

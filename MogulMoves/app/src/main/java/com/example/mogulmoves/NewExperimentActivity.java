@@ -14,6 +14,8 @@ import android.widget.TextView;
 import static android.view.View.VISIBLE;
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
+//Activity to add a new experiment.
+
 public class NewExperimentActivity extends AppCompatActivity {
 
     Spinner spinner;
