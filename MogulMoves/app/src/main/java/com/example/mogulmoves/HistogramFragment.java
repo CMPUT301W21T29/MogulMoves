@@ -18,6 +18,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class HistogramFragment extends DialogFragment {
     private BarChart barChart;
     private int experimentType;
     private ArrayList<BarEntry> histogramData = new ArrayList<>();
+    private int numPoints, graphWidth = 0;
 
     // different constructors for the fragment based on what kind of experiment is needing a histogram
 
@@ -126,8 +128,25 @@ public class HistogramFragment extends DialogFragment {
         BarDataSet barDataSet, barDataSet1;
 
 
-        for (int i=0; i<integerData.size(); i++) {
-            histogramData.add(new BarEntry(i, integerData.get(i)));
+        switch(experimentType) {
+            case 0:
+                for (int i=0; i<integerData.size(); i++) {
+                    histogramData.add(new BarEntry(i+1, integerData.get(i)));
+                    numPoints++;
+                }
+                break;
+            case 1:
+                for (int i=0; i<binomialData.size(); i++) {
+                    histogramData.add(new BarEntry(i+1, binomialData.get(i)));
+                    numPoints++;
+                }
+                break;
+            case 2:
+                for (int i=0; i<floatData.size(); i++) {
+                    histogramData.add(new BarEntry(i+1, floatData.get(i)));
+                    numPoints++;
+                }
+                break;
         }
 
         if (experimentType == 1) {
@@ -145,6 +164,7 @@ public class HistogramFragment extends DialogFragment {
             barDataSet.setColor(Color.GREEN);
 
             barData = new BarData();
+
             barData.addDataSet(barDataSet);
 
         }
@@ -160,13 +180,20 @@ public class HistogramFragment extends DialogFragment {
         xAxis.setGranularity(1);
         xAxis.setCenterAxisLabels(true);
         xAxis.setGranularityEnabled(true);
+        barChart.getDescription().setEnabled(false);
 
         float barSpace = 0.02f;
         float groupSpace = 0.3f;
 
         barData.setBarWidth(0.5f);
         barChart.getXAxis().setAxisMinimum(0);
-        barChart.getXAxis().setAxisMaximum(10 + barChart.getBarData().getGroupWidth(groupSpace, barSpace));
+        if (numPoints < 5) {
+            graphWidth = 5;
+        }
+        else {
+            graphWidth = numPoints;
+        }
+        barChart.getXAxis().setAxisMaximum(graphWidth);
 
         return builder
                 .setView(view)

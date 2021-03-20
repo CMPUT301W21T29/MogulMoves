@@ -15,6 +15,8 @@ com/example/mogulmoves/ViewExperimentActivity.java
  com.example.mogulmoves.ViewExperimentActivity$2$2
 com/example/mogulmoves/ProfileActivity.java
  com.example.mogulmoves.ProfileActivity
+com/example/mogulmoves/QuestionActivity.java
+ com.example.mogulmoves.QuestionActivity
 com/example/mogulmoves/BinomialExperiment.java
  com.example.mogulmoves.BinomialExperiment
 com/example/mogulmoves/UserProfilePage.java
@@ -54,6 +56,9 @@ com/example/mogulmoves/MainActivity.java
  com.example.mogulmoves.MainActivity$2$2$1$2
 com/example/mogulmoves/BuildConfig.java
  com.example.mogulmoves.BuildConfig
+com/example/mogulmoves/PostAdapter.java
+ com.example.mogulmoves.PostAdapter
+ com.example.mogulmoves.PostAdapter$ViewHolder
 com/example/mogulmoves/StatCalculator.java
  com.example.mogulmoves.StatCalculator
 com/example/mogulmoves/AddCountTrialFragment.java

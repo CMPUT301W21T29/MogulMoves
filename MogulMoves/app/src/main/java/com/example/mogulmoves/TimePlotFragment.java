@@ -37,13 +37,12 @@ import java.util.List;
 
 public class TimePlotFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
-    // private List<Time> timeData = new ArrayList<>();
     private List<Float> floatData = new ArrayList<>();
     private List<Integer> integerData = new ArrayList<>();
     private List<Float> binomialData = new ArrayList<>();
     private int experimentType;
-    private ArrayList<Entry> timePlotData = new ArrayList<>();
     private LineChart tpLineChart;
+    private int numPoints, graphWidth = 0;
 
 
     // implement time storage whenever i figure out how exactly to store time variables
@@ -146,6 +145,24 @@ public class TimePlotFragment extends DialogFragment {
         tpLineChart.setData(lineData);
         tpLineChart.invalidate();
 
+        XAxis xAxis = tpLineChart.getXAxis();
+
+        tpLineChart.getAxisLeft().setAxisMinimum(0); // Y axis starting value
+        tpLineChart.getAxisRight().setDrawLabels(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1);
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setGranularityEnabled(true);
+        tpLineChart.getXAxis().setAxisMinimum(0);
+        tpLineChart.getDescription().setEnabled(false);
+
+        if (numPoints < 5) {
+            graphWidth = 5;
+        }
+        else {
+            graphWidth = numPoints;
+        }
+        tpLineChart.getXAxis().setAxisMaximum(graphWidth);
 
         lineDataSet.setLineWidth(2f);
         lineDataSet.setColor(Color.BLUE);
@@ -167,17 +184,20 @@ public class TimePlotFragment extends DialogFragment {
         switch(experimentType) {
             case 0:
                 for (int i=0; i<integerData.size(); i++) {
-                    timePlotData.add(new Entry(i, integerData.get(i)));
+                    timePlotData.add(new Entry(i+1, integerData.get(i)));
+                    numPoints++;
                 }
                 break;
             case 1:
                 for (int i=0; i<binomialData.size(); i++) {
-                    timePlotData.add(new Entry(i, binomialData.get(i)));
+                    timePlotData.add(new Entry(i+1, binomialData.get(i)));
+                    numPoints++;
                 }
                 break;
             case 2:
                 for (int i=0; i<floatData.size(); i++) {
-                    timePlotData.add(new Entry(i, floatData.get(i)));
+                    timePlotData.add(new Entry(i+1, floatData.get(i)));
+                    numPoints++;
                 }
                 break;
         }

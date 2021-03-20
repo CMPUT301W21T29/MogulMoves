@@ -1801,6 +1801,7 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id add_exp_button
 id add_trial_button
 id adjust_height
 id adjust_width
@@ -1816,6 +1817,7 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
+id back_arrow
 id back_button
 id barrier
 id baseline
@@ -2188,6 +2190,7 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id user_button
 id view_offset_helper
 id visible
 id wide
@@ -2388,6 +2391,7 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string add_trial
 string app_name
 string appbar_scrolling_view_behavior
 string bottom_sheet_behavior

@@ -74,9 +74,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/past projects/CMPUT-301-lab6" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="test.recorder" />
   </component>
-  <component name="RunManager" selected="Android JUnit.HistogramFragmentTest">
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.mogulmoves" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android App.app">
     <configuration name="HistogramFragmentTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="MogulMoves.app" />
       <extension name="coverage">
@@ -219,6 +224,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="765" y="241" key="#com.intellij.ide.util.MemberChooser/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616197094308" />
+    <state x="743" y="409" width="433" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1616215223603">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="743" y="409" width="433" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616215223603" />
     <state x="690" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1616141400490">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -232,26 +241,34 @@
     </state>
     <state x="750" y="298" key="FileChooserDialogImpl/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616191247333" />
     <state x="2670" y="297" key="FileChooserDialogImpl/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@1920.-1.1920.1080" timestamp="1616172834414" />
-    <state width="1876" height="242" key="GridCell.Tab.0.bottom" timestamp="1616200006570">
+    <state width="1876" height="242" key="GridCell.Tab.0.bottom" timestamp="1616216220287">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.bottom/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616200006570" />
-    <state width="1876" height="242" key="GridCell.Tab.0.center" timestamp="1616200006570">
+    <state width="1876" height="242" key="GridCell.Tab.0.bottom/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616216220287" />
+    <state width="1876" height="242" key="GridCell.Tab.0.center" timestamp="1616216220287">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.center/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616200006570" />
-    <state width="1876" height="242" key="GridCell.Tab.0.left" timestamp="1616200006569">
+    <state width="1876" height="242" key="GridCell.Tab.0.center/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616216220287" />
+    <state width="1876" height="242" key="GridCell.Tab.0.left" timestamp="1616216220287">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.left/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616200006569" />
-    <state width="1876" height="242" key="GridCell.Tab.0.right" timestamp="1616200006570">
+    <state width="1876" height="242" key="GridCell.Tab.0.left/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616216220287" />
+    <state width="1876" height="242" key="GridCell.Tab.0.right" timestamp="1616216220287">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="242" key="GridCell.Tab.0.right/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616200006570" />
-    <state x="461" y="185" key="SettingsEditor" timestamp="1616182460293">
+    <state width="1876" height="242" key="GridCell.Tab.0.right/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616216220287" />
+    <state x="461" y="185" key="SettingsEditor" timestamp="1616215741278">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="461" y="185" key="SettingsEditor/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616182460293" />
+    <state x="461" y="185" key="SettingsEditor/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616215741278" />
+    <state x="1920" y="-1" width="1621" height="743" maximized="true" key="dock-window-1" timestamp="1616215010043">
+      <screen x="1920" y="-1" width="1920" height="1080" />
+    </state>
+    <state x="1920" y="-1" width="1621" height="743" maximized="true" key="dock-window-1/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616215010043" />
+    <state x="2235" y="-1" width="1621" height="796" maximized="true" key="dock-window-2" timestamp="1616216325122">
+      <screen x="1920" y="-1" width="1920" height="1080" />
+    </state>
+    <state x="2235" y="-1" width="1621" height="796" maximized="true" key="dock-window-2/1920.-1.1920.1080/0.0.1920.1080/3840.-1.1280.720@0.0.1920.1080" timestamp="1616216325122" />
     <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1616175964224">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

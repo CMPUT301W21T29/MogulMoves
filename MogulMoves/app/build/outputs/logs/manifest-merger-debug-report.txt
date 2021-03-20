@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-27:12
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-29:12
 MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\bc4c8fcc3e246cc98868823ae9f8b854\multidex-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\63f8d9f9825783c71b8d4db7f1619ab9\material-1.3.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\e161b6ee470e7acc01fc83e85b211b0f\constraintlayout-2.0.4\AndroidManifest.xml:2:1-11:12
@@ -62,25 +62,29 @@ MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\trand\.gradle\cache
 MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\146c8e33af2769e7ba56943d4fce6f9c\jetified-annotation-experimental-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:protolite-well-known-types:17.1.1] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\ee3e3c81b5290e1f55843ec6925009dc\jetified-protolite-well-known-types-17.1.1\AndroidManifest.xml:2:1-11:12
 MERGED from [io.grpc:grpc-android:1.28.0] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\e1a4b631cdf90025dc87e9744572da28\jetified-grpc-android-1.28.0\AndroidManifest.xml:2:1-13:12
-INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-29:12
 	package
 		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:3:5-37
 		INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-27:12
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-29:12
 		INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-27:12
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:1-29:12
 		INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:2:11-69
+supports-screens
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:5:5-50
+	android:anyDensity
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:5:23-48
 application
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:5:5-25:19
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:7:5-27:19
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\63f8d9f9825783c71b8d4db7f1619ab9\material-1.3.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\63f8d9f9825783c71b8d4db7f1619ab9\material-1.3.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\e161b6ee470e7acc01fc83e85b211b0f\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
@@ -126,55 +130,55 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\tr
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.3.1] C:\Users\trand\.gradle\caches\transforms-2\files-2.1\678cee6b322edcce639184a866312975\core-1.3.1\AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:10:9-35
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:12:9-35
 	android:label
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:8:9-41
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:10:9-41
 	android:roundIcon
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:9:9-54
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:11:9-54
 	android:icon
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:7:9-43
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:9:9-43
 	android:allowBackup
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:6:9-35
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:8:9-35
 	android:theme
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:11:9-48
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:13:9-48
 activity#com.example.mogulmoves.QuestionActivity
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:12:9-63
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:14:9-63
 	android:name
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:12:19-51
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:14:19-51
 activity#com.example.mogulmoves.EditProfilePage
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:13:9-62
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:15:9-62
 	android:name
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:13:19-50
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:15:19-50
 activity#com.example.mogulmoves.UserProfilePage
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:14:9-53
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:16:9-53
 	android:name
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:14:19-50
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:16:19-50
 activity#com.example.mogulmoves.MainActivity
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:15:9-21:20
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:17:9-23:20
 	android:name
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:15:19-47
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:17:19-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:16:13-20:29
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:18:13-22:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:17:17-69
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:19:17-69
 	android:name
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:17:25-66
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:19:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:19:17-77
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:21:17-77
 	android:name
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:19:27-74
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:21:27-74
 activity#com.example.mogulmoves.ProfileActivity
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:22:9-53
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:24:9-53
 	android:name
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:22:19-50
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:24:19-50
 activity#com.example.mogulmoves.NewExperimentActivity
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:23:9-59
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:25:9-59
 	android:name
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:23:19-56
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:25:19-56
 activity#com.example.mogulmoves.ViewExperimentActivity
-ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:24:9-60
+ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:26:9-60
 	android:name
-		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:24:19-57
+		ADDED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml:26:19-57
 uses-sdk
 INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\trand\OneDrive\Documents\GitHub\bruh\MogulMoves\MogulMoves\app\src\main\AndroidManifest.xml
