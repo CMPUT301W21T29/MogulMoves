@@ -13,6 +13,7 @@ public class NonNegativeCountExperiment extends Experiment {
      * @param region the region the experiment is taking place
      * @param minTrials the required minimum number of trials of the experiment
      * @param locationRequired whether or not the trials of this experiment require a location
+     * @param visible whether the experiment should be visible to all users
      */
     public NonNegativeCountExperiment(int owner, String description, String region,
                                   int minTrials, boolean locationRequired, boolean visible) {
@@ -28,6 +29,7 @@ public class NonNegativeCountExperiment extends Experiment {
      * @param region the region the experiment is taking place
      * @param minTrials the required minimum number of trials of the experiment
      * @param locationRequired whether or not the trials of this experiment require a location
+     * @param visible whether the experiment should be visible to all users
      */
     public NonNegativeCountExperiment(int id, int owner, String description, String region,
                                   int minTrials, boolean locationRequired, boolean visible) {

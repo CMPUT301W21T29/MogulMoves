@@ -67,7 +67,7 @@ public class ExperimentSerializer implements Serializer<Experiment> {
 
         boolean locationRequired = (boolean) map.get("locationRequired");
         boolean active = (boolean) map.get("active");
-        boolean visible = false; // (boolean) map.get("visible");
+        boolean visible = (boolean) map.get("visible");
 
         int owner = (int) (long) map.get("owner");
         int id = (int) (long) map.get("id");
@@ -91,6 +91,8 @@ public class ExperimentSerializer implements Serializer<Experiment> {
             experiment = new MeasureExperiment(id, owner, description, region,
                     minTrials, locationRequired, visible);
         }
+
+        System.out.println(experiment.getLocationRequired());
 
         experiment.setActive(active);
 

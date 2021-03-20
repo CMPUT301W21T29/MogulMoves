@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public abstract class Experiment extends SavedObject /*implements GeoExperiment*/ {
 
     private boolean active = true;
-    private boolean visible = true;
-    private boolean locationRequired = false;
+    private boolean visible;
+    private boolean locationRequired;
     private String description;
     private String region;
     private int minTrials;
@@ -29,6 +29,7 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
      * @param region the region the experiment is taking place
      * @param minTrials the required minimum number of trials of the experiment
      * @param locationRequired whether or not the trials of this experiment require a location
+     * @param visible whether the experiment should be visible to all users
      */
     public Experiment(int owner, String description, String region,
                       int minTrials, boolean locationRequired, boolean visible) {
@@ -43,6 +44,7 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
 
         trials = new ArrayList<>();
         messages = new ArrayList<>();
+
     }
 
     /**
@@ -54,6 +56,7 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
      * @param region the region the experiment is taking place
      * @param minTrials the required minimum number of trials of the experiment
      * @param locationRequired whether or not the trials of this experiment require a location
+     * @param visible whether the experiment should be visible to all users
      */
     public Experiment(int id, int owner, String description, String region,
                       int minTrials, boolean locationRequired, boolean visible) {
@@ -68,6 +71,7 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
 
         trials = new ArrayList<>();
         messages = new ArrayList<>();
+
     }
 
     public void setActive(boolean active){
@@ -92,7 +96,14 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
         return visible;
     }
 
-    public boolean getLocationRequired() { return locationRequired; } //temporary
+    /**
+     * Returns whether locations are required for the experiment.
+     *
+     * @return whether locations are required for the experiment
+     */
+    public boolean getLocationRequired() {
+        return locationRequired;
+    }
 
     /**
      * Returns the description of the experiment.
@@ -174,17 +185,6 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     public void addMessage(int message){
         messages.add(message);
     }
-
-
-    /**
-     * @return a boolean representing whether locations are required for this experiment
-     */
-
-    /*
-    public boolean getLocationRequired() {
-        return locationRequired;
-    }
-     */
 
     /**
      * @param locationRequired a boolean representing whether locations are required for this experiment
