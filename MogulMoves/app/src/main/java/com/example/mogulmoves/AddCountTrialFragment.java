@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+//Fragment to add a new count trial.
+
 public class AddCountTrialFragment extends DialogFragment {
 
     @NonNull

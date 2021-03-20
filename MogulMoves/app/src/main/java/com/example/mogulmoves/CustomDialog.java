@@ -3,9 +3,10 @@ package com.example.mogulmoves;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+
+//Custom dialog class for EditCountTrialFragment.
 
 public class CustomDialog extends AlertDialog {
     private Button positive;

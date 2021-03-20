@@ -8,6 +8,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+//unused activity, was initially used for testing
+
 public class ProfileActivity extends AppCompatActivity {
 
     @Override
