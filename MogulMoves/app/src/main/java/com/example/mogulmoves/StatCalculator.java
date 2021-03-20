@@ -2,6 +2,7 @@ package com.example.mogulmoves;
 
 import java.util.Arrays;
 
+import static java.lang.Math.ceil;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
@@ -45,10 +46,17 @@ public class StatCalculator {
 
         if(values.length == 0) {
             return quartiles;
+
+        } else if(values.length == 1) {
+
+            quartiles[0] = values[0];
+            quartiles[1] = values[0];
+            return quartiles;
+
         }
 
-        quartiles[0] = getMedian(Arrays.copyOfRange(values, 0, values.length / 2 + 1));
-        quartiles[1] = getMedian(Arrays.copyOfRange(values, values.length / 2, values.length));
+        quartiles[0] = getMedian(Arrays.copyOfRange(values, 0, values.length / 2));
+        quartiles[1] = getMedian(Arrays.copyOfRange(values, (int) ceil(values.length / 2), values.length));
 
         return quartiles;
     }

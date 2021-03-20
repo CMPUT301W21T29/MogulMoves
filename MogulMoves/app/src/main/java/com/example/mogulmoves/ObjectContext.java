@@ -25,13 +25,13 @@ public class ObjectContext {
 
     public static ArrayList<ArrayAdapter> adapters = new ArrayList<>();
 
-    public static void randomizeNextId() {
+    /*public static void randomizeNextId() {
         nextId = new Random().nextInt();
 
         if(getObjectById(nextId) != null) {
             randomizeNextId();
         }
-    }
+    }*/
 
     /**
      * Returns the object with the given id, or null if that object does not exist.
@@ -69,6 +69,12 @@ public class ObjectContext {
 
     }
 
+    /**
+     * Searches all experiments for a keyword.
+     *
+     * @param keyword a keyword to search the experiments for
+     * @return an ArrayList of ids of experiments which have the keyword
+     */
     public static ArrayList<Experiment> searchExperiments(String keyword) {
 
         ArrayList<Experiment> found = new ArrayList<>();
@@ -138,6 +144,11 @@ public class ObjectContext {
 
     }
 
+    /**
+     * Pushes the data for an experiment to the database.
+     *
+     * @param experiment an experiment to push
+     */
     public static void pushExperimentData(Experiment experiment) {
 
         ExperimentSerializer serializer = new ExperimentSerializer();
@@ -146,6 +157,11 @@ public class ObjectContext {
 
     }
 
+    /**
+     * Pushes the data for a user to the database.
+     *
+     * @param user a user to push
+     */
     public static void pushUserData(User user) {
 
         UserSerializer serializer = new UserSerializer();
@@ -154,6 +170,11 @@ public class ObjectContext {
 
     }
 
+    /**
+     * Pushes the data for a trial to the database.
+     *
+     * @param trial a trial to push
+     */
     public static void pushTrialData(Trial trial) {
 
         TrialSerializer serializer = new TrialSerializer();
@@ -162,6 +183,11 @@ public class ObjectContext {
 
     }
 
+    /**
+     * Pushes the data for a message to the database.
+     *
+     * @param message a message to push
+     */
     public static void pushMessageData(Message message) {
 
         MessageSerializer serializer = new MessageSerializer();
@@ -170,6 +196,9 @@ public class ObjectContext {
 
     }
 
+    /**
+     * Refreshes the list adapters for when new data comes in.
+     */
     public static void refreshAdapters() {
         for(ArrayAdapter adapter: adapters) {
             adapter.notifyDataSetChanged();

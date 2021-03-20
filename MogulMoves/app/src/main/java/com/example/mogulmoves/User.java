@@ -89,14 +89,29 @@ public class User extends SavedObject {
         return email;
     }
 
+    /**
+     * Sets the username of the user.
+     *
+     * @param username the new username of the user
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Sets the email address of the user.
+     *
+     * @param email the new email address of the user
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Sets the phone number of the user.
+     *
+     * @param phone the new phone number of the user
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }

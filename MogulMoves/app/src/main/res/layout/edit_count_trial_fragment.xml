@@ -20,7 +20,7 @@
             android:paddingRight="15dp"
             android:text="Count:"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="21dp" />
 
     </LinearLayout>
 
