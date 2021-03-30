@@ -13,7 +13,7 @@ manage QR and bar code data. The latter is not implemented yet.*/
 
 public class UserProfilePage extends AppCompatActivity {
     TextView fullName, email, phone;
-    User user;
+    User currentUser = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
 
     /*String currentName = "test name";
     String currentEmail = "test email";
@@ -33,8 +33,6 @@ public class UserProfilePage extends AppCompatActivity {
         fullName = findViewById(R.id.full_name);
         email = findViewById(R.id.email_address);
         phone = findViewById(R.id.phone_number);
-
-        User currentUser = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
 
         fullName.setText(currentUser.getUsername());
         email.setText(currentUser.getEmail());
@@ -56,6 +54,15 @@ public class UserProfilePage extends AppCompatActivity {
             phone.setText(editedPhone);
         }*/
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        fullName.setText(currentUser.getUsername());
+        email.setText(currentUser.getEmail());
+        phone.setText(currentUser.getPhone());
     }
 
     public void switch_to_edit(View view) {

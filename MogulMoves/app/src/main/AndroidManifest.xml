@@ -24,6 +24,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".NewExperimentActivity" />
         <activity android:name=".ViewExperimentActivity" />
+        <activity android:name=".ExperimentSearchActivity" />
     </application>
 
 </manifest>
