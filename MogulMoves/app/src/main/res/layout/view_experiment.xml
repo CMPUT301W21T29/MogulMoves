@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <include layout="@layout/view_experiment_toolbar" />
 
@@ -235,7 +236,8 @@
                     android:id="@+id/map_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="VIEW MAP OF TRIAL LOCATIONS" />
+                    android:text="VIEW MAP OF TRIAL LOCATIONS"
+                    android:onClick="openMapFragment" />
 
             </LinearLayout>
 
