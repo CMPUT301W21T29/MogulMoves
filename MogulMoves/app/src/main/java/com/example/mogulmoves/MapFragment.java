@@ -38,7 +38,6 @@ public class MapFragment extends Fragment {
             IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
             allLocations.add(trial.getExperimenterGeo());
         }
-        experimentType = 0;
     }
 
     /**
@@ -51,10 +50,9 @@ public class MapFragment extends Fragment {
         // non negative count
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-            integerData.add(trial.getCount());
+            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            allLocations.add(trial.getExperimenterGeo());
         }
-        experimentType = 0;
     }
 
     /**
