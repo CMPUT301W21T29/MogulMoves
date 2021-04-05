@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * create an instance of this fragment.
  */
 public class MapFragment extends Fragment {
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,6 +35,11 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                LatLng Edmonton = new LatLng(53.5461, -113.4938);
+                googleMap.addMarker(new MarkerOptions()
+                        .position(Edmonton)
+                        .title("try display marker"));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(Edmonton));
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
@@ -48,7 +53,6 @@ public class MapFragment extends Fragment {
                 });
             }
         });
-
 
 
         return view;
