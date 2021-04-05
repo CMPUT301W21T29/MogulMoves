@@ -61,7 +61,7 @@ public abstract class Trial extends SavedObject implements GeoTrial {
      * @return the location of this trial
      * @throws IOException
      */
-    public ArrayList<Double> getExperimenterGeo() throws IOException {
+    public Double[] getExperimenterGeo() throws IOException {
         return trialLocation;
     }
 
