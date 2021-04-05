@@ -36,7 +36,7 @@ public class MapFragment extends Fragment {
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
             IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-            integerData.add(trial.getCount());
+            allLocations.add(trial.getExperimenterGeo());
         }
         experimentType = 0;
     }
