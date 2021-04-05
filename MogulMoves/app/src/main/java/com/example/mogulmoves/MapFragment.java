@@ -80,10 +80,9 @@ public class MapFragment extends Fragment {
         // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-            floatData.add(trial.getMeasurement());
+            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            allLocations.add(trial.getExperimenterGeo());
         }
-        experimentType = 2;
     }
 
     @Override
