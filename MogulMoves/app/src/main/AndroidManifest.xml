@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mogulmoves">
 
-    <supports-screens android:anyDensity="true"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <supports-screens android:anyDensity="true" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MogulMoves">
-        <activity android:name=".QuestionActivity"></activity>
-        <activity android:name=".EditProfilePage"></activity>
+        <activity android:name=".MapAdaptor"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBaj8h4mqWOv7TQfXLO9YJGZi1Y5glbs0Q" />
+
+        <activity android:name=".QuestionActivity" />
+        <activity android:name=".EditProfilePage" />
         <activity android:name=".UserProfilePage" />
         <activity android:name=".MainActivity">
             <intent-filter>
