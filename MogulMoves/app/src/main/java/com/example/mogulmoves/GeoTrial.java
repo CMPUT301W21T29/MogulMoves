@@ -9,6 +9,6 @@ import java.util.ArrayList;
 
 public interface GeoTrial {
     //public void addExperimenterGeo();
-    public ArrayList<Double> getExperimenterGeo() throws IOException;
+    public Double[] getExperimenterGeo() throws IOException;
     //public boolean setGeoRequired();
 }
