@@ -63,10 +63,11 @@ public class MapFragment extends Fragment {
 
     public MapFragment(BinomialExperiment experiment) {
         // binomial
-        binomialData.add(experiment.getSuccessRate());
-        binomialData.add((float) 1.0 - experiment.getSuccessRate());
-
-        experimentType = 1;
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            allLocations.add(trial.getExperimenterGeo());
+        }
     }
 
     /**
