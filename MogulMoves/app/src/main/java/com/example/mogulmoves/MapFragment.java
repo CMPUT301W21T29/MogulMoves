@@ -24,7 +24,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapFragment extends Fragment {
     /*
 
-    public MapFragment() {
         // Required empty public constructor
     }
 
