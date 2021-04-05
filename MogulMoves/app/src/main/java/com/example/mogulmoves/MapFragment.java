@@ -24,10 +24,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapFragment extends Fragment {
     /*
 
-    /*
-    public static MapFragment newInstance(String param1, String param2) {
-        MapFragment fragment = new MapFragment();
-        Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
