@@ -1,11 +1,5 @@
 package com.example.mogulmoves;
 
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
-
-import com.google.type.LatLng;
-
 import java.util.ArrayList;
 
 /**
@@ -21,7 +15,7 @@ public class User extends SavedObject {
     private ArrayList<Integer> subscribed;
     private ArrayList<Integer> ignored;
 
-    private ArrayList<Double> defaultLocation;
+    private Double[] defaultLocation;
 
     /**
      * Creates the user.
@@ -187,14 +181,14 @@ public class User extends SavedObject {
      * Set default location
      */
     public void setDefaultLocation(double latitude, double longitude) {
-        this.defaultLocation = new LatLng(latitude, longitude);
-
+        Double[] location = {latitude, longitude};
+        defaultLocation = location;
     }
 
     /**
      * @return the default location of this user
      */
-    public ArrayList<Double> getDefaultLocation() {
+    public Double[] getDefaultLocation() {
         return defaultLocation;
     }
 }
