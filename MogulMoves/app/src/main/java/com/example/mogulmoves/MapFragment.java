@@ -26,7 +26,10 @@ import java.util.ArrayList;
 public class MapFragment extends Fragment {
 
     public MapFragment(Experiment experiment) {
-        ArrayList<Double[]> locations = experiment.
+        ArrayList<Integer> trials = experiment.getTrials();
+        for (int i=0; i<trials.size(); i++) {
+            I
+        }
     }
 
     @Override
