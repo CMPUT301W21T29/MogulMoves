@@ -31,7 +31,7 @@ public class MapFragment extends Fragment {
      *
      * @param experiment the experiment which the class is creating a time plot for.
      */
-    public HistogramFragment(IntegerCountExperiment experiment) {
+    public MapFragment(IntegerCountExperiment experiment) {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
@@ -47,7 +47,7 @@ public class MapFragment extends Fragment {
      * @param experiment the experiment which the class is creating a time plot for.
      */
 
-    public HistogramFragment(NonNegativeCountExperiment experiment) {
+    public MapFragment(NonNegativeCountExperiment experiment) {
         // non negative count
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
@@ -63,7 +63,7 @@ public class MapFragment extends Fragment {
      * @param experiment the experiment which the class is creating a time plot for.
      */
 
-    public HistogramFragment(BinomialExperiment experiment) {
+    public MapFragment(BinomialExperiment experiment) {
         // binomial
         binomialData.add(experiment.getSuccessRate());
         binomialData.add((float) 1.0 - experiment.getSuccessRate());
@@ -77,7 +77,7 @@ public class MapFragment extends Fragment {
      * @param experiment the experiment which the class is creating a time plot for.
      */
 
-    public HistogramFragment(MeasureExperiment experiment) {
+    public MapFragment(MeasureExperiment experiment) {
         // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
