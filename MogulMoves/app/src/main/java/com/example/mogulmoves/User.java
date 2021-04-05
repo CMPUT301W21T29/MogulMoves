@@ -21,7 +21,7 @@ public class User extends SavedObject {
     private ArrayList<Integer> subscribed;
     private ArrayList<Integer> ignored;
 
-    private LatLng defaultLocation;
+    private ArrayList<Double> defaultLocation;
 
     /**
      * Creates the user.
@@ -187,14 +187,14 @@ public class User extends SavedObject {
      * Set default location
      */
     public void setDefaultLocation(double latitude, double longitude) {
-        this.
+        this.defaultLocation = new LatLng(latitude, longitude);
 
     }
 
     /**
      * @return the default location of this user
      */
-    public LatLng getDefaultLocation() {
+    public ArrayList<Double> getDefaultLocation() {
         return defaultLocation;
     }
 }
