@@ -14,7 +14,7 @@ public abstract class Trial extends SavedObject implements GeoTrial {
 
     private final int experimenter;
 
-    private ArrayList<Double> trialLocation;
+    private Double[] trialLocation;
 
     /**
      * Creates the trial.
