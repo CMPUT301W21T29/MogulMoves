@@ -23,7 +23,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class MapFragment extends Fragment {
     /*
-    private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
