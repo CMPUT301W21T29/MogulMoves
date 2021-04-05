@@ -26,7 +26,66 @@ import java.util.ArrayList;
 public class MapFragment extends Fragment {
     private ArrayList<Double[]> allLocations = new ArrayList<>();
 
+    /**
+     * Creates a histogram fragment for an IntegerCountExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
+    public MapFragment(IntegerCountExperiment experiment) {
+        // count
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            integerData.add(trial.getCount());
+        }
+        experimentType = 0;
+    }
 
+    /**
+     * Creates a histogram fragment for an NonNegativeCountExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
+
+    public MapFragment(NonNegativeCountExperiment experiment) {
+        // non negative count
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            integerData.add(trial.getCount());
+        }
+        experimentType = 0;
+    }
+
+    /**
+     * Creates a histogram fragment for an BinomialExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
+
+    public MapFragment(BinomialExperiment experiment) {
+        // binomial
+        binomialData.add(experiment.getSuccessRate());
+        binomialData.add((float) 1.0 - experiment.getSuccessRate());
+
+        experimentType = 1;
+    }
+
+    /**
+     * Creates a histogram fragment for an MeasureExperiment.
+     *
+     * @param experiment the experiment which the class is creating a time plot for.
+     */
+
+    public MapFragment(MeasureExperiment experiment) {
+        // measurement
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            floatData.add(trial.getMeasurement());
+        }
+        experimentType = 2;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
