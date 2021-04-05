@@ -5,6 +5,7 @@ import android.location.Location;
 import com.google.type.LatLng;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Abstract class to represent a trial of an experiment.
@@ -13,7 +14,7 @@ public abstract class Trial extends SavedObject implements GeoTrial {
 
     private final int experimenter;
 
-    private LatLng trialLocation;
+    private ArrayList<Double> trialLocation;
 
     /**
      * Creates the trial.
@@ -60,7 +61,7 @@ public abstract class Trial extends SavedObject implements GeoTrial {
      * @return the location of this trial
      * @throws IOException
      */
-    public LatLng getExperimenterGeo() throws IOException {
+    public ArrayList<Double> getExperimenterGeo() throws IOException {
         return trialLocation;
     }
 
