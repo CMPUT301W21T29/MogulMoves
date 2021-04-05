@@ -16,6 +16,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MapFragment} factory method to
@@ -24,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapFragment extends Fragment {
 
     public MapFragment(Experiment experiment) {
-        
+        ArrayList<Double[]> locations = experiment.
     }
 
     @Override
