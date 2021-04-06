@@ -27,10 +27,10 @@ public class MapFragment extends Fragment {
     private ArrayList<Double[]> allLocations = new ArrayList<>();
 
     /**
-     * Creates a histogram fragment for an IntegerCountExperiment.
+     * Creates a map display fragment for an IntegerCountExperiment.
      *
      * @param experiment the experiment which the class is creating a time plot for.
-     
+
     public MapFragment(IntegerCountExperiment experiment) {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -41,7 +41,7 @@ public class MapFragment extends Fragment {
     }*/
 
     /**
-     * Creates a histogram fragment for an NonNegativeCountExperiment.
+     * Creates a map display fragment for an NonNegativeCountExperiment.
      *
      * @param experiment the experiment which the class is creating a time plot for.
 
@@ -56,7 +56,7 @@ public class MapFragment extends Fragment {
     }*/
 
     /**
-     * Creates a histogram fragment for an BinomialExperiment.
+     * Creates a map display fragment for an BinomialExperiment.
      *
      * @param experiment the experiment which the class is creating a time plot for.
 
@@ -71,7 +71,7 @@ public class MapFragment extends Fragment {
     }*/
 
     /**
-     * Creates a histogram fragment for an MeasureExperiment.
+     * Creates a map display fragment for an MeasureExperiment.
      *
      * @param experiment the experiment which the class is creating a time plot for.
 
