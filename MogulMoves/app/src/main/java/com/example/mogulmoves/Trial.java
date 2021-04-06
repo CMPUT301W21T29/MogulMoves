@@ -11,7 +11,7 @@ public abstract class Trial extends SavedObject implements GeoTrial {
 
     private final int experimenter;
 
-    private Location trialLocation;
+    private Double[] trialLocation = new Double[2];
 
     /**
      * Creates the trial.
@@ -49,16 +49,15 @@ public abstract class Trial extends SavedObject implements GeoTrial {
     /**
      * Set experimenter's default location as this trial's location
      */
-    public void addExperimenterGeo() {
-        User experimenterObject = (User) ObjectContext.getObjectById(experimenter);
-        trialLocation = experimenterObject.getDefaultLocation();
-    }
+    //public void addExperimenterGeo() {
+        //User experimenterObject = (User) ObjectContext.getObjectById(experimenter);
+        //trialLocation = experimenterObject.getDefaultLocation();
+    //}
 
     /**
      * @return the location of this trial
-     * @throws IOException
      */
-    public Location getExperimenterGeo() throws IOException {
+    public Double[] getExperimenterGeo() {
         return trialLocation;
     }
 
