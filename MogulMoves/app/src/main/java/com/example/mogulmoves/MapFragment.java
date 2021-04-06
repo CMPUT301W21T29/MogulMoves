@@ -30,7 +30,7 @@ public class MapFragment extends Fragment {
      * Creates a histogram fragment for an IntegerCountExperiment.
      *
      * @param experiment the experiment which the class is creating a time plot for.
-     */
+     
     public MapFragment(IntegerCountExperiment experiment) {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -38,13 +38,13 @@ public class MapFragment extends Fragment {
             IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
             allLocations.add(trial.getExperimenterGeo());
         }
-    }
+    }*/
 
     /**
      * Creates a histogram fragment for an NonNegativeCountExperiment.
      *
      * @param experiment the experiment which the class is creating a time plot for.
-     */
+
 
     public MapFragment(NonNegativeCountExperiment experiment) {
         // non negative count
@@ -53,13 +53,13 @@ public class MapFragment extends Fragment {
             NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
             allLocations.add(trial.getExperimenterGeo());
         }
-    }
+    }*/
 
     /**
      * Creates a histogram fragment for an BinomialExperiment.
      *
      * @param experiment the experiment which the class is creating a time plot for.
-     */
+
 
     public MapFragment(BinomialExperiment experiment) {
         // binomial
@@ -68,13 +68,13 @@ public class MapFragment extends Fragment {
             BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
             allLocations.add(trial.getExperimenterGeo());
         }
-    }
+    }*/
 
     /**
      * Creates a histogram fragment for an MeasureExperiment.
      *
      * @param experiment the experiment which the class is creating a time plot for.
-     */
+
 
     public MapFragment(MeasureExperiment experiment) {
         // measurement
@@ -83,7 +83,7 @@ public class MapFragment extends Fragment {
             MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
             allLocations.add(trial.getExperimenterGeo());
         }
-    }
+    }*/
 
 
     @Override
