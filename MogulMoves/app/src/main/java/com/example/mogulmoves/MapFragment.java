@@ -88,7 +88,9 @@ public class MapFragment extends Fragment {
         }
     }
 
-
+    /**
+     * Builds the actual map display fragment with google map brought up.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,10 +103,6 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                //Double[] Edmonton = {53.5461, -113.4938};
-                //Double[] Vancouver = {49.2827, -123.1207};
-                //allLocations.add(Edmonton);
-                //allLocations.add(Vancouver);
 
                 for (int i = 0; i < allLocations.size(); i++) {
                     Double latitude1 = allLocations.get(i)[0];
