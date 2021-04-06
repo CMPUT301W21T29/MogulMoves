@@ -81,10 +81,6 @@ public class EditProfilePage extends AppCompatActivity {
 
         ObjectContext.pushUserData(currentUser);
 
-        Intent intent = new Intent(this, UserProfilePage.class);
-        intent.putExtra(BACK_NAME, newName);
-        intent.putExtra(BACK_EMAIL, newEmail);
-        intent.putExtra(BACK_PHONE, newPhone);
-        startActivity(intent);
+        finish();
     }
 }
