@@ -16,76 +16,52 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MapFragment} factory method to
  * create an instance of this fragment.
  */
 public class MapFragment extends Fragment {
-    private ArrayList<Double[]> allLocations = new ArrayList<>();
+    /*
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-    /**
-     * Creates a map display fragment for an IntegerCountExperiment.
-     *
-     * @param experiment the experiment which the class is creating a map display for.
+    private String mParam1;
+    private String mParam2;
 
-    public MapFragment(IntegerCountExperiment experiment) {
-        // count
-        ArrayList<Integer> countTrials = experiment.getTrials();
-        for (int i=0; i<countTrials.size(); i++) {
-            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-            allLocations.add(trial.getExperimenterGeo());
-        }
-    }*/
-
-    /**
-     * Creates a map display fragment for an NonNegativeCountExperiment.
-     *
-     * @param experiment the experiment which the class is creating a map display for.
-
-
-    public MapFragment(NonNegativeCountExperiment experiment) {
-        // non negative count
-        ArrayList<Integer> countTrials = experiment.getTrials();
-        for (int i=0; i<countTrials.size(); i++) {
-            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-            allLocations.add(trial.getExperimenterGeo());
-        }
-    }*/
-
-    /**
-     * Creates a map display fragment for an BinomialExperiment.
-     *
-     * @param experiment the experiment which the class is creating a map display for.
-     */
-
-    public MapFragment(BinomialExperiment experiment) {
-        // binomial
-        ArrayList<Integer> countTrials = experiment.getTrials();
-        for (int i=0; i<countTrials.size(); i++) {
-            BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-            allLocations.add(trial.getExperimenterGeo());
-        }
+    public MapFragment() {
+        // Required empty public constructor
     }
 
     /**
-     * Creates a map display fragment for an MeasureExperiment.
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
      *
-     * @param experiment the experiment which the class is creating a map display for.
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment MapFragment.
+     */
 
+    /*
+    public static MapFragment newInstance(String param1, String param2) {
+        MapFragment fragment = new MapFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
-    public MapFragment(MeasureExperiment experiment) {
-        // measurement
-        ArrayList<Integer> countTrials = experiment.getTrials();
-        for (int i=0; i<countTrials.size(); i++) {
-            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-            allLocations.add(trial.getExperimenterGeo());
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }*/
-
-
+    }
+    */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,20 +74,6 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                Double[] Edmonton = {53.5461, -113.4938};
-                Double[] Vancouver = {49.2827, -123.1207};
-                allLocations.add(Edmonton);
-                allLocations.add(Vancouver);
-
-                for (int i = 0; i < allLocations.size(); i++) {
-                    Double latitude1 = allLocations.get(i)[0];
-                    Double longitude1 = allLocations.get(i)[1];
-                    LatLng thisPoint = new LatLng(latitude1, longitude1);
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(thisPoint)
-                            .title(latitude1 + " : " + longitude1));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(thisPoint));
-                }
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
@@ -125,6 +87,7 @@ public class MapFragment extends Fragment {
                 });
             }
         });
+
 
 
         return view;

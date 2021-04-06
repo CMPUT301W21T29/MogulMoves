@@ -2,10 +2,7 @@ package com.example.mogulmoves;
 
 import android.location.Location;
 
-import com.google.type.LatLng;
-
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Abstract class to represent a trial of an experiment.
@@ -14,7 +11,7 @@ public abstract class Trial extends SavedObject implements GeoTrial {
 
     private final int experimenter;
 
-    private Double[] trialLocation;
+    private Location trialLocation;
 
     /**
      * Creates the trial.
@@ -59,8 +56,9 @@ public abstract class Trial extends SavedObject implements GeoTrial {
 
     /**
      * @return the location of this trial
+     * @throws IOException
      */
-    public Double[] getExperimenterGeo() {
+    public Location getExperimenterGeo() throws IOException {
         return trialLocation;
     }
 

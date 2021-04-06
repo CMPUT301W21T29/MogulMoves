@@ -13,8 +13,7 @@ public class MapAdaptor extends AppCompatActivity {
         setContentView(R.layout.activity_map_adaptor);
 
         //Initialize fragment
-        Object experiment;
-        Fragment fragment = new MapFragment(BinomialExperiment experiment);
+        Fragment fragment = new MapFragment();
 
         getSupportFragmentManager()
                 .beginTransaction()

@@ -7,5 +7,5 @@ public interface GeoExperiment {
     public boolean getLocationRequired();
     public void setLocationRequired(boolean locationRequired, int user) throws IOException;
     public String GeoExperimentWarning(int user);
-    public ArrayList<Double[]> getAllLocations() throws IOException;
+    public ArrayList<Location> getAllLocations() throws IOException;
 }

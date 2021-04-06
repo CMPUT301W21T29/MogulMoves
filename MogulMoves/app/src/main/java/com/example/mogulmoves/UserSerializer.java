@@ -50,14 +50,14 @@ public class UserSerializer implements Serializer<User> {
             for (long experiment: (List<Long>) map.get("subscribed")) {
                 user.addSubscription((int) experiment);
             }
-        } catch (java.lang.NullPointerException e) {
+        } catch (NullPointerException e) {
         }
 
         try {
             for (long experiment: (List<Long>) map.get("ignored")) {
                 user.addIgnore((int) experiment);
             }
-        } catch (java.lang.NullPointerException e) {
+        } catch (NullPointerException e) {
         }
 
         return user;

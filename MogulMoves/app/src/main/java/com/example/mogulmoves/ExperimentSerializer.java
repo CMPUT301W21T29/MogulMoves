@@ -100,14 +100,14 @@ public class ExperimentSerializer implements Serializer<Experiment> {
             for(long trial: trials){
                 experiment.addTrial((int) trial);
             }
-        } catch (java.lang.NullPointerException e) {
+        } catch (NullPointerException e) {
         }
 
         try {
             for (long message : messages) {
                 experiment.addMessage((int) message);
             }
-        } catch (java.lang.NullPointerException e) {
+        } catch (NullPointerException e) {
         }
 
         return experiment;
