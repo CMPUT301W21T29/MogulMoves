@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     ListView expList;
     ArrayAdapter<Experiment> expAdapter;
-    User loggedInUser;
     boolean initialBootComplete = false;
 
     final ListView.OnItemClickListener expOCL = new ListView.OnItemClickListener() {
@@ -207,21 +206,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void toUserProfilePage (View view)
-    {
+    public void toUserProfilePage (View view) {
         Intent i = new Intent(getApplicationContext(), UserProfilePage.class);
         startActivity(i);
     }
 
-    public void toNewExperimentActivity (View view)
-    {
+    public void toExperimentSearchActivity (View view) {
+        Intent i = new Intent(getApplicationContext(), ExperimentSearchActivity.class);
+        startActivity(i);
+    }
+
+    public void toNewExperimentActivity (View view) {
         Intent i = new Intent(getApplicationContext(), NewExperimentActivity.class);
         startActivity(i);
     }
 
-    public void toViewExperimentActivity(View v, int exp_id)
-    {
-
+    public void toViewExperimentActivity(View v, int exp_id) {
         Intent i = new Intent(getApplicationContext(), ViewExperimentActivity.class);
         i.putExtra("expID", exp_id);
         User self = (User)ObjectContext.getObjectById(ObjectContext.userDatabaseId);

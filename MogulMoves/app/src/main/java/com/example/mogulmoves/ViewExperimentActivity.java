@@ -2,6 +2,7 @@ package com.example.mogulmoves;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.content.ContextCompat;
@@ -341,6 +342,24 @@ public class ViewExperimentActivity extends AppCompatActivity {
         TimePlotFragment newFragment = TimePlotFragment.newInstance(exp_id);
         newFragment.show(getSupportFragmentManager(), "VIEW_TIME_PLOT");
     }
+
+    /**
+    * open the map of trial locations
+    * */
+    public void openMapFragment(View view){
+        //Initialize fragment
+        /*Fragment fragment = new MapFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.map_linear_layout,fragment)
+                .commit();*/
+        Intent intent = new Intent(this, MapAdaptor.class);
+        intent.putExtra("whichExperiment", Integer.toString(exp_id));
+        startActivity(intent);
+    }
+
+
 
     public void toProfileActivity (View view)
     {
