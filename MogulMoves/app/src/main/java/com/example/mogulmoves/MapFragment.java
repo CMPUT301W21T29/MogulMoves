@@ -85,6 +85,7 @@ public class MapFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,11 +98,13 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                LatLng Edmonton = new LatLng(53.5461, -113.4938);
-                googleMap.addMarker(new MarkerOptions()
-                        .position(Edmonton)
-                        .title("try display marker"));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(Edmonton));
+                //LatLng Edmonton = new LatLng(53.5461, -113.4938);
+                for (int i = 0; i < allLocations.size(); i++) {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position()
+                            .title("try display marker"));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng());
+                }
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
