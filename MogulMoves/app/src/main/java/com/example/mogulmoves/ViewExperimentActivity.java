@@ -419,7 +419,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
                     Map<String, Object> docData = new HashMap<>();
                     docData.put("content", content);
-                    docData.put("user_id", ObjectContext.userDatabaseId);
+                    docData.put("user_id", (long) ObjectContext.userDatabaseId);
                     docData.put("date", date);
                     docData.put("time", time);
                     docData.put("exp_id", exp_id);
