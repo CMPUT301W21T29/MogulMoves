@@ -29,7 +29,7 @@ public class MapFragment extends Fragment {
     /**
      * Creates a map display fragment for an IntegerCountExperiment.
      *
-     * @param experiment the experiment which the class is creating a time plot for.
+     * @param experiment the experiment which the class is creating a map display for.
 
     public MapFragment(IntegerCountExperiment experiment) {
         // count
@@ -43,7 +43,7 @@ public class MapFragment extends Fragment {
     /**
      * Creates a map display fragment for an NonNegativeCountExperiment.
      *
-     * @param experiment the experiment which the class is creating a time plot for.
+     * @param experiment the experiment which the class is creating a map display for.
 
 
     public MapFragment(NonNegativeCountExperiment experiment) {
@@ -58,7 +58,7 @@ public class MapFragment extends Fragment {
     /**
      * Creates a map display fragment for an BinomialExperiment.
      *
-     * @param experiment the experiment which the class is creating a time plot for.
+     * @param experiment the experiment which the class is creating a map display for.
 
 
     public MapFragment(BinomialExperiment experiment) {
@@ -73,7 +73,7 @@ public class MapFragment extends Fragment {
     /**
      * Creates a map display fragment for an MeasureExperiment.
      *
-     * @param experiment the experiment which the class is creating a time plot for.
+     * @param experiment the experiment which the class is creating a map display for.
 
 
     public MapFragment(MeasureExperiment experiment) {
