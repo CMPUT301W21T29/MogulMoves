@@ -26,8 +26,6 @@ import java.util.ArrayList;
 public class MapFragment extends Fragment {
     private ArrayList<Double[]> allLocations = new ArrayList<>();
 
-    
-
     /**
      * Creates a histogram fragment for an IntegerCountExperiment.
      *
@@ -100,7 +98,11 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                //LatLng Edmonton = new LatLng(53.5461, -113.4938);
+                Double[] Edmonton = {53.5461, -113.4938};
+                Double[] Vancouver = {49.2827, -123.1207};
+                allLocations.add(Edmonton);
+                allLocations.add(Vancouver);
+
                 for (int i = 0; i < allLocations.size(); i++) {
                     Double latitude1 = allLocations.get(i)[0];
                     Double longitude1 = allLocations.get(i)[1];
