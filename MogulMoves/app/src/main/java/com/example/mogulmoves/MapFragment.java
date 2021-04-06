@@ -1,8 +1,10 @@
 package com.example.mogulmoves;
 
 import android.graphics.Camera;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -30,36 +32,37 @@ public class MapFragment extends Fragment {
      * Creates a map display fragment for an IntegerCountExperiment.
      *
      * @param experiment the experiment which the class is creating a map display for.
+     */
 
     public MapFragment(IntegerCountExperiment experiment) {
-    // count
-    ArrayList<Integer> countTrials = experiment.getTrials();
-    for (int i=0; i<countTrials.size(); i++) {
-    IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-    allLocations.add(trial.getExperimenterGeo());
+        // count
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            allLocations.add(trial.getExperimenterGeo());
+        }
     }
-    }*/
 
     /**
      * Creates a map display fragment for an NonNegativeCountExperiment.
      *
      * @param experiment the experiment which the class is creating a map display for.
-
+     */
 
     public MapFragment(NonNegativeCountExperiment experiment) {
-    // non negative count
-    ArrayList<Integer> countTrials = experiment.getTrials();
-    for (int i=0; i<countTrials.size(); i++) {
-    NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-    allLocations.add(trial.getExperimenterGeo());
+        // non negative count
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            allLocations.add(trial.getExperimenterGeo());
+        }
     }
-    }*/
 
     /**
      * Creates a map display fragment for an BinomialExperiment.
      *
      * @param experiment the experiment which the class is creating a map display for.
-
+     */
 
     public MapFragment(BinomialExperiment experiment) {
         // binomial
@@ -68,22 +71,22 @@ public class MapFragment extends Fragment {
             BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
             allLocations.add(trial.getExperimenterGeo());
         }
-    }*/
+    }
 
     /**
      * Creates a map display fragment for an MeasureExperiment.
      *
      * @param experiment the experiment which the class is creating a map display for.
-
+     */
 
     public MapFragment(MeasureExperiment experiment) {
-    // measurement
-    ArrayList<Integer> countTrials = experiment.getTrials();
-    for (int i=0; i<countTrials.size(); i++) {
-    MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
-    allLocations.add(trial.getExperimenterGeo());
+        // measurement
+        ArrayList<Integer> countTrials = experiment.getTrials();
+        for (int i=0; i<countTrials.size(); i++) {
+            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            allLocations.add(trial.getExperimenterGeo());
+        }
     }
-    }*/
 
 
     @Override
@@ -98,10 +101,10 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                Double[] Edmonton = {53.5461, -113.4938};
-                Double[] Vancouver = {49.2827, -123.1207};
-                allLocations.add(Edmonton);
-                allLocations.add(Vancouver);
+                //Double[] Edmonton = {53.5461, -113.4938};
+                //Double[] Vancouver = {49.2827, -123.1207};
+                //allLocations.add(Edmonton);
+                //allLocations.add(Vancouver);
 
                 for (int i = 0; i < allLocations.size(); i++) {
                     Double latitude1 = allLocations.get(i)[0];

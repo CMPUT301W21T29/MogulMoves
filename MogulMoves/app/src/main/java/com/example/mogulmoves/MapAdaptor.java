@@ -17,12 +17,36 @@ public class MapAdaptor extends AppCompatActivity {
 
         //Initialize fragment
         if (ObjectContext.getObjectById(expId) instanceof BinomialExperiment) {
-            Fragment fragment = new MapFragment();
-        }
+            Fragment fragment = new MapFragment((BinomialExperiment) ObjectContext.getObjectById(expId));
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.map_frame_layout,fragment)
-                .commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.map_frame_layout, fragment)
+                    .commit();
+        }
+        else if (ObjectContext.getObjectById(expId) instanceof IntegerCountExperiment) {
+            Fragment fragment = new MapFragment((IntegerCountExperiment) ObjectContext.getObjectById(expId));
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.map_frame_layout, fragment)
+                    .commit();
+        }
+        else if (ObjectContext.getObjectById(expId) instanceof NonNegativeCountExperiment) {
+            Fragment fragment = new MapFragment((NonNegativeCountExperiment) ObjectContext.getObjectById(expId));
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.map_frame_layout, fragment)
+                    .commit();
+        }
+        else if (ObjectContext.getObjectById(expId) instanceof MeasureExperiment) {
+            Fragment fragment = new MapFragment((MeasureExperiment) ObjectContext.getObjectById(expId));
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.map_frame_layout, fragment)
+                    .commit();
+        }
     }
 }
