@@ -59,7 +59,7 @@ public class MapFragment extends Fragment {
      * Creates a map display fragment for an BinomialExperiment.
      *
      * @param experiment the experiment which the class is creating a map display for.
-
+     */
 
     public MapFragment(BinomialExperiment experiment) {
         // binomial
@@ -68,7 +68,7 @@ public class MapFragment extends Fragment {
             BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
             allLocations.add(trial.getExperimenterGeo());
         }
-    }*/
+    }
 
     /**
      * Creates a map display fragment for an MeasureExperiment.
