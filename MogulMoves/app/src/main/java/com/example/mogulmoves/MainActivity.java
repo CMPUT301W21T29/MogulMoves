@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
                                             for (User user : ObjectContext.users) {
                                                 if (user.getInstallationId().equals(ObjectContext.installationId)) {
                                                     ObjectContext.userDatabaseId = user.getId();
-                                                    Log.d("help", "3rd" + Integer.toString(ObjectContext.userDatabaseId));
                                                     isUserFound = true;
                                                 }
                                             }
@@ -208,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void toUserProfilePage (View view) {
         Intent i = new Intent(getApplicationContext(), UserProfilePage.class);
+        i.putExtra("userID", ObjectContext.userDatabaseId);
         startActivity(i);
     }
 
@@ -224,8 +224,6 @@ public class MainActivity extends AppCompatActivity {
     public void toViewExperimentActivity(View v, int exp_id) {
         Intent i = new Intent(getApplicationContext(), ViewExperimentActivity.class);
         i.putExtra("expID", exp_id);
-        User self = (User)ObjectContext.getObjectById(ObjectContext.userDatabaseId);
-        i.putExtra("loggedInUser", self.getUsername());
         startActivity(i);
     }
 
