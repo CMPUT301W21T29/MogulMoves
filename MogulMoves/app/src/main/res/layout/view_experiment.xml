@@ -61,6 +61,7 @@
                     android:id="@+id/exp_list_item_owner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="goToOwnerProfile"
                     android:text="Owner: User"
                     android:textColor="#000000"
                     android:textSize="18sp" />
@@ -271,26 +272,18 @@
                 android:layout_marginRight="20dp"
                 android:background="@color/black" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
-            </androidx.recyclerview.widget.RecyclerView>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:paddingLeft="15dp"
+                android:paddingLeft="21dp"
                 android:paddingRight="20dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/lstPosts"
                     android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                />
+                    android:layout_height="match_parent" />
 
             </RelativeLayout>
 
@@ -299,7 +292,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:paddingLeft="15dp"
+                android:paddingLeft="17dp"
                 android:paddingRight="20dp">
 
                 <EditText

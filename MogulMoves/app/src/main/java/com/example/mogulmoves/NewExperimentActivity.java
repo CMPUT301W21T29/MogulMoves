@@ -2,6 +2,7 @@ package com.example.mogulmoves;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -39,7 +40,6 @@ public class NewExperimentActivity extends AppCompatActivity {
 
     public void goBack (View view) {
         finish();
-        ObjectContext.adapters.remove(adapter);
     }
 
     public void publishExperiment(View view) {
@@ -66,30 +66,37 @@ public class NewExperimentActivity extends AppCompatActivity {
             int minimum_int = Integer.parseInt(minimum_int_str);
 
             String type = spinner.getSelectedItem().toString();
+            int exp_id;
             switch (type) {
                 case "Count": {
                     IntegerCountExperiment experiment = new IntegerCountExperiment(ObjectContext.userDatabaseId, description_string, region_string, minimum_int, location_bool, true);
+                    exp_id = experiment.getId();
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Binomial": {
                     BinomialExperiment experiment = new BinomialExperiment(ObjectContext.userDatabaseId, description_string, region_string, minimum_int, location_bool, true);
+                    exp_id = experiment.getId();
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 case "Non-Negative Count": {
                     NonNegativeCountExperiment experiment = new NonNegativeCountExperiment(ObjectContext.userDatabaseId, description_string, region_string, minimum_int, location_bool, true);
+                    exp_id = experiment.getId();
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
                 default: {
                     MeasureExperiment experiment = new MeasureExperiment(ObjectContext.userDatabaseId, description_string, region_string, minimum_int, location_bool, true);
+                    exp_id = experiment.getId();
                     ObjectContext.addExperiment(experiment);
                     break;
                 }
             }
 
-            finish();
+            Intent i = new Intent(getApplicationContext(), ViewExperimentActivity.class);
+            i.putExtra("expID", exp_id);
+            startActivity(i);
         }
 
     }
