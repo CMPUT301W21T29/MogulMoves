@@ -16,7 +16,9 @@ public class MapAdaptor extends AppCompatActivity {
         int expId = Integer.parseInt(intent.getStringExtra("whichExperiment"));
 
         //Initialize fragment
-        Fragment fragment = new MapFragment();
+        if (ObjectContext.getObjectById(expId) instanceof BinomialExperiment) {
+            Fragment fragment = new MapFragment();
+        }
 
         getSupportFragmentManager()
                 .beginTransaction()
