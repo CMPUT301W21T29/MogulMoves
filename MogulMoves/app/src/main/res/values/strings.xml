@@ -9,4 +9,6 @@
         <item>Measurement</item>
     </string-array>
     <string name="add_trial">ADD TRIAL</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

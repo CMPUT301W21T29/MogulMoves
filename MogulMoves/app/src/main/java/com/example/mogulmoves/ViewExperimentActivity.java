@@ -2,6 +2,7 @@ package com.example.mogulmoves;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.content.ContextCompat;
@@ -162,7 +163,20 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Map<String, Object> item = docData.get(position);
-        holder.txtPostItemUserName.setText(item.get("username").toString());
+        User poster = (User) ObjectContext.getObjectById((int) (long) item.get("user_id"));
+        String username = poster.getUsername();
+        if(username.length() <= 0) {
+            username = "(ID " + Integer.toString(poster.getId()) + ")";
+        }
+        holder.txtPostItemUserName.setText(username);
+        holder.txtPostItemUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), UserProfilePage.class);
+                i.putExtra("userID", (int) (long) item.get("user_id"));
+                v.getContext().startActivity(i);
+            }
+        });
         holder.txtPostItemDate.setText(item.get("date").toString());
         holder.txtPostItemTime.setText(item.get("time").toString());
         holder.txtPostItemContent.setText(item.get("content").toString());
@@ -172,13 +186,13 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
     public int getItemCount() {
         return docData.size();
     }
+
 }
 
 public class ViewExperimentActivity extends AppCompatActivity {
 
     int exp_id;
     Experiment experiment;
-    String loggedInUserName;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView postList;
     ArrayList<Map<String, Object>> items = new ArrayList<>();
@@ -199,12 +213,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
         adapter3 = new ListItemAdapter3(items);
         postList.setAdapter(adapter3);
         postList.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
-
-
-        loggedInUserName = getIntent().getStringExtra("loggedInUser");
-        if(loggedInUserName.length() <= 0 || loggedInUserName == null) {
-            loggedInUserName = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
-        }
 
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
         self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
@@ -232,6 +240,12 @@ public class ViewExperimentActivity extends AppCompatActivity {
         updateDataDisplay();
     }
 
+    public void goToOwnerProfile(View view) {
+        Intent i = new Intent(getApplicationContext(), UserProfilePage.class);
+        i.putExtra("userID", experiment.getOwner());
+        startActivity(i);
+    }
+
 
     public void updateDataDisplay() {
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
@@ -241,8 +255,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
         TextView owner = findViewById(R.id.exp_list_item_owner);
         User exp_owner = (User)ObjectContext.getObjectById(experiment.getOwner());
-
-        Log.d("e", exp_owner.getUsername());
 
         if(exp_owner.getUsername().length() <= 0 || exp_owner.getUsername() == null) {
             String str = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
@@ -342,6 +354,24 @@ public class ViewExperimentActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "VIEW_TIME_PLOT");
     }
 
+    /**
+    * open the map of trial locations
+    * */
+    public void openMapFragment(View view){
+        //Initialize fragment
+        /*Fragment fragment = new MapFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.map_linear_layout,fragment)
+                .commit();*/
+        Intent intent = new Intent(this, MapAdaptor.class);
+        intent.putExtra("whichExperiment", Integer.toString(exp_id));
+        startActivity(intent);
+    }
+
+
+
     public void toProfileActivity (View view)
     {
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
@@ -390,7 +420,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
                     Map<String, Object> docData = new HashMap<>();
                     docData.put("content", content);
-                    docData.put("username", loggedInUserName);
+                    docData.put("user_id", (long) ObjectContext.userDatabaseId);
                     docData.put("date", date);
                     docData.put("time", time);
                     docData.put("exp_id", exp_id);

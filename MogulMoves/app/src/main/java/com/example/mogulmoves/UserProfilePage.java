@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 /*Activity to view user profile data. A button allows you to edit it, and another allows you to
@@ -13,7 +12,7 @@ manage QR and bar code data. The latter is not implemented yet.*/
 
 public class UserProfilePage extends AppCompatActivity {
     TextView fullName, email, phone;
-    User user;
+    User currentUser = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
 
     /*String currentName = "test name";
     String currentEmail = "test email";
@@ -30,32 +29,32 @@ public class UserProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile);
 
+        int user_id = getIntent().getIntExtra("userID", -1);
+        //defaultValue just set to -1 because it should never call a nonexistent user anyway
+
+        if (user_id != ObjectContext.userDatabaseId) {
+            TextView editButton = findViewById(R.id.edit_profile_button);
+            editButton.setVisibility(View.INVISIBLE);
+        }
+
+        currentUser = (User) ObjectContext.getObjectById(user_id);
+
         fullName = findViewById(R.id.full_name);
         email = findViewById(R.id.email_address);
         phone = findViewById(R.id.phone_number);
 
-        User currentUser = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+        fullName.setText(currentUser.getUsername());
+        email.setText(currentUser.getEmail());
+        phone.setText(currentUser.getPhone());
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
 
         fullName.setText(currentUser.getUsername());
         email.setText(currentUser.getEmail());
         phone.setText(currentUser.getPhone());
-
-        /*
-
-        fullName.setText(editedName);
-        email.setText(editedEmail);
-        phone.setText(editedPhone);
-
-        Intent backIntent = getIntent();
-        if (getIntent() != null){
-            editedName = backIntent.getStringExtra(EditProfilePage.BACK_NAME);
-            editedEmail = backIntent.getStringExtra(EditProfilePage.BACK_EMAIL);
-            editedPhone = backIntent.getStringExtra(EditProfilePage.BACK_PHONE);
-            fullName.setText(editedName);
-            email.setText(editedEmail);
-            phone.setText(editedPhone);
-        }*/
-
     }
 
     public void switch_to_edit(View view) {
@@ -65,7 +64,6 @@ public class UserProfilePage extends AppCompatActivity {
         String email = currentUser.getEmail();
         String phone = currentUser.getPhone();
 
-        TextView editButton = findViewById(R.id.edit_profile_button);
         switchToEditUserProfile(username, email, phone);
     }
 
@@ -78,8 +76,6 @@ public class UserProfilePage extends AppCompatActivity {
     }
 
     public void goBack(View view){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        finish();
     }
 }

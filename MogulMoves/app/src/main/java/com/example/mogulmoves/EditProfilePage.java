@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import static android.view.View.VISIBLE;
+
 //Activity to edit profile information.
 
 public class EditProfilePage extends AppCompatActivity {
@@ -30,7 +34,6 @@ public class EditProfilePage extends AppCompatActivity {
         String originalName = intent.getStringExtra("EXTRA_NAME");
         String originalEmail = intent.getStringExtra("EXTRA_EMAIL");
         String originalPhone = intent.getStringExtra("EXTRA_PHONE");
-        Log.d("wide", originalName);
 
         NameEditing = findViewById(R.id.edit_name_field);
         EmailEditing = findViewById(R.id.edit_email_field);
@@ -43,10 +46,25 @@ public class EditProfilePage extends AppCompatActivity {
         EditProfileSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TextView error = findViewById(R.id.username_error);
+
                 String newName = NameEditing.getText().toString();
                 String newEmail = EmailEditing.getText().toString();
                 String newPhone = PhoneEditing.getText().toString();
-                switchBackToUserProfile(newName, newEmail, newPhone);
+
+                boolean found = false;
+                for(User user: ObjectContext.users) {
+                    if (user.getUsername().equals(newName)) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    error.setVisibility(VISIBLE);
+                } else {
+                    switchBackToUserProfile(newName, newEmail, newPhone);
+                }
             }
         });
 
@@ -63,10 +81,6 @@ public class EditProfilePage extends AppCompatActivity {
 
         ObjectContext.pushUserData(currentUser);
 
-        Intent intent = new Intent(this, UserProfilePage.class);
-        intent.putExtra(BACK_NAME, newName);
-        intent.putExtra(BACK_EMAIL, newEmail);
-        intent.putExtra(BACK_PHONE, newPhone);
-        startActivity(intent);
+        finish();
     }
 }

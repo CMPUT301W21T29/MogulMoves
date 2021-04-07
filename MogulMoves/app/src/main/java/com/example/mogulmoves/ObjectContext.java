@@ -97,6 +97,7 @@ public class ObjectContext {
      * @param experiment an Experiment object to add
      */
     public static void addExperiment(Experiment experiment) {
+        ObjectContext.experiments.add(experiment);
         pushExperimentData(experiment);
     }
 
