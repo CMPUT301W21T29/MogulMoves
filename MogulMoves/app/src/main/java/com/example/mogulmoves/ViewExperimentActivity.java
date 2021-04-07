@@ -2,19 +2,13 @@ package com.example.mogulmoves;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,8 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,13 +27,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import java.math.BigDecimal;
@@ -174,7 +163,20 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Map<String, Object> item = docData.get(position);
-        holder.txtPostItemUserName.setText(item.get("username").toString());
+        User poster = (User) ObjectContext.getObjectById((int) (long) item.get("user_id"));
+        String username = poster.getUsername();
+        if(username.length() <= 0) {
+            username = "(ID " + Integer.toString(poster.getId()) + ")";
+        }
+        holder.txtPostItemUserName.setText(username);
+        holder.txtPostItemUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), UserProfilePage.class);
+                i.putExtra("userID", (int) (long) item.get("user_id"));
+                v.getContext().startActivity(i);
+            }
+        });
         holder.txtPostItemDate.setText(item.get("date").toString());
         holder.txtPostItemTime.setText(item.get("time").toString());
         holder.txtPostItemContent.setText(item.get("content").toString());
@@ -184,13 +186,13 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
     public int getItemCount() {
         return docData.size();
     }
+
 }
 
 public class ViewExperimentActivity extends AppCompatActivity {
 
     int exp_id;
     Experiment experiment;
-    String loggedInUserName;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView postList;
     ArrayList<Map<String, Object>> items = new ArrayList<>();
@@ -211,12 +213,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
         adapter3 = new ListItemAdapter3(items);
         postList.setAdapter(adapter3);
         postList.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
-
-
-        loggedInUserName = getIntent().getStringExtra("loggedInUser");
-        if (loggedInUserName.length() <= 0 || loggedInUserName == null) {
-            loggedInUserName = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
-        }
 
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
         self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
@@ -244,6 +240,12 @@ public class ViewExperimentActivity extends AppCompatActivity {
         updateDataDisplay();
     }
 
+    public void goToOwnerProfile(View view) {
+        Intent i = new Intent(getApplicationContext(), UserProfilePage.class);
+        i.putExtra("userID", experiment.getOwner());
+        startActivity(i);
+    }
+
 
     public void updateDataDisplay() {
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
@@ -252,11 +254,9 @@ public class ViewExperimentActivity extends AppCompatActivity {
         description.setText(experiment.getDescription());
 
         TextView owner = findViewById(R.id.exp_list_item_owner);
-        User exp_owner = (User) ObjectContext.getObjectById(experiment.getOwner());
+        User exp_owner = (User)ObjectContext.getObjectById(experiment.getOwner());
 
-        Log.d("e", exp_owner.getUsername());
-
-        if (exp_owner.getUsername().length() <= 0 || exp_owner.getUsername() == null) {
+        if(exp_owner.getUsername().length() <= 0 || exp_owner.getUsername() == null) {
             String str = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
             owner.setText(str);
         } else {
@@ -314,13 +314,12 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
     }
 
-    public void openAddTrialFragment2() {
+    public void openAddTrialFragment2 () {
         Button b = findViewById(R.id.add_trial_button);
         openAddTrialFragment(b);
     }
 
-    public void openAddTrialFragment(View view) {
-        currentLocation();
+    public void openAddTrialFragment (View view) {
         if (experiment instanceof BinomialExperiment) {
             AddBinomialTrialFragment newFragment = AddBinomialTrialFragment.newInstance(exp_id);
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
@@ -330,14 +329,14 @@ public class ViewExperimentActivity extends AppCompatActivity {
             AddNNCountTrialFragment newFragment = AddNNCountTrialFragment.newInstance(exp_id);
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
 
-        } else if (experiment instanceof IntegerCountExperiment) {
-            if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
-                EditCountTrialFragment newFragment = EditCountTrialFragment.newInstance(exp_id);
-                newFragment.show(getSupportFragmentManager(), "EDIT_TRIAL");
-            } else {
-                AddCountTrialFragment newFragment = AddCountTrialFragment.newInstance(exp_id);
-                newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
-            }
+        } else if(experiment instanceof IntegerCountExperiment) {
+                if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
+                    EditCountTrialFragment newFragment = EditCountTrialFragment.newInstance(exp_id);
+                    newFragment.show(getSupportFragmentManager(), "EDIT_TRIAL");
+                } else {
+                    AddCountTrialFragment newFragment = AddCountTrialFragment.newInstance(exp_id);
+                    newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
+                }
         } else {
             AddMeasureTrialFragment newFragment = AddMeasureTrialFragment.newInstance(exp_id);
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
@@ -345,20 +344,20 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
     }
 
-    public void openHistogramFragment(View view) {
+    public void openHistogramFragment (View view) {
         HistogramFragment newFragment = HistogramFragment.newInstance(exp_id);
         newFragment.show(getSupportFragmentManager(), "VIEW_HISTOGRAM");
     }
 
-    public void openTimePlotFragment(View view) {
+    public void openTimePlotFragment (View view) {
         TimePlotFragment newFragment = TimePlotFragment.newInstance(exp_id);
         newFragment.show(getSupportFragmentManager(), "VIEW_TIME_PLOT");
     }
 
     /**
-     * open the map of trial locations
-     * */
-    public void openMapFragment(View view) {
+    * open the map of trial locations
+    * */
+    public void openMapFragment(View view){
         //Initialize fragment
         /*Fragment fragment = new MapFragment();
 
@@ -367,74 +366,9 @@ public class ViewExperimentActivity extends AppCompatActivity {
                 .replace(R.id.map_linear_layout,fragment)
                 .commit();*/
         Intent intent = new Intent(this, MapAdaptor.class);
+        intent.putExtra("whichExperiment", Integer.toString(exp_id));
         startActivity(intent);
     }
-
-    //*********WORKING*************//
-    public void currentLocation() {
-        FusedLocationProviderClient fusedLocationProviderClient;
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-                    Location location = task.getResult();
-                    if (location != null) {
-                        try {
-                            Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
-
-                            List<Address> addressList = geocoder.getFromLocation
-                                    (location.getLatitude(),location.getLongitude(),1);
-                            double locationLatitude = addressList.get(0).getLatitude();
-                            double locationLongitude = addressList.get(0).getLongitude();
-                        }catch (IOException e){
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
-            });
-
-        } else {
-            ActivityCompat.requestPermissions(ViewExperimentActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-        }
-        /*Button b = findViewById(R.id.add_trial_button);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                    fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Location> task) {
-                            Location location = task.getResult();
-                            if (location != null) {
-                                try {
-                                    Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
-
-                                    List<Address> addressList = geocoder.getFromLocation
-                                            (location.getLatitude(),location.getLongitude(),1);
-                                }catch (IOException e){
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }
-                    });
-
-                } else {
-                    ActivityCompat.requestPermissions(ViewExperimentActivity.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                }
-            }
-        });*/
-    }
-
 
 
 
@@ -486,7 +420,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
                     Map<String, Object> docData = new HashMap<>();
                     docData.put("content", content);
-                    docData.put("username", loggedInUserName);
+                    docData.put("user_id", (long) ObjectContext.userDatabaseId);
                     docData.put("date", date);
                     docData.put("time", time);
                     docData.put("exp_id", exp_id);
