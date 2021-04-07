@@ -14,8 +14,9 @@ public class User extends SavedObject {
     private String email;
     private String phone;
 
-    private ArrayList<Integer> subscribed;
-    private ArrayList<Integer> ignored;
+    private final ArrayList<Integer> subscribed;
+    private final ArrayList<Integer> ignored;
+    private final ArrayList<Integer> barcodes;
 
     private Location defaultLocation;
 
@@ -37,6 +38,7 @@ public class User extends SavedObject {
 
         subscribed = new ArrayList<>();
         ignored = new ArrayList<>();
+        barcodes = new ArrayList<>();
 
     }
 
@@ -59,6 +61,7 @@ public class User extends SavedObject {
 
         subscribed = new ArrayList<>();
         ignored = new ArrayList<>();
+        barcodes = new ArrayList<>();
 
     }
 
@@ -177,6 +180,33 @@ public class User extends SavedObject {
      */
     public ArrayList<Integer> getIgnored() {
         return ignored;
+    }
+
+    /**
+     * Adds a barcode to the list of registered barcodes.
+     *
+     * @param barcode the id of a barcode to ignore
+     */
+    public void addBarcode(int barcode) {
+        barcodes.add(barcode);
+    }
+
+    /**
+     * Removes an experiment from the list of registered barcodes.
+     *
+     * @param barcode the id of a barcode to remove
+     */
+    public void removeBarcode(int barcode) {
+        ignored.remove(Integer.valueOf(barcode));
+    }
+
+    /**
+     * Returns the list of registered barcodes.
+     *
+     * @return the list of registered barcodes
+     */
+    public ArrayList<Integer> getBarcodes() {
+        return barcodes;
     }
 
     /**

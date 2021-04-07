@@ -27,8 +27,10 @@
             android:layout_weight="1" />
 
         <ImageView
+            android:id="@+id/scan_qr_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:onClick="scanCode"
             android:src="@drawable/ic_baseline_qr_code" />
 
         <ImageButton

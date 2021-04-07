@@ -22,6 +22,7 @@ public class ObjectContext {
     public static ArrayList<Experiment> experiments = new ArrayList<>();
     public static ArrayList<Trial> trials = new ArrayList<>();
     public static ArrayList<Message> messages = new ArrayList<>();
+    public static ArrayList<Barcode> barcodes = new ArrayList<>();
 
     public static ArrayList<ArrayAdapter> adapters = new ArrayList<>();
 
@@ -62,6 +63,12 @@ public class ObjectContext {
         for(Message message: messages) {
             if(message.getId() == id) {
                 return message;
+            }
+        }
+
+        for(Barcode barcode: barcodes) {
+            if(barcode.getId() == id) {
+                return barcode;
             }
         }
 
@@ -108,9 +115,7 @@ public class ObjectContext {
      * @param user a User object to add
      */
     public static void addUser(User user) {
-
         pushUserData(user);
-
     }
 
     /**
@@ -142,6 +147,21 @@ public class ObjectContext {
 
         pushMessageData(message);
         pushExperimentData(experiment);
+
+    }
+
+    /**
+     * Adds a barcode to the list of barcodes.
+     * Pushes its data to the database, will cause refresh of all barcodes.
+     *
+     * @param barcode a Barbarcode object to add
+     */
+    public static void addBarbarcode(Barcode barcode, User user) {
+
+        user.addBarcode(barcode.getId());
+
+        pushBarbarcodeData(barcode);
+        pushUserData(user);
 
     }
 
@@ -194,6 +214,19 @@ public class ObjectContext {
         MessageSerializer serializer = new MessageSerializer();
         DatabaseHandler.pushData("messages", "" + message.getId(),
                 serializer.toData(message));
+
+    }
+
+    /**
+     * Pushes the data for a barcode to the database.
+     *
+     * @param barcode a barcode to push
+     */
+    public static void pushBarbarcodeData(Barcode barcode) {
+
+        BarcodeSerializer serializer = new BarcodeSerializer();
+        DatabaseHandler.pushData("barcodes", "" + barcode.getId(),
+                serializer.toData(barcode));
 
     }
 

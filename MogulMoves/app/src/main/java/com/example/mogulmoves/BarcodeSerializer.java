@@ -1,0 +1,40 @@
+package com.example.mogulmoves;
+
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * Class to convert Barcode objects into savable data and vice-versa.
+ */
+public class BarcodeSerializer implements Serializer<Barcode> {
+
+    /**
+     * Converts the necessary data from a User into a HashMap.
+     *
+     * @param barcode a Barcode object to have it's data pulled and converted
+     * @return a HashMap containing key/value pairs of all the necessary data
+     */
+    public HashMap<String, Object> toData(Barcode barcode){
+
+        HashMap<String, Object> map = new HashMap<>();
+
+        // todo
+
+        return map;
+
+    }
+
+    /**
+     * Converts a HashMap of object data into a User.
+     *
+     * @param map a HashMap containing all the necessary key/value pairs to construct the barcode
+     * @return a Barcode object with the properties and attributes specified by the data
+     */
+    public Barcode fromData(HashMap<String, Object> map){
+
+        // todo
+
+        return null;
+
+    }
+}
