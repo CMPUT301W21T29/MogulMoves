@@ -19,5 +19,7 @@ public class MapAdaptor extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.map_frame_layout,fragment)
                 .commit();
+        /*ViewExperimentActivity viewExperimentActivity = new ViewExperimentActivity();
+        viewExperimentActivity.currentLocation();*/
     }
 }

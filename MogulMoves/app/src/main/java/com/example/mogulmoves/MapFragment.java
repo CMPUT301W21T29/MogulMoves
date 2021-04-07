@@ -74,6 +74,20 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                MarkerOptions testAddress = new MarkerOptions();
+                LatLng AddressLatLng = new LatLng(53.483110, -113.505320);
+                //another test*********
+                MarkerOptions testAddress2 = new MarkerOptions();
+                LatLng AddressLatLng2 = new LatLng(53.493110, -113.505320);
+                testAddress2.position(AddressLatLng2);
+                googleMap.addMarker(testAddress2);
+                //************
+                testAddress.position(AddressLatLng);
+                googleMap.addMarker(testAddress);
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AddressLatLng,13));
+
+
+
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
