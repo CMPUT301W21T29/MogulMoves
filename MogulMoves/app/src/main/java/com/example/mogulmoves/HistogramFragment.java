@@ -32,7 +32,7 @@ public class HistogramFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
     private List<Float> floatData = new ArrayList<>();
     private List<Integer> integerData = new ArrayList<>();
-    private List<Float> binomialData = new ArrayList<>();
+    private List<Integer> binomialData = new ArrayList<>();
     private BarChart barChart;
     private int experimentType;
     private ArrayList<BarEntry> histogramData = new ArrayList<>();
@@ -79,8 +79,8 @@ public class HistogramFragment extends DialogFragment {
 
     public HistogramFragment(BinomialExperiment experiment) {
         // binomial
-        binomialData.add(experiment.getSuccessRate());
-        binomialData.add((float) 1.0 - experiment.getSuccessRate());
+        binomialData.add(experiment.getTotalSuccesses());
+        binomialData.add(experiment.getTotalFailures());
 
         experimentType = 1;
     }
@@ -153,10 +153,11 @@ public class HistogramFragment extends DialogFragment {
             barDataSet = new BarDataSet(histogramData, "Successes");
             barDataSet1 = new BarDataSet(histogramData, "Failures");
 
+            barDataSet.setColor(Color.GREEN);
+            barDataSet1.setColors(new int[] {Color.GREEN, Color.RED});
+
             barData = new BarData(barDataSet, barDataSet1);
 
-            barDataSet.setColor(Color.GREEN);
-            barDataSet1.setColor(Color.RED);
         }
         else {
             barDataSet = new BarDataSet(histogramData, "Data");
@@ -179,6 +180,7 @@ public class HistogramFragment extends DialogFragment {
         xAxis.setGranularity(1);
         xAxis.setCenterAxisLabels(true);
         xAxis.setGranularityEnabled(true);
+        xAxis.setEnabled(false);
         barChart.getDescription().setEnabled(false);
 
         float barSpace = 0.02f;
