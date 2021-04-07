@@ -26,8 +26,8 @@ public class NonNegativeCountTrial extends Trial {
      * @param experimenter the id of the user that did the trial
      * @param count the counted number associated with the trial
      */
-    public NonNegativeCountTrial(int id, int experimenter, int count) {
-        super(id, experimenter);
+    public NonNegativeCountTrial(int id, long timestamp, int experimenter, int count) {
+        super(id, timestamp, experimenter);
 
         this.count = count;
     }

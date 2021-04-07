@@ -19,6 +19,7 @@ public class TrialSerializer implements Serializer<Trial> {
 
         map.put("id", trial.getId());
         map.put("owner", trial.getExperimenter());
+        map.put("timestamp", trial.getTimestamp());
 
         if(trial instanceof BinomialTrial){
 
@@ -59,26 +60,27 @@ public class TrialSerializer implements Serializer<Trial> {
         int type = (int) (long) map.get("type");
         int id = (int) (long) map.get("id");
         int owner = (int) (long) map.get("owner");
+        long timestamp = (long) map.get("timestamp");
 
         if(type == 0) {
 
             boolean isSuccess = (boolean) map.get("isSuccess");
-            trial = new BinomialTrial(id, owner, isSuccess);
+            trial = new BinomialTrial(id, timestamp, owner, isSuccess);
 
         } else if(type == 1) {
 
             int count = (int) (long) map.get("count");
-            trial = new NonNegativeCountTrial(id, owner, count);
+            trial = new NonNegativeCountTrial(id, timestamp, owner, count);
 
         } else if(type == 2) {
 
             int count = (int) (long) map.get("count");
-            trial = new IntegerCountTrial(id, owner, count);
+            trial = new IntegerCountTrial(id, timestamp, owner, count);
 
         }  else {
 
             float measurement = (float) (double) map.get("measurement");
-            trial = new MeasureTrial(id, owner, measurement);
+            trial = new MeasureTrial(id, timestamp, owner, measurement);
         }
 
         return trial;
