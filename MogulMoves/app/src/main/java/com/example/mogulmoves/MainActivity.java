@@ -31,11 +31,15 @@ import java.util.Map;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
+
 /*Main activity. Displays a list of all experiments on the server. Clicking on any of them takes
 you to the respective experiment page. The toolbar also contains buttons to add a new experiment
 or view profile information, as well as scan QR and bar codes and search for specific experiments
 (last two not functional yet).
  */
+
+// some code adapted from https://programmerworld.co/android/how-to-create-your-own-qr-code-and-barcode-scanner-reader-android-app-complete-source-code
 
 public class MainActivity extends AppCompatActivity {
 
@@ -265,36 +269,39 @@ public class MainActivity extends AppCompatActivity {
         intentIntegrator.initiateScan();
     }
 
-    // code adapted from https://programmerworld.co/android/how-to-create-your-own-qr-code-and-barcode-scanner-reader-android-app-complete-source-code
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (intentResult != null){
+        if (intentResult != null) {
 
-            String encoded = intentResult.getContents();
+            String result = intentResult.getContents();
 
-            if (encoded == null) {
+            if (result == null) {
 
-                // no result
+                // no result, do something i guess
 
             } else {
 
-                boolean found = false;
+                if (intentResult.getFormatName() != QR_CODE) {
 
-                for(Barcode code: ObjectContext.barcodes) {
-                    if(code.getCode().equals(encoded)) {
+                    boolean found = false;
 
-                        // do something with code
+                    for (Barcode code: ObjectContext.barcodes) {
+                        if (code.getCode().equals(result)) {
 
-                        found = true;
+                            result = code.getAction();
+                            found = true;
 
+                        }
+                    }
+
+                    if (!found) {
+                        // code doesnt exist, do something i guess
                     }
                 }
 
-                if(!found) {
-                    // code doesnt exist
-                }
+                CodeHandler.handleCode(result);
 
             }
         }
