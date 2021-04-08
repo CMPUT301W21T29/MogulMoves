@@ -87,7 +87,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-
     public void updateDataDisplay() {
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
 
@@ -151,8 +150,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
             stats.setText(stats_string);
 
         }
-
-
     }
 
     public void openAddTrialFragment2() {
@@ -217,8 +214,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void toProfileActivity (View view)
-    {
+    public void toProfileActivity(View view) {
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(i);
     }

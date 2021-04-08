@@ -72,10 +72,12 @@
 
     </TableLayout>
 
-    <Button
+    <ToggleButton
+        android:id="@+id/btnUnpublishExperiment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="UNPUBLISH EXPERIMENT" />
+        android:textOff="REPUBLISH EXPERIMENT"
+        android:textOn="UNPUBLISH EXPERIMENT" />
 
     <Button
         android:id="@+id/back2"

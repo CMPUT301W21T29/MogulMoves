@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public abstract class Experiment extends SavedObject /*implements GeoExperiment*/ {
 
     private boolean active = true;
-    private final boolean visible;
+    private boolean visible;
     private final boolean locationRequired;
     private final String description;
     private final String region;
@@ -74,9 +74,6 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
 
     }
 
-    public void setActive(boolean active){
-        this.active = active;
-    }
 
     /**
      * Returns the active state of the experiment.
@@ -88,12 +85,28 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     }
 
     /**
+     * Sets the active state of the experiment.
+     *
+     * @param active the new active state of the experiment
+     */
+    public void setActive(boolean active){
+        this.active = active;
+    }
+
+    /**
      * Returns the visibility of the experiment.
      *
      * @return the visibility of the experiment
      */
     public boolean getVisible() {
         return visible;
+    }
+
+    /**
+     * Toggles the visibility of the experiment.
+     */
+    public void toggleVisible() {
+        visible = !visible;
     }
 
     /**
