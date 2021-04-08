@@ -11,7 +11,7 @@ public class UserSerializer implements Serializer<User> {
     /**
      * Converts the necessary data from a User into a HashMap.
      *
-     * @param user an Experiment object to have it's data pulled and converted
+     * @param user a User object to have it's data pulled and converted
      * @return a HashMap containing key/value pairs of all the necessary data
      */
     public HashMap<String, Object> toData(User user){
@@ -24,6 +24,7 @@ public class UserSerializer implements Serializer<User> {
         map.put("id", user.getId());
         map.put("subscribed", user.getSubscribed());
         map.put("ignored", user.getIgnored());
+        map.put("codes", user.getCodes());
         map.put("installationId", user.getInstallationId());
 
         return map;
@@ -33,7 +34,7 @@ public class UserSerializer implements Serializer<User> {
     /**
      * Converts a HashMap of object data into a User.
      *
-     * @param map a HashMap containing all the necessary key/value pairs to construct the message
+     * @param map a HashMap containing all the necessary key/value pairs to construct the user
      * @return a User object with the properties and attributes specified by the data
      */
     public User fromData(HashMap<String, Object> map){
@@ -56,6 +57,13 @@ public class UserSerializer implements Serializer<User> {
         try {
             for (long experiment: (List<Long>) map.get("ignored")) {
                 user.addIgnore((int) experiment);
+            }
+        } catch (java.lang.NullPointerException e) {
+        }
+
+        try {
+            for (long code: (List<Long>) map.get("codes")) {
+                user.addCode((int) code);
             }
         } catch (java.lang.NullPointerException e) {
         }
