@@ -414,7 +414,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
         } else {
             ActivityCompat.requestPermissions(ViewExperimentActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
         /*Button b = findViewById(R.id.add_trial_button);
         b.setOnClickListener(new View.OnClickListener() {
