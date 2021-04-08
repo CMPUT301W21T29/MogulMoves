@@ -106,12 +106,9 @@ public abstract class Trial extends SavedObject implements GeoTrial {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public Double[] getExperimenterGeo() {
-        //return trialLocation;
-        // for testing 06.04 only
-        Double random1 = ThreadLocalRandom.current().nextDouble(1, 89);
-        Double random2 = ThreadLocalRandom.current().nextDouble(-179, -1);
-        Double[] test1 = {random1, random2};
-        return test1;
+
+        Double[] location = {trialLocation[0], trialLocation[1]};
+        return location;
     }
 
 }

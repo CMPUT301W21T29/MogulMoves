@@ -175,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
                                                     FirebaseFirestoreException error) {
 
                                                 ObjectContext.experiments.clear();
-                                                System.out.println(ObjectContext.experiments.size());
 
                                                 for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
                                                     // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
@@ -218,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         // trial data listener
                                         CollectionReference collectionReference5 = db.collection("barcodes");
-                                        collectionReference3.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                        collectionReference5.addSnapshotListener(new EventListener<QuerySnapshot>() {
                                             @Override
                                             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                                                     FirebaseFirestoreException error) {

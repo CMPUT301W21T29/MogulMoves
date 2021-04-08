@@ -35,7 +35,6 @@ public class CodeHandler {
                 }
 
                 trial = new IntegerCountTrial(experimenter, 1);
-
                 break;
 
             default:
