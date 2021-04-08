@@ -17,12 +17,17 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -31,6 +36,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -211,10 +217,14 @@ public class ViewExperimentActivity extends AppCompatActivity {
     ListItemAdapter3 adapter3;
     User self;
 
+    ImageButton btnExpSettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_experiment);
+
+        btnExpSettings = (ImageButton) findViewById(R.id.btnExpSettings);
 
         exp_id = getIntent().getIntExtra("expID", -1);
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
@@ -438,6 +448,69 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
                     adapter3.notifyDataSetChanged();
                 }
+            }
+        });
+
+        btnExpSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Btn Clicked");
+                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.view_experiment_settings, null);
+
+                // create the popup window
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable = true; // lets taps outside the popup also dismiss it
+                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                // show the popup window
+                // which view you pass in doesn't matter, it is only used for the window tolken
+                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                // dismiss the popup window when touched
+                popupView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
+
+                Button btnEndExperiment = popupView.findViewById(R.id.btnEndExperiment);
+                btnEndExperiment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        db.collection("experiments").document(String.valueOf(exp_id))
+                                .update("enabled", false);
+
+                        popupWindow.dismiss();
+                    }
+                });
+
+                db.collection("experiments")
+                        .document(String.valueOf(exp_id))
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()) {
+                                    DocumentSnapshot ds = task.getResult();
+                                    Boolean enabled = null;
+
+                                    if(ds.get("enabled") != null) {
+                                        enabled = (boolean) ds.get("enabled");
+                                    }
+
+                                    if(enabled == null) {
+                                        db.collection("experiments").document(String.valueOf(exp_id))
+                                                .update("enabled", true);
+                                    } else if(enabled == false) {
+                                        btnEndExperiment.setEnabled(false);
+                                    }
+                                }
+                            }
+                        });
             }
         });
     }
