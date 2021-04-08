@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
                         Map<String, Object> data = doc.getData();
 
                         ObjectContext.nextId = (int) (long) data.get("nextId");
-                        ObjectContext.nextPostId = (int) (long) data.get("nextPostId");
 
                     }
                 }

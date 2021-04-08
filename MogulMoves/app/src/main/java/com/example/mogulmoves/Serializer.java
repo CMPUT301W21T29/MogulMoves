@@ -23,6 +23,12 @@ public abstract class Serializer<ObjectType> {
      */
     abstract ObjectType fromData(HashMap<String, Object> map);
 
+    /**
+     * Converts an unsure value into a double whether it is actually a long or double.
+     *
+     * @param value a value
+     * @return the value as a double
+     */
     protected double convertToDouble(Object value) {
         try {
             return (double) value;

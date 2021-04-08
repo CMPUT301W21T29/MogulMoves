@@ -11,11 +11,11 @@ import java.util.ArrayList;
 public abstract class Experiment extends SavedObject /*implements GeoExperiment*/ {
 
     private boolean active = true;
-    private boolean visible;
-    private boolean locationRequired;
-    private String description;
-    private String region;
-    private int minTrials;
+    private final boolean visible;
+    private final boolean locationRequired;
+    private final String description;
+    private final String region;
+    private final int minTrials;
     private final int owner;
 
     protected final ArrayList<Integer> trials;
@@ -157,6 +157,36 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
      */
     public ArrayList<Integer> getTrials() {
         return trials;
+    }
+
+    /**
+     * Returns the list of trials that haven't been ignored.
+     *
+     * @return the list of unignored trials
+     */
+    public ArrayList<Integer> getUnignoredTrials() {
+
+        ArrayList<Integer> currentUserIgnored = ((User) ObjectContext.getObjectById(ObjectContext.userDatabaseId)).getIgnored();
+        ArrayList<Integer> result = new ArrayList<>();
+
+        for(int trial: trials) {
+
+            boolean keep = true;
+            
+            for(int ignoredTrial: currentUserIgnored) {
+                if(trial == ignoredTrial) {
+                    keep = false;
+                    break;
+                }
+            }
+
+            if(keep) {
+                result.add(trial);
+            }
+        }
+
+        return result;
+
     }
 
     /**

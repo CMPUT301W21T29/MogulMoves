@@ -40,10 +40,4 @@ public class NonNegativeCountTrial extends Trial {
     public int getCount() {
         return count;
     }
-
-
-    /*@Override
-    public boolean setGeoRequired() {
-        return false;
-    }*/
 }
