@@ -8,7 +8,7 @@ public class CodeHandler {
         int id = Integer.parseInt(code.substring(4));
         Experiment experiment = (Experiment) ObjectContext.getObjectById(id);
         int experimenter = ObjectContext.userDatabaseId;
-        Trial trial = null;
+        Trial trial;
 
         switch(action) {
 
@@ -20,6 +20,8 @@ public class CodeHandler {
                 trial = new BinomialTrial(experimenter, false);
                 break;
 
+            case "add ":
+
             case "incr":
 
                 for(int trialId: experiment.getTrials()) {
@@ -28,7 +30,7 @@ public class CodeHandler {
 
                     if(checkTrial.getExperimenter() == experimenter) {
 
-                        ((IntegerCountTrial) trial).increment();
+                        ((IntegerCountTrial) checkTrial).increment();
                         return;
 
                     }
@@ -36,6 +38,10 @@ public class CodeHandler {
 
                 trial = new IntegerCountTrial(experimenter, 1);
 
+                break;
+
+            default:
+                trial = new NonNegativeCountTrial(experimenter, Integer.parseInt(action));
                 break;
 
         }

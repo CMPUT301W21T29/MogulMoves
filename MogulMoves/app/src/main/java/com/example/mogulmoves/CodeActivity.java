@@ -22,13 +22,5 @@ public class CodeActivity extends AppCompatActivity {
 
         codeList = findViewById(R.id.code_list);
 
-        codeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-            }
-        });
     }
 }

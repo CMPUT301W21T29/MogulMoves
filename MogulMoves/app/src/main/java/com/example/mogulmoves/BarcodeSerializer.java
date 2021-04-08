@@ -18,7 +18,11 @@ public class BarcodeSerializer implements Serializer<Barcode> {
 
         HashMap<String, Object> map = new HashMap<>();
 
-        // todo
+        map.put("experiment", barcode.getExperiment());
+        map.put("user", barcode.getUser());
+        map.put("code", barcode.getCode());
+        map.put("action", barcode.getAction());
+        map.put("id", barcode.getId());
 
         return map;
 
@@ -32,9 +36,13 @@ public class BarcodeSerializer implements Serializer<Barcode> {
      */
     public Barcode fromData(HashMap<String, Object> map){
 
-        // todo
+        int experiment = (int) (long) map.get("experiment");
+        int user = (int) (long) map.get("user");
+        String code = (String) map.get("code");
+        String action = (String) map.get("action");
+        int id = (int) (long) map.get("id");
 
-        return null;
+        return new Barcode(id, experiment, user, code, action);
 
     }
 }
