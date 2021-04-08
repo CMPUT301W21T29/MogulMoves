@@ -36,16 +36,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Amogus" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EngineerGameing" />
-
     </RelativeLayout>
 
     <TableLayout
@@ -56,6 +46,7 @@
         <TableRow>
 
             <TextView
+                android:id="@+id/num_trials"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trials: x/y"

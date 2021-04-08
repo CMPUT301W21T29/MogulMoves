@@ -173,6 +173,10 @@ public class ViewExperimentActivity extends AppCompatActivity {
     public void updateDataDisplay() {
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
 
+        if (ObjectContext.userDatabaseId != experiment.getOwner()) {
+            btnExpSettings.setVisibility(View.INVISIBLE);
+        }
+
         TextView description = findViewById(R.id.experiment_description);
         description.setText(experiment.getDescription());
 
@@ -184,6 +188,21 @@ public class ViewExperimentActivity extends AppCompatActivity {
             owner.setText(str);
         } else {
             owner.setText(exp_owner.getUsername());
+        }
+
+        Button trial_button = findViewById(R.id.add_trial_button);
+        if (experiment instanceof IntegerCountExperiment) {
+            if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
+                trial_button.setText("EDIT TRIAL");
+            }
+        }
+
+        LinearLayout trial_row = findViewById(R.id.trial_row);
+
+        if (!experiment.getActive()) {
+            trial_row.removeAllViews();
+            View new_view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.trial_ended, null);
+            trial_row.addView(new_view);
         }
 
         TextView trials = findViewById(R.id.experiment_trials);
@@ -204,13 +223,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
         } else {
             sub_button.setText("SUBSCRIBE");
             sub_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
-        }
-
-        Button trial_button = findViewById(R.id.add_trial_button);
-        if (experiment instanceof IntegerCountExperiment) {
-            if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
-                trial_button.setText("EDIT TRIAL");
-            }
         }
 
         if (experiment.getNumTrials() > 0) {

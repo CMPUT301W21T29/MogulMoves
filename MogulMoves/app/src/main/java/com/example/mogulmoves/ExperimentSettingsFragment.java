@@ -47,10 +47,16 @@ public class ExperimentSettingsFragment extends DialogFragment {
             public void onClick(View v) {
                 exp.setActive(false);
                 ObjectContext.pushExperimentData(exp);
+                btnEndExperiment.setEnabled(false);
+                ((ViewExperimentActivity) getActivity()).updateDataDisplay();
             }
         });
 
-        btnEndExperiment.setEnabled(exp.getActive());
+        TextView trials = dialog.findViewById(R.id.num_trials);
+        String trials_text = "Trials: " + exp.getNumTrials() + "/" + exp.getMinTrials();
+        trials.setText(trials_text);
+
+        btnEndExperiment.setEnabled(exp.getNumTrials() >= exp.getMinTrials() && exp.getActive());
 
         dialog.setTitle("Experiment Settings");
         dialog.setNegativeButton("BACK", backOCL);
