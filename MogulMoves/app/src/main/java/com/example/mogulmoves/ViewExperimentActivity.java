@@ -402,6 +402,8 @@ public class ViewExperimentActivity extends AppCompatActivity {
                                     (location.getLatitude(),location.getLongitude(),1);
                             double locationLatitude = addressList.get(0).getLatitude();
                             double locationLongitude = addressList.get(0).getLongitude();
+                            Log.d("getLocation","locationLatitude" + locationLatitude);
+                            Log.d("getLocation", "locationLongitude" + locationLongitude);
                         }catch (IOException e){
                             e.printStackTrace();
                         }
