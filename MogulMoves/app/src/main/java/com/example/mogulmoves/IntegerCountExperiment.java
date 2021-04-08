@@ -36,6 +36,12 @@ public class IntegerCountExperiment extends NonNegativeCountExperiment {
         super(id, owner, description, region, minTrials, locationRequired, visible);
     }
 
+    /**
+     * Checks if the user already has a trial for this experiment.
+     *
+     * @param user the id of the user to check
+     * @return a boolean representing whether the user has a trial already
+     */
     public boolean userHasTrial(int user) {
 
         for(int trial: trials) {
