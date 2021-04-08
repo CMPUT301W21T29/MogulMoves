@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        // trial data listener
+                                        // barcode data listener
                                         CollectionReference collectionReference5 = db.collection("barcodes");
                                         collectionReference5.addSnapshotListener(new EventListener<QuerySnapshot>() {
                                             @Override
