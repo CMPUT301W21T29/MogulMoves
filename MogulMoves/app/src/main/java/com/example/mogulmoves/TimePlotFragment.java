@@ -5,12 +5,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -43,6 +45,10 @@ public class TimePlotFragment extends DialogFragment {
     private int experimentType;
     private LineChart tpLineChart;
     private int numPoints, graphWidth = 0;
+    private List<Long> timeData = new ArrayList<>();
+    private long minTimeValue;
+    private String timeInterval;
+    private float maxTimeNum;
 
 
     // implement time storage whenever i figure out how exactly to store time variables
@@ -58,7 +64,11 @@ public class TimePlotFragment extends DialogFragment {
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
             IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            if (i == 0) {
+                minTimeValue = trial.getTimestamp();
+            }
             integerData.add(trial.getCount());
+            timeData.add(trial.getTimestamp() - minTimeValue);
         }
         experimentType = 0;
     }
@@ -74,7 +84,11 @@ public class TimePlotFragment extends DialogFragment {
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
             NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            if (i == 0) {
+                minTimeValue = trial.getTimestamp();
+            }
             integerData.add(trial.getCount());
+            timeData.add(trial.getTimestamp() - minTimeValue);
         }
         experimentType = 0;
     }
@@ -89,6 +103,7 @@ public class TimePlotFragment extends DialogFragment {
         // binomial
         binomialData.add(experiment.getSuccessRate());
         binomialData.add((float) 1.0 - experiment.getSuccessRate());
+        // timeData.add(trial.getTimestamp()); still dunno what im tracking for binomial time plots lol
 
         experimentType = 1;
     }
@@ -104,7 +119,11 @@ public class TimePlotFragment extends DialogFragment {
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
             MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            if (i == 0) {
+                minTimeValue = trial.getTimestamp();
+            }
             floatData.add(trial.getMeasurement());
+            timeData.add(trial.getTimestamp() - minTimeValue);
         }
         experimentType = 2;
     }
@@ -136,7 +155,9 @@ public class TimePlotFragment extends DialogFragment {
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
 
-        lineDataSet = new LineDataSet(dataValues(), "Data");
+
+
+        lineDataSet = new LineDataSet(dataValues(), "X: " + timeInterval + " after First Trial");
 
         dataSets.add(lineDataSet);
 
@@ -155,6 +176,8 @@ public class TimePlotFragment extends DialogFragment {
         xAxis.setGranularityEnabled(true);
         tpLineChart.getXAxis().setAxisMinimum(0);
         tpLineChart.getDescription().setEnabled(false);
+        tpLineChart.setVisibleXRangeMaximum(10);
+
 
         if (numPoints < 5) {
             graphWidth = 5;
@@ -162,7 +185,7 @@ public class TimePlotFragment extends DialogFragment {
         else {
             graphWidth = numPoints;
         }
-        tpLineChart.getXAxis().setAxisMaximum(graphWidth);
+        tpLineChart.getXAxis().setAxisMaximum(maxTimeNum);
 
         lineDataSet.setLineWidth(2f);
         lineDataSet.setColor(Color.BLUE);
@@ -180,29 +203,61 @@ public class TimePlotFragment extends DialogFragment {
 
     private ArrayList<Entry> dataValues() {
         ArrayList<Entry> timePlotData = new ArrayList<Entry>();
+        List<Float> timeDataReformatted = buildTimeList(timeData);
 
         switch(experimentType) {
             case 0:
                 for (int i=0; i<integerData.size(); i++) {
-                    timePlotData.add(new Entry(i+1, integerData.get(i)));
+                    timePlotData.add(new Entry(timeDataReformatted.get(i), integerData.get(i)));
                     numPoints++;
                 }
                 break;
             case 1:
                 for (int i=0; i<binomialData.size(); i++) {
-                    timePlotData.add(new Entry(i+1, binomialData.get(i)));
+                    timePlotData.add(new Entry(timeDataReformatted.get(i), binomialData.get(i)));
                     numPoints++;
                 }
                 break;
             case 2:
                 for (int i=0; i<floatData.size(); i++) {
-                    timePlotData.add(new Entry(i+1, floatData.get(i)));
+                    // timePlotData.add(new Entry(timeDataInt.get(i), floatData.get(i)));
+                    timePlotData.add(new Entry(timeDataReformatted.get(i), floatData.get(i)));
                     numPoints++;
                 }
                 break;
         }
 
         return timePlotData;
+    }
+
+    private List<Float> buildTimeList(List<Long> timeList) {
+        long determiner = timeList.get(timeList.size()-1);
+        List<Float> timeDataNew = new ArrayList<>();
+
+        for (int i=0; i<timeList.size(); i++) {
+            if (determiner < 1000 * 60 * 10) {                          // less than 10 minutes between first and last trial
+                float numToAdd = timeList.get(i) / 1000;
+                timeDataNew.add(numToAdd);
+                timeInterval = "Seconds";
+            }
+            else if (determiner < 1000 * 60 * 60 * 10) {                // between 10 minutes and 10 hours between first and last trials
+                float numToAdd = timeList.get(i) / (60* 1000);
+                timeDataNew.add(numToAdd);
+                timeInterval = "Minutes";
+            }
+            else if (determiner < 1000 * 60 * 60 * 24 * 5) {           // between 10 hours and 5 days between first and last trials
+                float numToAdd = timeList.get(i) / (60 * 60 * 1000);
+                timeDataNew.add(numToAdd);
+                timeInterval = "Hours";
+            }
+            else {                                                      // longer than 5 days between first and last trials
+                float numToAdd = timeList.get(i) / (24 * 60 * 60 * 1000);
+                timeDataNew.add(numToAdd);
+                timeInterval = "Days";
+            }
+        }
+        maxTimeNum = timeDataNew.get(timeDataNew.size()-1);
+        return timeDataNew;
     }
 
     static TimePlotFragment newInstance(int exp_id) {
