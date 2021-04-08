@@ -136,9 +136,9 @@ class ListItemAdapter2 extends BaseAdapter {
 
 class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder> {
     private static final String TAG = "ListItemAdapter";
-    ArrayList<Map<String, Object>> docData;
+    ArrayList<Message> docData;
 
-    public ListItemAdapter3(ArrayList<Map<String, Object>> docData) {
+    public ListItemAdapter3(ArrayList<Message> docData) {
         this.docData = docData;
     }
 
@@ -173,8 +173,8 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Map<String, Object> item = docData.get(position);
-        User poster = (User) ObjectContext.getObjectById((int) (long) item.get("user_id"));
+        Message message = docData.get(position);
+        User poster = (User) ObjectContext.getObjectById(message.getUser());
         String username = poster.getUsername();
         if (username.length() <= 0) {
             username = "(ID " + Integer.toString(poster.getId()) + ")";
@@ -184,13 +184,13 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), UserProfilePage.class);
-                i.putExtra("userID", (int) (long) item.get("user_id"));
+                i.putExtra("userID", message.getUser());
                 v.getContext().startActivity(i);
             }
         });
-        holder.txtPostItemDate.setText(item.get("date").toString());
-        holder.txtPostItemTime.setText(item.get("time").toString());
-        holder.txtPostItemContent.setText(item.get("content").toString());
+        holder.txtPostItemDate.setText(message.getDate());
+        holder.txtPostItemTime.setText(message.getTime());
+        holder.txtPostItemContent.setText(message.getText());
     }
 
     @Override
@@ -204,9 +204,8 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
     int exp_id;
     Experiment experiment;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView postList;
-    ArrayList<Map<String, Object>> items = new ArrayList<>();
+    ArrayList<Integer> items = new ArrayList<>();
 
     //ArrayAdapter<Map<String, Object>> adapter;
     ListItemAdapter3 adapter3;
@@ -221,7 +220,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
 
         postList = (RecyclerView) findViewById(R.id.lstPosts);
-        adapter3 = new ListItemAdapter3(items);
+        adapter3 = new ListItemAdapter3(ObjectContext.messages);
         postList.setAdapter(adapter3);
         postList.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -230,7 +229,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
         updateDataDisplay();
         addListeners();
-        loadPosts();
+
     }
 
     public void autoSub() {
@@ -331,7 +330,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     }
 
     public void openAddTrialFragment(View view) {
-        currentLocation();
+
         if (experiment instanceof BinomialExperiment) {
             AddBinomialTrialFragment newFragment = AddBinomialTrialFragment.newInstance(exp_id);
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
@@ -382,107 +381,10 @@ public class ViewExperimentActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //*********WORKING*************//
-    public void currentLocation() {
-        FusedLocationProviderClient fusedLocationProviderClient;
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-                    Location location = task.getResult();
-                    if (location != null) {
-                        try {
-                            Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
-
-                            List<Address> addressList = geocoder.getFromLocation
-                                    (location.getLatitude(),location.getLongitude(),1);
-                            double locationLatitude = addressList.get(0).getLatitude();
-                            double locationLongitude = addressList.get(0).getLongitude();
-                            Log.d("getLocation","locationLatitude" + locationLatitude);
-                            Log.d("getLocation", "locationLongitude" + locationLongitude);
-                        }catch (IOException e){
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
-            });
-
-        } else {
-            ActivityCompat.requestPermissions(ViewExperimentActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-        /*Button b = findViewById(R.id.add_trial_button);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                    fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Location> task) {
-                            Location location = task.getResult();
-                            if (location != null) {
-                                try {
-                                    Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
-
-                                    List<Address> addressList = geocoder.getFromLocation
-                                            (location.getLatitude(),location.getLongitude(),1);
-                                }catch (IOException e){
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }
-                    });
-
-                } else {
-                    ActivityCompat.requestPermissions(ViewExperimentActivity.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                }
-            }
-        });*/
-    }
-
-
-
-
-
     public void toProfileActivity (View view)
     {
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(i);
-    }
-
-    private void loadPosts() {
-        db.collection("posts")
-            .get()
-            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()) {
-
-                        int i = 0;
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Map<String, Object> docData = document.getData();
-                            String id = document.getId();
-                            int tmpExpId = Integer.parseInt(docData.get("exp_id").toString());
-                            if(tmpExpId == exp_id) {
-                                items.add(docData);
-                                System.out.println("Added: " + docData.get("content").toString());
-                                adapter3.notifyItemInserted(i);
-                                i++;
-                            }
-                        }
-                    }
-                }
-            });
-
     }
 
     private void addListeners() {
@@ -499,6 +401,10 @@ public class ViewExperimentActivity extends AppCompatActivity {
                     String date = dateSdf.format(new Date());
                     String time = timeSdf.format(new Date());
 
+                    Message message = new Message(ObjectContext.userDatabaseId, content, date, time);
+                    ObjectContext.addMessage(message, experiment);
+
+                    /*
                     Map<String, Object> docData = new HashMap<>();
                     docData.put("content", content);
                     docData.put("user_id", (long) ObjectContext.userDatabaseId);
@@ -528,7 +434,8 @@ public class ViewExperimentActivity extends AppCompatActivity {
                                 }
                             });
                     items.add(docData);
-                    System.out.println("Added: " + docData.get("content").toString());
+                    System.out.println("Added: " + docData.get("content").toString()); */
+
                     adapter3.notifyDataSetChanged();
                 }
             }

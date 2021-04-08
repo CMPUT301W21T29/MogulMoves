@@ -8,7 +8,7 @@ import static java.sql.Types.NULL;
 /**
  * Class to convert Experiment objects into savable data and vice-versa.
  */
-public class ExperimentSerializer implements Serializer<Experiment> {
+public class ExperimentSerializer extends Serializer<Experiment> {
 
     /**
      * Converts the necessary data from an Experiment into a HashMap.

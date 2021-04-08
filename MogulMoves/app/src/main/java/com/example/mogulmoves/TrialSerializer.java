@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * Class to convert Trial objects into savable data and vice-versa.
  */
-public class TrialSerializer implements Serializer<Trial> {
+public class TrialSerializer extends Serializer<Trial> {
 
     /**
      * Converts the necessary data from a Trial into a HashMap.
@@ -20,6 +20,10 @@ public class TrialSerializer implements Serializer<Trial> {
         map.put("id", trial.getId());
         map.put("owner", trial.getExperimenter());
         map.put("timestamp", trial.getTimestamp());
+
+        double[] trialLocation = trial.getTrialLocation();
+        map.put("locationLat", trialLocation[0]);
+        map.put("locationLong", trialLocation[1]);
 
         if(trial instanceof BinomialTrial){
 
@@ -61,26 +65,27 @@ public class TrialSerializer implements Serializer<Trial> {
         int id = (int) (long) map.get("id");
         int owner = (int) (long) map.get("owner");
         long timestamp = (long) map.get("timestamp");
+        double[] trialLocation = {convertToDouble(map.get("locationLat")), convertToDouble(map.get("locationLong"))};
 
         if(type == 0) {
 
             boolean isSuccess = (boolean) map.get("isSuccess");
-            trial = new BinomialTrial(id, timestamp, owner, isSuccess);
+            trial = new BinomialTrial(id, timestamp, owner, isSuccess, trialLocation);
 
         } else if(type == 1) {
 
             int count = (int) (long) map.get("count");
-            trial = new NonNegativeCountTrial(id, timestamp, owner, count);
+            trial = new NonNegativeCountTrial(id, timestamp, owner, count, trialLocation);
 
         } else if(type == 2) {
 
             int count = (int) (long) map.get("count");
-            trial = new IntegerCountTrial(id, timestamp, owner, count);
+            trial = new IntegerCountTrial(id, timestamp, owner, count, trialLocation);
 
         }  else {
 
             float measurement = (float) (double) map.get("measurement");
-            trial = new MeasureTrial(id, timestamp, owner, measurement);
+            trial = new MeasureTrial(id, timestamp, owner, measurement, trialLocation);
         }
 
         return trial;
