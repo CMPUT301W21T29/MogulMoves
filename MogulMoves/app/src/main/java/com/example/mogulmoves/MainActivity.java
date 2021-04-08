@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                                             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                                                     FirebaseFirestoreException error) {
 
-                                                ObjectContext.codes.clear();
+                                                ObjectContext.barcodes.clear();
 
                                                 for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
                                                     // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
@@ -215,9 +215,9 @@ public class MainActivity extends AppCompatActivity {
 
                                                     BarcodeSerializer serializer = new BarcodeSerializer();
                                                     HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
-                                                    Code code = serializer.fromData(data);
+                                                    Barcode code = serializer.fromData(data);
 
-                                                    ObjectContext.codes.add(code);
+                                                    ObjectContext.barcodes.add(code);
                                                     ObjectContext.refreshAdapters();
 
                                                 }
@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
                 boolean found = false;
 
-                for(Code code: ObjectContext.codes) {
+                for(Barcode code: ObjectContext.barcodes) {
                     if(code.getCode().equals(encoded)) {
 
                         // do something with code
