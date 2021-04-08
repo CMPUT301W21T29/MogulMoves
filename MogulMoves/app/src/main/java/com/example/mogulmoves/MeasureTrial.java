@@ -26,8 +26,8 @@ public class MeasureTrial extends Trial {
      * @param experimenter the id of the user that did the trial
      * @param measurement the measurement associated with the trial
      */
-    public MeasureTrial(int id, long timestamp, int experimenter, float measurement) {
-        super(id, timestamp, experimenter);
+    public MeasureTrial(int id, long timestamp, int experimenter, float measurement, double[] trialLocation) {
+        super(id, timestamp, experimenter, trialLocation);
 
         this.measurement = measurement;
     }

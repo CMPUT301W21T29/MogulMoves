@@ -20,8 +20,6 @@ public class CodeHandler {
                 trial = new BinomialTrial(experimenter, false);
                 break;
 
-            case "add ":
-
             case "incr":
 
                 for(int trialId: experiment.getTrials()) {

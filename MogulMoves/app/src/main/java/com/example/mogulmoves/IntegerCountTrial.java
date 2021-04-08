@@ -22,8 +22,8 @@ public class IntegerCountTrial extends NonNegativeCountTrial{
      * @param experimenter the id of the user that did the trial
      * @param count the counted number associated with the trial
      */
-    public IntegerCountTrial(int id, long timestamp, int experimenter, int count) {
-        super(id, timestamp, experimenter, count);
+    public IntegerCountTrial(int id, long timestamp, int experimenter, int count, double[] trialLocation) {
+        super(id, timestamp, experimenter, count, trialLocation);
     }
 
     /**

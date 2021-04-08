@@ -24,7 +24,7 @@ public class UserSerializer implements Serializer<User> {
         map.put("id", user.getId());
         map.put("subscribed", user.getSubscribed());
         map.put("ignored", user.getIgnored());
-        map.put("codes", user.getCodes());
+        map.put("codes", user.getBarcodes());
         map.put("installationId", user.getInstallationId());
 
         return map;
@@ -63,7 +63,7 @@ public class UserSerializer implements Serializer<User> {
 
         try {
             for (long code: (List<Long>) map.get("codes")) {
-                user.addCode((int) code);
+                user.addBarcode((int) code);
             }
         } catch (java.lang.NullPointerException e) {
         }

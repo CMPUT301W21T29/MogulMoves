@@ -3,6 +3,9 @@ package com.example.mogulmoves;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,8 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,8 +32,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.installations.FirebaseInstallations;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -62,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 PackageManager.PERMISSION_GRANTED);
 
         setupDatabaseListeners();
+        setLocation();
 
         expList = findViewById(R.id.experiment_list);
 
@@ -205,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
                                         });
 
                                         // trial data listener
-                                        CollectionReference collectionReference5 = db.collection("codes");
+                                        CollectionReference collectionReference5 = db.collection("barcodes");
                                         collectionReference3.addSnapshotListener(new EventListener<QuerySnapshot>() {
                                             @Override
                                             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
@@ -240,6 +252,76 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setLocation() {
+        FusedLocationProviderClient fusedLocationProviderClient;
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
+        if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+                    if (location != null) {
+                        try {
+                            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+
+                            List<Address> addressList = geocoder.getFromLocation
+                                    (location.getLatitude(), location.getLongitude(), 1);
+                            double locationLatitude = addressList.get(0).getLatitude();
+                            double locationLongitude = addressList.get(0).getLongitude();
+                            Log.d("getLocation", "locationLatitude" + locationLatitude);
+                            Log.d("getLocation", "locationLongitude" + locationLongitude);
+
+                            ObjectContext.location[0] = locationLatitude;
+                            ObjectContext.location[1] = locationLongitude;
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            });
+
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+            /*Button b = findViewById(R.id.add_trial_button);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
+                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Location> task) {
+                                Location location = task.getResult();
+                                if (location != null) {
+                                    try {
+                                        Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
+
+                                        List<Address> addressList = geocoder.getFromLocation
+                                                (location.getLatitude(),location.getLongitude(),1);
+                                    }catch (IOException e){
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+                        });
+
+                    } else {
+                        ActivityCompat.requestPermissions(ViewExperimentActivity.this,
+                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                    }
+                }
+            });*/
     }
 
     public void toUserProfilePage (View view) {
