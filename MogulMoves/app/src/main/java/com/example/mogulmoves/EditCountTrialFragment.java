@@ -39,7 +39,7 @@ public class EditCountTrialFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public CustomDialog onCreateDialog (@Nullable Bundle savedInstanceState) {
+    public CustomIncrementDialog onCreateDialog (@Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.edit_count_trial_fragment, null);
         count = view.findViewById(R.id.display_count);
         int exp_id = (int) getArguments().getSerializable("exp_id");
@@ -50,7 +50,7 @@ public class EditCountTrialFragment extends DialogFragment {
 
         count.setText(count_string);
 
-        CustomDialog dialog = new CustomDialog(getContext(), view);
+        CustomIncrementDialog dialog = new CustomIncrementDialog(getContext(), view);
 
         dialog.setView(view);
         dialog.setTitle("EDIT TRIAL");
