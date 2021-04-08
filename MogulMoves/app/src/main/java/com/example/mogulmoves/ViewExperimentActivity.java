@@ -30,6 +30,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -243,7 +248,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     }
 
     public void openAddTrialFragment(View view) {
-
+        setLocation();
         if (experiment instanceof BinomialExperiment) {
             AddBinomialTrialFragment newFragment = AddBinomialTrialFragment.newInstance(exp_id);
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
@@ -297,6 +302,45 @@ public class ViewExperimentActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MapAdaptor.class);
         intent.putExtra("whichExperiment", Integer.toString(exp_id));
         startActivity(intent);
+    }
+
+    public void setLocation() {
+        FusedLocationProviderClient fusedLocationProviderClient;
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+                    if (location != null) {
+                        try {
+                            Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
+
+                            List<Address> addressList = geocoder.getFromLocation
+                                    (location.getLatitude(), location.getLongitude(), 1);
+                            double locationLatitude = addressList.get(0).getLatitude();
+                            double locationLongitude = addressList.get(0).getLongitude();
+                            Log.d("getLocation", "locationLatitude" + locationLatitude);
+                            Log.d("getLocation", "locationLongitude" + locationLongitude);
+
+                            ObjectContext.location[0] = locationLatitude;
+                            ObjectContext.location[1] = locationLongitude;
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+        } else {
+            ActivityCompat.requestPermissions(ViewExperimentActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 22);
+        }
+
     }
 
     public void toProfileActivity (View view)
