@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        // trial message data listener
+                                        // experiment message data listener
                                         CollectionReference collectionReference4 = db.collection("messages");
                                         collectionReference4.addSnapshotListener(new EventListener<QuerySnapshot>() {
                                             @Override

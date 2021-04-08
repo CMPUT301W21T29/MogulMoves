@@ -1,22 +1,16 @@
 package com.example.mogulmoves;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mogulmoves.Message;
-import com.example.mogulmoves.ObjectContext;
-import com.example.mogulmoves.R;
-import com.example.mogulmoves.User;
-import com.example.mogulmoves.UserProfilePage;
-
 import java.util.ArrayList;
+
+//Custom adapter for listing potential users to ignore in ExperimentSettingsFragment.
 
 class IgnoreUserAdapter extends RecyclerView.Adapter<com.example.mogulmoves.IgnoreUserAdapter.ViewHolder> {
     private static final String TAG = "IgnoreUserAdapter";

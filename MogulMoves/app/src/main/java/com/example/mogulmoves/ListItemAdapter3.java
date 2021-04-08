@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//Custom adapter for listing experiment messages.
+
 class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder> {
     private static final String TAG = "ListItemAdapter";
     ArrayList<Message> docData;

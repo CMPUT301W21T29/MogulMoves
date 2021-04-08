@@ -23,6 +23,12 @@ import java.util.Date;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
+/*
+ * Activity to view details about an experiment, including statistics, minimum and current trials,
+ * and histograms, time plots and maps of trials. Also includes functionality to add trials, subscribe,
+ * and post messages on the forum.
+ */
+
 public class ViewExperimentActivity extends AppCompatActivity {
 
     int exp_id;
@@ -229,12 +235,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MapAdaptor.class);
         intent.putExtra("whichExperiment", Integer.toString(exp_id));
         startActivity(intent);
-    }
-
-    public void toProfileActivity (View view)
-    {
-        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
-        startActivity(i);
     }
 
     private void addListeners() {

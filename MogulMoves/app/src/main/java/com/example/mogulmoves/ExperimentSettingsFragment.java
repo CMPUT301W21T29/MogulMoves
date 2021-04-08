@@ -12,7 +12,11 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.ArrayList;
 
-//Fragment to increment the count of a pre-existing count trial.
+/**
+ * Fragment to edit settings of an experiment, including unpublishing or ending it, as well as
+ * ignoring trials of certain users.
+ */
+
 
 public class ExperimentSettingsFragment extends DialogFragment {
     private TextView count;
