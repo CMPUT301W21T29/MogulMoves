@@ -14,6 +14,7 @@ public class CodeActivity extends AppCompatActivity {
     ListView codeList;
     ArrayAdapter<Barcode> codeAdapter;
     ToggleButton registerBarCode;
+    ListView codeListView = findViewById(R.id.code_list);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
