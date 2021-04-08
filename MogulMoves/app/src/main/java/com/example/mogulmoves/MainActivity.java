@@ -37,7 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -69,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                PackageManager.PERMISSION_GRANTED);
 
         setupDatabaseListeners();
         setLocation();
@@ -281,7 +278,6 @@ public class MainActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }
             });
@@ -290,6 +286,11 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
+
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                PackageManager.PERMISSION_GRANTED);
+
             /*Button b = findViewById(R.id.add_trial_button);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override

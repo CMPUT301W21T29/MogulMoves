@@ -157,11 +157,11 @@ public class ObjectContext {
      *
      * @param barcode a Barbarcode object to add
      */
-    public static void addBarbarcode(Barcode barcode, User user) {
+    public static void addBarcode(Barcode barcode, User user) {
 
         user.addBarcode(barcode.getId());
 
-        pushBarbarcodeData(barcode);
+        pushBarcodeData(barcode);
         pushUserData(user);
 
     }
@@ -223,7 +223,7 @@ public class ObjectContext {
      *
      * @param barcode a barcode to push
      */
-    public static void pushBarbarcodeData(Barcode barcode) {
+    public static void pushBarcodeData(Barcode barcode) {
 
         BarcodeSerializer serializer = new BarcodeSerializer();
         DatabaseHandler.pushData("barcodes", "" + barcode.getId(),
