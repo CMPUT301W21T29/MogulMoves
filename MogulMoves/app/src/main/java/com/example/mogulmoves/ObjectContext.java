@@ -16,7 +16,7 @@ public class ObjectContext {
     public static int nextId;
     public static int userDatabaseId;
     public static String installationId;
-    public static int nextPostId = 10000;
+    public static double[] location = new double[2];
 
     public static ArrayList<User> users = new ArrayList<>();
     public static ArrayList<Experiment> experiments = new ArrayList<>();
@@ -88,7 +88,10 @@ public class ObjectContext {
         keyword = keyword.toLowerCase();
 
         for(Experiment experiment: experiments) {
-            if(experiment.getDescription().toLowerCase().contains(keyword)){
+            if((experiment.getDescription().toLowerCase().contains(keyword) ||
+                    experiment.getRegion().toLowerCase().contains(keyword) ||
+                    ((User) ObjectContext.getObjectById(experiment.getOwner())).getUsername().toLowerCase().contains(keyword)
+                    ) && experiment.getActive() && experiment.getVisible()){
                 found.add(experiment);
             }
         }
@@ -156,11 +159,11 @@ public class ObjectContext {
      *
      * @param barcode a Barbarcode object to add
      */
-    public static void addBarbarcode(Barcode barcode, User user) {
+    public static void addBarcode(Barcode barcode, User user) {
 
         user.addBarcode(barcode.getId());
 
-        pushBarbarcodeData(barcode);
+        pushBarcodeData(barcode);
         pushUserData(user);
 
     }
@@ -222,7 +225,7 @@ public class ObjectContext {
      *
      * @param barcode a barcode to push
      */
-    public static void pushBarbarcodeData(Barcode barcode) {
+    public static void pushBarcodeData(Barcode barcode) {
 
         BarcodeSerializer serializer = new BarcodeSerializer();
         DatabaseHandler.pushData("barcodes", "" + barcode.getId(),

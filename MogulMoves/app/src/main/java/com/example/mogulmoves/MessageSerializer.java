@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Class to convert Message objects into savable data and vice-versa.
  */
-public class MessageSerializer implements Serializer<Message> {
+public class MessageSerializer extends Serializer<Message> {
 
     /**
      * Converts the necessary data from a Message into a HashMap.
@@ -21,6 +21,8 @@ public class MessageSerializer implements Serializer<Message> {
         map.put("text", message.getText());
         map.put("user", message.getUser());
         map.put("id", message.getId());
+        map.put("date", message.getDate());
+        map.put("time", message.getTime());
 
         return map;
 
@@ -37,8 +39,10 @@ public class MessageSerializer implements Serializer<Message> {
         String text = (String) map.get("text");
         int user = (int) (long) map.get("user");
         int id =  (int) (long) map.get("id");
+        String date = (String) map.get("date");
+        String time = (String) map.get("time");
 
-        Message message = new Message(id, user, text);
+        Message message = new Message(id, user, text, date, time);
 
         return message;
 

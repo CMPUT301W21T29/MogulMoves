@@ -7,9 +7,18 @@ public class Barcode extends SavedObject {
     private final String code;
     private final String action;
 
-
     public Barcode(int id, int experiment, int user, String code, String action) {
         super(id);
+
+        this.experiment = experiment;
+        this.user = user;
+        this.code = code;
+        this.action = action;
+
+    }
+
+    public Barcode(int experiment, int user, String code, String action) {
+        super();
 
         this.experiment = experiment;
         this.user = user;
@@ -30,6 +39,7 @@ public class Barcode extends SavedObject {
         return code;
     }
 
-
-    public String getAction() { return action; }
+    public String getAction() {
+        return action;
+    }
 }

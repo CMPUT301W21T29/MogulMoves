@@ -26,8 +26,8 @@ public class BinomialTrial extends Trial {
      * @param experimenter the id of the user that did the trial
      * @param isSuccess whether or not the trial was a success
      */
-    public BinomialTrial(int id, long timestamp, int experimenter, boolean isSuccess) {
-        super(id, timestamp, experimenter);
+    public BinomialTrial(int id, long timestamp, int experimenter, boolean isSuccess, double[] trialLocation) {
+        super(id, timestamp, experimenter, trialLocation);
 
         this.isSuccess = isSuccess;
     }

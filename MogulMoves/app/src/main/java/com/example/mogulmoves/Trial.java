@@ -1,14 +1,10 @@
 package com.example.mogulmoves;
 
-import android.location.Location;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Abstract class to represent a trial of an experiment.
@@ -18,7 +14,7 @@ public abstract class Trial extends SavedObject implements GeoTrial {
     private final int experimenter;
     private final long timestamp;
 
-    private Double[] trialLocation = new Double[2];
+    private final double[] trialLocation;
 
     /**
      * Creates the trial.
@@ -30,6 +26,7 @@ public abstract class Trial extends SavedObject implements GeoTrial {
 
         this.experimenter = experimenter;
         this.timestamp = new Date().getTime();
+        this.trialLocation = ObjectContext.location;
 
     }
 
@@ -40,11 +37,12 @@ public abstract class Trial extends SavedObject implements GeoTrial {
      * @param timestamp when the trial was done
      * @param experimenter the id of the user that did the trial
      */
-    public Trial(int id, long timestamp, int experimenter) {
+    public Trial(int id, long timestamp, int experimenter, double[] trialLocation) {
         super(id);
 
         this.experimenter = experimenter;
         this.timestamp = timestamp;
+        this.trialLocation = trialLocation;
 
     }
 
@@ -70,6 +68,10 @@ public abstract class Trial extends SavedObject implements GeoTrial {
     /**
      * Set experimenter's default location as this trial's location
      */
+    public double[] getTrialLocation() {
+        return trialLocation;
+    }
+
     /*
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void addExperimenterGeo() {
@@ -86,12 +88,8 @@ public abstract class Trial extends SavedObject implements GeoTrial {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public Double[] getExperimenterGeo() {
-        //return trialLocation;
-        // for testing 06.04 only
-        Double random1 = ThreadLocalRandom.current().nextDouble(1, 89);
-        Double random2 = ThreadLocalRandom.current().nextDouble(-179, -1);
-        Double[] test1 = {random1, random2};
-        return test1;
+
+        return new Double[]{trialLocation[0], trialLocation[1]};
     }
 
 }

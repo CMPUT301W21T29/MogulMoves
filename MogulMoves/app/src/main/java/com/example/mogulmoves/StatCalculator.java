@@ -56,7 +56,7 @@ public class StatCalculator {
         }
 
         quartiles[0] = getMedian(Arrays.copyOfRange(values, 0, values.length / 2));
-        quartiles[1] = getMedian(Arrays.copyOfRange(values, (int) ceil(values.length / 2), values.length));
+        quartiles[1] = getMedian(Arrays.copyOfRange(values, (int) ceil(values.length / 2.0), values.length));
 
         return quartiles;
     }

@@ -15,9 +15,11 @@
 
 
         <ImageButton
+            android:id="@+id/btnExpSettings"
             style="@style/ButtonCustom"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:onClick="openSettingsFragment"
             android:src="@drawable/ic_baseline_settings" />
 
     </LinearLayout>

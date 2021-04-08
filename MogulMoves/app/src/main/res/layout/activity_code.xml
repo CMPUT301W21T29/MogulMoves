@@ -37,14 +37,11 @@
             android:layout_weight="1"
             android:text="Generate QR Code" />
 
-        <ToggleButton
+        <Button
             android:id="@+id/register_bar_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:checked="false"
-            android:text="Register Bar Code"
-            android:textOff="Register Bar Code"
-            android:textOn="Register Bar Code" />
+            android:text="Register Bar Code" />
     </LinearLayout>
 </LinearLayout>

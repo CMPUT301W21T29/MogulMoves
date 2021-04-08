@@ -26,8 +26,8 @@ public class NonNegativeCountTrial extends Trial {
      * @param experimenter the id of the user that did the trial
      * @param count the counted number associated with the trial
      */
-    public NonNegativeCountTrial(int id, long timestamp, int experimenter, int count) {
-        super(id, timestamp, experimenter);
+    public NonNegativeCountTrial(int id, long timestamp, int experimenter, int count, double[] trialLocation) {
+        super(id, timestamp, experimenter, trialLocation);
 
         this.count = count;
     }
@@ -40,10 +40,4 @@ public class NonNegativeCountTrial extends Trial {
     public int getCount() {
         return count;
     }
-
-
-    /*@Override
-    public boolean setGeoRequired() {
-        return false;
-    }*/
 }

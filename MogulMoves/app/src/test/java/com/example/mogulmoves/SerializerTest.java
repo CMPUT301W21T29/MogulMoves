@@ -89,6 +89,9 @@ public class SerializerTest {
         map.put("id", (long) 1398);
         map.put("type", (long) 0);
         map.put("isSuccess", true);
+        map.put("timestamp", (long) 5);
+        map.put("locationLat", (double) 1);
+        map.put("locationLong", (double) 2);
 
         Trial trial = serializer.fromData(map);
 
