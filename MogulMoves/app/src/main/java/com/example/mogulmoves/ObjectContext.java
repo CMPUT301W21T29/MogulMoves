@@ -89,7 +89,10 @@ public class ObjectContext {
         keyword = keyword.toLowerCase();
 
         for(Experiment experiment: experiments) {
-            if(experiment.getDescription().toLowerCase().contains(keyword)){
+            if((experiment.getDescription().toLowerCase().contains(keyword) ||
+                    experiment.getRegion().toLowerCase().contains(keyword) ||
+                    ((User) ObjectContext.getObjectById(experiment.getOwner())).getUsername().toLowerCase().contains(keyword)
+                    ) && experiment.getActive() && experiment.getVisible()){
                 found.add(experiment);
             }
         }
