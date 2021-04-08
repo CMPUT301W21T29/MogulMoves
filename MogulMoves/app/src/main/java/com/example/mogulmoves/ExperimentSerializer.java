@@ -29,6 +29,7 @@ public class ExperimentSerializer extends Serializer<Experiment> {
         map.put("owner", experiment.getOwner());
         map.put("trials", experiment.getTrials());
         map.put("messages", experiment.getMessages());
+        map.put("ignoredUsers", experiment.getIgnoredUsers());
         map.put("id", experiment.getId());
 
         if(experiment instanceof BinomialExperiment){
@@ -72,9 +73,6 @@ public class ExperimentSerializer extends Serializer<Experiment> {
         int owner = (int) (long) map.get("owner");
         int id = (int) (long) map.get("id");
 
-        List<Long> trials = (List<Long>) map.get("trials");
-        List<Long> messages = (List<Long>) map.get("messages");
-
         if(type == 0) {
             experiment = new BinomialExperiment(id, owner, description, region,
                     minTrials, locationRequired, visible);
@@ -92,20 +90,25 @@ public class ExperimentSerializer extends Serializer<Experiment> {
                     minTrials, locationRequired, visible);
         }
 
-        System.out.println(experiment.getLocationRequired());
-
         experiment.setActive(active);
 
         try {
-            for(long trial: trials){
+            for(long trial: (List<Long>) map.get("trials")){
                 experiment.addTrial((int) trial);
             }
         } catch (java.lang.NullPointerException e) {
         }
 
         try {
-            for (long message : messages) {
+            for (long message: (List<Long>) map.get("messages")) {
                 experiment.addMessage((int) message);
+            }
+        } catch (java.lang.NullPointerException e) {
+        }
+
+        try {
+            for (long ignoredUser: (List<Long>) map.get("ignoredUsers")) {
+                experiment.addIgnoredUser((int) ignoredUser);
             }
         } catch (java.lang.NullPointerException e) {
         }

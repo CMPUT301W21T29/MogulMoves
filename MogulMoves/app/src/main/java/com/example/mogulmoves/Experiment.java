@@ -3,6 +3,7 @@ package com.example.mogulmoves;
 import android.location.Location;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,7 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
 
     protected final ArrayList<Integer> trials;
     private final ArrayList<Integer> messages;
+    private final ArrayList<Integer> ignoredUsers;
 
     /**
      * Creates the experiment.
@@ -44,6 +46,7 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
 
         trials = new ArrayList<>();
         messages = new ArrayList<>();
+        ignoredUsers = new ArrayList<>();
 
     }
 
@@ -71,6 +74,7 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
 
         trials = new ArrayList<>();
         messages = new ArrayList<>();
+        ignoredUsers = new ArrayList<>();
 
     }
 
@@ -164,30 +168,20 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     }
 
     /**
-     * Returns the list of trials added to the experiment.
-     *
-     * @return the list of trials added to the experiment
-     */
-    public ArrayList<Integer> getTrials() {
-        return trials;
-    }
-
-    /**
      * Returns the list of trials that haven't been ignored.
      *
      * @return the list of unignored trials
      */
     public ArrayList<Integer> getUnignoredTrials() {
 
-        ArrayList<Integer> currentUserIgnored = ((User) ObjectContext.getObjectById(ObjectContext.userDatabaseId)).getIgnored();
         ArrayList<Integer> result = new ArrayList<>();
 
         for(int trial: trials) {
 
             boolean keep = true;
             
-            for(int ignoredTrial: currentUserIgnored) {
-                if(trial == ignoredTrial) {
+            for(int ignoredUser: ignoredUsers) {
+                if(((Trial) ObjectContext.getObjectById(trial)).getExperimenter() == ignoredUser) {
                     keep = false;
                     break;
                 }
@@ -203,15 +197,6 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     }
 
     /**
-     * Returns the list of messages added to the experiment.
-     *
-     * @return the list of messages added to the experiment
-     */
-    public ArrayList<Integer> getMessages() {
-        return messages;
-    }
-
-    /**
      * Adds a trial to the experiment.
      *
      * @param trial the id of a trial to add to this experiment
@@ -221,12 +206,48 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     }
 
     /**
+     * Returns the list of trials added to the experiment.
+     *
+     * @return the list of trials added to the experiment
+     */
+    public ArrayList<Integer> getTrials() {
+        return trials;
+    }
+
+    /**
      * Adds a reply to the experiment thread.
      *
      * @param message the id of a message to add to this experiment
      */
     public void addMessage(int message){
         messages.add(message);
+    }
+
+    /**
+     * Returns the list of messages added to the experiment.
+     *
+     * @return the list of messages added to the experiment
+     */
+    public ArrayList<Integer> getMessages() {
+        return messages;
+    }
+
+    /**
+     * Adds an experimenter to the list of ignored experimenters.
+     *
+     * @param experimenter the id of an experimenter to ignore
+     */
+    public void addIgnoredUser(int experimenter) {
+        ignoredUsers.add(experimenter);
+    }
+
+    /**
+     * Returns the list of users that have been ignored.
+     *
+     * @return the list of ignored users
+     */
+    public ArrayList<Integer> getIgnoredUsers() {
+        return ignoredUsers;
     }
 
     /**

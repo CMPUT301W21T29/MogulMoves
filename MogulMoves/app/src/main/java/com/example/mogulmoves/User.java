@@ -15,7 +15,6 @@ public class User extends SavedObject {
     private String phone;
 
     private final ArrayList<Integer> subscribed;
-    private final ArrayList<Integer> ignored;
     private final ArrayList<Integer> barcodes;
 
     private Location defaultLocation;
@@ -37,7 +36,6 @@ public class User extends SavedObject {
         this.phone = phone;
 
         subscribed = new ArrayList<>();
-        ignored = new ArrayList<>();
         barcodes = new ArrayList<>();
 
     }
@@ -60,7 +58,6 @@ public class User extends SavedObject {
         this.phone = phone;
 
         subscribed = new ArrayList<>();
-        ignored = new ArrayList<>();
         barcodes = new ArrayList<>();
 
     }
@@ -156,36 +153,9 @@ public class User extends SavedObject {
     }
 
     /**
-     * Adds an experiment to the list of ignored experimenters.
-     *
-     * @param experimenter the id of an experimenter to ignore
-     */
-    public void addIgnore(int experimenter) {
-        ignored.add(experimenter);
-    }
-
-    /**
-     * Removes an experiment from the list of ignored experimenters.
-     *
-     * @param experimenter the id of an experimenter to unignore
-     */
-    public void removeIgnore(int experimenter) {
-        ignored.remove(Integer.valueOf(experimenter));
-    }
-
-    /**
-     * Returns the list of experimenters that have been ignored.
-     *
-     * @return the list of ignored experimenters
-     */
-    public ArrayList<Integer> getIgnored() {
-        return ignored;
-    }
-
-    /**
      * Adds a barcode to the list of registered barcodes.
      *
-     * @param barcode the id of a barcode to ignore
+     * @param barcode the id of a barcode to register
      */
     public void addBarcode(int barcode) {
         barcodes.add(barcode);
@@ -197,7 +167,7 @@ public class User extends SavedObject {
      * @param barcode the id of a barcode to remove
      */
     public void removeBarcode(int barcode) {
-        ignored.remove(Integer.valueOf(barcode));
+        barcodes.remove(Integer.valueOf(barcode));
     }
 
     /**
