@@ -14,7 +14,7 @@ public class CustomSettingsDialog extends AlertDialog {
     public CustomSettingsDialog(Context context, View view) {
         super(context);
         setContentView(view);
-        negative = (Button)findViewById(R.id.back_button);
+        negative = (Button)findViewById(R.id.back2);
     }
 
     public void setNegativeButton(String buttonText, View.OnClickListener listener) {

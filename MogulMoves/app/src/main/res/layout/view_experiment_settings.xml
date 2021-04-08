@@ -8,13 +8,6 @@
     android:paddingRight="20dp"
     android:paddingBottom="20dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Experiment Settings"
-        android:textColor="#000000"
-        android:textSize="24sp" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -33,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@drawable/border"
         android:orientation="horizontal"
         android:paddingLeft="21dp"
         android:paddingRight="20dp">
@@ -84,6 +78,7 @@
         android:text="UNPUBLISH EXPERIMENT" />
 
     <Button
+        android:id="@+id/back2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="BACK" />
