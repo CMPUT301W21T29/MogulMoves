@@ -75,13 +75,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
     @Override
     protected void onRestart() {
         super.onRestart();
 
         expAdapter.notifyDataSetChanged();
 
-    }
+    }*/
 
     private void setupDatabaseListeners() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
