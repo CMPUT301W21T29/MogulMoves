@@ -1,5 +1,7 @@
 package com.example.mogulmoves;
 
+import java.util.ArrayList;
+
 /**
  * Class to represent an experiment using decimal valued trials.
  */
@@ -45,17 +47,13 @@ public class MeasureExperiment extends Experiment {
 
         int length = trials.size();
         float[] values = new float[length];
+        ArrayList<Integer> unignoredTrials = getUnignoredTrials();
 
         for(int i = 0; i < length; i++) {
-            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(trials.get(i));
+            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(unignoredTrials.get(i));
             values[i] = trial.getMeasurement();
         }
 
         return values;
-    }
-
-    @Override
-    public boolean getLocationRequired() {
-        return false;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.mogulmoves;
 
+import java.util.ArrayList;
+
 /**
  * Class to represent an experiment using binomial trials.
  */
@@ -40,10 +42,11 @@ public class BinomialExperiment extends Experiment {
 
         int length = trials.size();
         float[] values = new float[length];
+        ArrayList<Integer> unignoredTrials = getUnignoredTrials();
 
         for(int i = 0; i < length; i++) {
 
-            BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(trials.get(i));
+            BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(unignoredTrials.get(i));
 
             if(trial.getIsSuccess()) {
                 values[i] = 1;

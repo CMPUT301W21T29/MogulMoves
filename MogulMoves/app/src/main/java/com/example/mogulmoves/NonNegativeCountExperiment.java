@@ -1,5 +1,7 @@
 package com.example.mogulmoves;
 
+import java.util.ArrayList;
+
 /**
  * Class to represent an experiment using positive whole number valued trials.
  */
@@ -45,17 +47,13 @@ public class NonNegativeCountExperiment extends Experiment {
 
         int length = trials.size();
         float[] values = new float[length];
+        ArrayList<Integer> unignoredTrials = getUnignoredTrials();
 
         for(int i = 0; i < length; i++) {
-            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(trials.get(i));
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(unignoredTrials.get(i));
             values[i] = (float) trial.getCount();
         }
 
         return values;
-    }
-
-    @Override
-    public boolean getLocationRequired() {
-        return false;
     }
 }
