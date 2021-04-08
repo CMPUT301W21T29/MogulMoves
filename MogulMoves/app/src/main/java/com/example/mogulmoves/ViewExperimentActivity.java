@@ -481,13 +481,17 @@ public class ViewExperimentActivity extends AppCompatActivity {
                 btnEndExperiment.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        db.collection("experiments").document(String.valueOf(exp_id))
-                                .update("enabled", false);
+
+                        experiment.setActive(false);
+                        ObjectContext.pushExperimentData(experiment);
 
                         popupWindow.dismiss();
                     }
                 });
 
+                btnEndExperiment.setEnabled(experiment.getActive());
+
+                /*
                 db.collection("experiments")
                         .document(String.valueOf(exp_id))
                         .get()
@@ -510,7 +514,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
                                     }
                                 }
                             }
-                        });
+                        });*/
             }
         });
     }
