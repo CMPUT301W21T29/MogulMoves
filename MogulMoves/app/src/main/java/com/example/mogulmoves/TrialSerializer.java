@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * Class to convert Trial objects into savable data and vice-versa.
  */
-public class TrialSerializer implements Serializer<Trial> {
+public class TrialSerializer extends Serializer<Trial> {
 
     /**
      * Converts the necessary data from a Trial into a HashMap.
@@ -65,7 +65,7 @@ public class TrialSerializer implements Serializer<Trial> {
         int id = (int) (long) map.get("id");
         int owner = (int) (long) map.get("owner");
         long timestamp = (long) map.get("timestamp");
-        double[] trialLocation = {(double) map.get("locationLat"), (double) map.get("locationLong")};
+        double[] trialLocation = {convertToDouble(map.get("locationLat")), convertToDouble(map.get("locationLong"))};
 
         if(type == 0) {
 

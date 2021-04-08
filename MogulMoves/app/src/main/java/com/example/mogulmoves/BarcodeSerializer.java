@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Class to convert Barcode objects into savable data and vice-versa.
  */
-public class BarcodeSerializer implements Serializer<Barcode> {
+public class BarcodeSerializer extends Serializer<Barcode> {
 
     /**
      * Converts the necessary data from a User into a HashMap.

@@ -5,8 +5,10 @@ package com.example.mogulmoves;
  */
 public class Message extends SavedObject {
 
-    int user;
-    String text;
+    private final int user;
+    private final String text;
+    private final String date;
+    private final String time;
 
     /**
      * Creates the message.
@@ -14,11 +16,13 @@ public class Message extends SavedObject {
      * @param user the id of the user that created the message
      * @param text the text of the message
      */
-    public Message(int user, String text) {
+    public Message(int user, String text, String date, String time) {
         super();
 
         this.user = user;
         this.text = text;
+        this.date = date;
+        this.time = time;
     }
 
     /**
@@ -28,11 +32,13 @@ public class Message extends SavedObject {
      * @param user the id of the user that created the message
      * @param text the text of the message
      */
-    public Message(int id, int user, String text) {
+    public Message(int id, int user, String text, String date, String time) {
         super(id);
 
         this.user = user;
         this.text = text;
+        this.date = date;
+        this.time = time;
     }
 
     /**
@@ -51,5 +57,13 @@ public class Message extends SavedObject {
      */
     public String getText() {
         return text;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
     }
 }

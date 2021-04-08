@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Class to convert User objects into savable data and vice-versa.
  */
-public class UserSerializer implements Serializer<User> {
+public class UserSerializer extends Serializer<User> {
 
     /**
      * Converts the necessary data from a User into a HashMap.

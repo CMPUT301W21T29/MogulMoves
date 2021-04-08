@@ -212,6 +212,30 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                         });
 
+                                        // trial message data listener
+                                        CollectionReference collectionReference4 = db.collection("messages");
+                                        collectionReference4.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                                                    FirebaseFirestoreException error) {
+
+                                                ObjectContext.messages.clear();
+
+                                                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                                                    // Log.d(TAG, String.valueOf(doc.getData().get("Province Name")));
+                                                    // some kind of log message here
+
+                                                    MessageSerializer serializer = new MessageSerializer();
+                                                    HashMap<String, Object> data = (HashMap<String, Object>) doc.getData();
+                                                    Message message = serializer.fromData(data);
+
+                                                    ObjectContext.messages.add(message);
+                                                    ObjectContext.refreshAdapters();
+
+                                                }
+                                            }
+                                        });
+
                                         // trial data listener
                                         CollectionReference collectionReference5 = db.collection("barcodes");
                                         collectionReference5.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -383,7 +407,46 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                CodeHandler.handleCode(result);
+                String action = result.substring(0, 4);
+                int id = Integer.parseInt(result.substring(4));
+                Experiment experiment = (Experiment) ObjectContext.getObjectById(id);
+                int experimenter = ObjectContext.userDatabaseId;
+                Trial trial;
+
+                switch(action) {
+
+                    case "succ":
+                        trial = new BinomialTrial(experimenter, true);
+                        break;
+
+                    case "fail":
+                        trial = new BinomialTrial(experimenter, false);
+                        break;
+
+                    case "incr":
+
+                        for(int trialId: experiment.getTrials()) {
+
+                            Trial checkTrial = (Trial) ObjectContext.getObjectById(trialId);
+
+                            if(checkTrial.getExperimenter() == experimenter) {
+
+                                ((IntegerCountTrial) checkTrial).increment();
+                                return;
+
+                            }
+                        }
+
+                        trial = new IntegerCountTrial(experimenter, 1);
+                        break;
+
+                    default:
+                        trial = new NonNegativeCountTrial(experimenter, Integer.parseInt(action));
+                        break;
+
+                }
+
+                ObjectContext.addTrial(trial, experiment);
 
             }
         }

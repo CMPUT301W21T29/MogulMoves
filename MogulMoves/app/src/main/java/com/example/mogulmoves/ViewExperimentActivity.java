@@ -136,9 +136,9 @@ class ListItemAdapter2 extends BaseAdapter {
 
 class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder> {
     private static final String TAG = "ListItemAdapter";
-    ArrayList<Map<String, Object>> docData;
+    ArrayList<Message> docData;
 
-    public ListItemAdapter3(ArrayList<Map<String, Object>> docData) {
+    public ListItemAdapter3(ArrayList<Message> docData) {
         this.docData = docData;
     }
 
@@ -173,8 +173,8 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Map<String, Object> item = docData.get(position);
-        User poster = (User) ObjectContext.getObjectById((int) (long) item.get("user_id"));
+        Message message = docData.get(position);
+        User poster = (User) ObjectContext.getObjectById(message.getUser());
         String username = poster.getUsername();
         if (username.length() <= 0) {
             username = "(ID " + Integer.toString(poster.getId()) + ")";
@@ -184,13 +184,13 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), UserProfilePage.class);
-                i.putExtra("userID", (int) (long) item.get("user_id"));
+                i.putExtra("userID", message.getUser());
                 v.getContext().startActivity(i);
             }
         });
-        holder.txtPostItemDate.setText(item.get("date").toString());
-        holder.txtPostItemTime.setText(item.get("time").toString());
-        holder.txtPostItemContent.setText(item.get("content").toString());
+        holder.txtPostItemDate.setText(message.getDate());
+        holder.txtPostItemTime.setText(message.getTime());
+        holder.txtPostItemContent.setText(message.getText());
     }
 
     @Override
@@ -204,9 +204,8 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
     int exp_id;
     Experiment experiment;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView postList;
-    ArrayList<Map<String, Object>> items = new ArrayList<>();
+    ArrayList<Integer> items = new ArrayList<>();
 
     //ArrayAdapter<Map<String, Object>> adapter;
     ListItemAdapter3 adapter3;
@@ -221,7 +220,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
 
         postList = (RecyclerView) findViewById(R.id.lstPosts);
-        adapter3 = new ListItemAdapter3(items);
+        adapter3 = new ListItemAdapter3(ObjectContext.messages);
         postList.setAdapter(adapter3);
         postList.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -230,7 +229,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
         updateDataDisplay();
         addListeners();
-        loadPosts();
+
     }
 
     public void autoSub() {
@@ -388,32 +387,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    private void loadPosts() {
-        db.collection("posts")
-            .get()
-            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()) {
-
-                        int i = 0;
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Map<String, Object> docData = document.getData();
-                            String id = document.getId();
-                            int tmpExpId = Integer.parseInt(docData.get("exp_id").toString());
-                            if(tmpExpId == exp_id) {
-                                items.add(docData);
-                                System.out.println("Added: " + docData.get("content").toString());
-                                adapter3.notifyItemInserted(i);
-                                i++;
-                            }
-                        }
-                    }
-                }
-            });
-
-    }
-
     private void addListeners() {
         Button btnNewPost = findViewById(R.id.new_post_button);
         btnNewPost.setOnClickListener(new View.OnClickListener() {
@@ -428,6 +401,10 @@ public class ViewExperimentActivity extends AppCompatActivity {
                     String date = dateSdf.format(new Date());
                     String time = timeSdf.format(new Date());
 
+                    Message message = new Message(ObjectContext.userDatabaseId, content, date, time);
+                    ObjectContext.addMessage(message, experiment);
+
+                    /*
                     Map<String, Object> docData = new HashMap<>();
                     docData.put("content", content);
                     docData.put("user_id", (long) ObjectContext.userDatabaseId);
@@ -457,7 +434,8 @@ public class ViewExperimentActivity extends AppCompatActivity {
                                 }
                             });
                     items.add(docData);
-                    System.out.println("Added: " + docData.get("content").toString());
+                    System.out.println("Added: " + docData.get("content").toString()); */
+
                     adapter3.notifyDataSetChanged();
                 }
             }
