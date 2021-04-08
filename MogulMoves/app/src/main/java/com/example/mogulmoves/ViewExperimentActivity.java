@@ -1,13 +1,5 @@
 package com.example.mogulmoves;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,18 +9,18 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -36,92 +28,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-
-import java.math.BigDecimal;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
-
-class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder> {
-    private static final String TAG = "ListItemAdapter";
-    ArrayList<Message> docData;
-
-    public ListItemAdapter3(ArrayList<Message> docData) {
-        this.docData = docData;
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView txtPostItemUserName;
-        public final TextView txtPostItemDate;
-        public final TextView txtPostItemTime;
-        public final TextView txtPostItemContent;
-
-        public ViewHolder(View view) {
-            super(view);
-            // Define click listener for the ViewHolder's View
-            txtPostItemUserName = (TextView) view.findViewById(R.id.txtPostItemUserName);
-            txtPostItemDate = (TextView) view.findViewById(R.id.txtPostItemDate);
-            txtPostItemTime = (TextView) view.findViewById(R.id.txtPostItemTime);
-            txtPostItemContent = (TextView) view.findViewById(R.id.txtPostItemContent);
-            // txtPostItemUserName.setText(item.get("username").toString());
-            // txtPostItemDate.setText(item.get("date").toString());
-            // txtPostItemTime.setText(item.get("time").toString());
-            // txtPostItemContent.setText(item.get("content").toString());
-        }
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.view_experiment_post_item, viewGroup, false);
-
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Message message = docData.get(position);
-        User poster = (User) ObjectContext.getObjectById(message.getUser());
-        String username = poster.getUsername();
-        if (username.length() <= 0) {
-            username = "(ID " + Integer.toString(poster.getId()) + ")";
-        }
-        holder.txtPostItemUserName.setText(username);
-        holder.txtPostItemUserName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), UserProfilePage.class);
-                i.putExtra("userID", message.getUser());
-                v.getContext().startActivity(i);
-            }
-        });
-        holder.txtPostItemDate.setText(message.getDate());
-        holder.txtPostItemTime.setText(message.getTime());
-        holder.txtPostItemContent.setText(message.getText());
-    }
-
-    @Override
-    public int getItemCount() {
-        return docData.size();
-    }
-
-}
 
 public class ViewExperimentActivity extends AppCompatActivity {
 
     int exp_id;
     Experiment experiment;
     RecyclerView postList;
-    ArrayList<Integer> items = new ArrayList<>();
+    ArrayList<Message> items;
 
-    //ArrayAdapter<Map<String, Object>> adapter;
     ListItemAdapter3 adapter3;
     User self;
 
@@ -137,13 +59,20 @@ public class ViewExperimentActivity extends AppCompatActivity {
         exp_id = getIntent().getIntExtra("expID", -1);
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
 
-        postList = (RecyclerView) findViewById(R.id.lstPosts);
-        adapter3 = new ListItemAdapter3(ObjectContext.messages);
-        postList.setAdapter(adapter3);
-        postList.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
-
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
         self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+
+        postList = (RecyclerView) findViewById(R.id.lstPosts);
+
+        items = new ArrayList<>();
+
+        for(int message: experiment.getMessages()) {
+            items.add((Message) ObjectContext.getObjectById(message));
+        }
+
+        adapter3 = new ListItemAdapter3(items);
+        postList.setAdapter(adapter3);
+        postList.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
 
         updateDataDisplay();
         addListeners();
@@ -248,7 +177,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     }
 
     public void openAddTrialFragment(View view) {
-        setLocation();
+        currentLocation();
         if (experiment instanceof BinomialExperiment) {
             AddBinomialTrialFragment newFragment = AddBinomialTrialFragment.newInstance(exp_id);
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
@@ -304,7 +233,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void setLocation() {
+    public void currentLocation() {
         FusedLocationProviderClient fusedLocationProviderClient;
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -320,25 +249,25 @@ public class ViewExperimentActivity extends AppCompatActivity {
                             Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
 
                             List<Address> addressList = geocoder.getFromLocation
-                                    (location.getLatitude(), location.getLongitude(), 1);
+                                    (location.getLatitude(),location.getLongitude(),1);
                             double locationLatitude = addressList.get(0).getLatitude();
                             double locationLongitude = addressList.get(0).getLongitude();
-                            Log.d("getLocation", "locationLatitude" + locationLatitude);
+                            Log.d("getLocation","locationLatitude" + locationLatitude);
                             Log.d("getLocation", "locationLongitude" + locationLongitude);
 
                             ObjectContext.location[0] = locationLatitude;
                             ObjectContext.location[1] = locationLongitude;
-
-                        } catch (IOException e) {
+                        }catch (IOException e){
                             e.printStackTrace();
                         }
+
                     }
                 }
             });
 
         } else {
             ActivityCompat.requestPermissions(ViewExperimentActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 22);
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
     }
@@ -365,6 +294,9 @@ public class ViewExperimentActivity extends AppCompatActivity {
 
                     Message message = new Message(ObjectContext.userDatabaseId, content, date, time);
                     ObjectContext.addMessage(message, experiment);
+
+                    items.add(message);
+                    adapter3.notifyDataSetChanged();
 
                     /*
                     Map<String, Object> docData = new HashMap<>();
@@ -398,7 +330,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
                     items.add(docData);
                     System.out.println("Added: " + docData.get("content").toString()); */
 
-                    adapter3.notifyDataSetChanged();
                 }
             }
         });

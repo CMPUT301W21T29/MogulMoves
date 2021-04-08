@@ -49,26 +49,4 @@ public class DatabaseHandler {
                     }
                 });
     }
-
-    /**
-     * Pulls a collection of data from Firebase.
-     *
-     * @param collection the id of collection to pull the data from
-     * @returns an ArrayList of HashMap objects, each one containing the data from a document
-     */
-    /*public static ArrayList<HashMap<String, Object>> pullData(String collection) {
-
-        ArrayList<HashMap<String, Object>> result = new ArrayList<>();
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionReference = db.collection(collection);
-
-        for(QueryDocumentSnapshot doc: collectionReference.get().getResult()) {
-            Log.d(ObjectContext.TAG, "Retrieving data for " + collection);
-            result.add((HashMap<String, Object>) doc.getData());
-        }
-
-        return result;
-
-    } commented out for now*/
 }
