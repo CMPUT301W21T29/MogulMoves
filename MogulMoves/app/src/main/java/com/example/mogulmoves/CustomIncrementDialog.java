@@ -8,17 +8,15 @@ import android.widget.Button;
 
 //Custom dialog class for EditCountTrialFragment.
 
-public class CustomDialog extends AlertDialog {
+public class CustomIncrementDialog extends AlertDialog {
     private Button positive;
     private Button negative;
 
-    public CustomDialog(Context context, View view) {
+    public CustomIncrementDialog(Context context, View view) {
         super(context);
         setContentView(view);
         positive = (Button)findViewById(R.id.increment_button);
         negative = (Button)findViewById(R.id.back_button);
-        Log.d("aaa", String.valueOf(R.id.increment_button));
-        Log.d("aaa", String.valueOf(R.id.back_button));
     }
 
     public void setPositiveButton(String buttonText, View.OnClickListener listener) {
@@ -32,6 +30,5 @@ public class CustomDialog extends AlertDialog {
         negative.setOnClickListener(listener);
         negative.setVisibility(View.VISIBLE);
     }
-
 
 }

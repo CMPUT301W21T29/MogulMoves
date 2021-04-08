@@ -30,17 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,92 +42,6 @@ import java.util.Map;
 import java.math.BigDecimal;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
-
-/*class ListItemAdapter extends ArrayAdapter<Map<String, Object>> {
-    private final Context context;
-    private final ArrayList<Map<String, Object>> docData;
-
-    public ListItemAdapter(Context context, ArrayList<Map<String, Object>> docData) {
-        super(context, -1, docData);
-        this.context = context;
-        this.docData = docData;
-    }
-
-    @Override public int getCount() {
-        return docData == null ? 0 : docData.size();
-    }
-
-    @Override public View getView(int position, View convertView, ViewGroup parent) {
-        Map<String, Object> item = docData.get(position);
-
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.view_experiment_post_item, parent, false);
-
-        TextView txtPostItemUserName = (TextView) rowView.findViewById(R.id.txtPostItemUserName);
-        txtPostItemUserName.setText(item.get("username").toString());
-
-        TextView txtPostItemDate = (TextView) rowView.findViewById(R.id.txtPostItemDate);
-        txtPostItemDate.setText(item.get("date").toString());
-
-        TextView txtPostItemTime = (TextView) rowView.findViewById(R.id.txtPostItemTime);
-        txtPostItemTime.setText(item.get("time").toString());
-
-        TextView txtPostItemContent = (TextView) rowView.findViewById(R.id.txtPostItemContent);
-        txtPostItemContent.setText(item.get("content").toString());
-
-        System.out.println("Returning View: " + item.get("content"));
-
-        return rowView;
-    }
-}
-
-class ListItemAdapter2 extends BaseAdapter {
-    private final Context context;
-    private final ArrayList<Map<String, Object>> docData;
-
-    public ListItemAdapter2(Context context, ArrayList<Map<String, Object>> docData) {
-        this.context = context;
-        this.docData = docData;
-    }
-
-    @Override public int getCount() {
-        System.out.println("ADAPTER COUNT: " + docData.size());
-        return docData == null ? 0 : docData.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return docData.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override public View getView(int position, View convertView, ViewGroup parent) {
-        Map<String, Object> item = docData.get(position);
-
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.view_experiment_post_item, parent, false);
-
-        TextView txtPostItemUserName = (TextView) rowView.findViewById(R.id.txtPostItemUserName);
-        txtPostItemUserName.setText(item.get("username").toString());
-
-        TextView txtPostItemDate = (TextView) rowView.findViewById(R.id.txtPostItemDate);
-        txtPostItemDate.setText(item.get("date").toString());
-
-        TextView txtPostItemTime = (TextView) rowView.findViewById(R.id.txtPostItemTime);
-        txtPostItemTime.setText(item.get("time").toString());
-
-        TextView txtPostItemContent = (TextView) rowView.findViewById(R.id.txtPostItemContent);
-        txtPostItemContent.setText(item.get("content").toString());
-
-        System.out.println("Adapter 2 Returning View: " + item.get("content"));
-
-        return rowView;
-    }
-}*/
 
 class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder> {
     private static final String TAG = "ListItemAdapter";
@@ -375,6 +278,11 @@ public class ViewExperimentActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "VIEW_TIME_PLOT");
     }
 
+    public void openSettingsFragment(View view) {
+        ExperimentSettingsFragment newFragment = ExperimentSettingsFragment.newInstance(exp_id);
+        newFragment.show(getSupportFragmentManager(), "SETTINGS");
+    }
+
     /**
      * open the map of trial locations
      * */
@@ -451,71 +359,5 @@ public class ViewExperimentActivity extends AppCompatActivity {
             }
         });
 
-        btnExpSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Btn Clicked");
-                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView = inflater.inflate(R.layout.view_experiment_settings, null);
-
-                // create the popup window
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true; // lets taps outside the popup also dismiss it
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-                // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
-                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
-
-                // dismiss the popup window when touched
-                popupView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        popupWindow.dismiss();
-                        return true;
-                    }
-                });
-
-                Button btnEndExperiment = popupView.findViewById(R.id.btnEndExperiment);
-                btnEndExperiment.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        experiment.setActive(false);
-                        ObjectContext.pushExperimentData(experiment);
-
-                        popupWindow.dismiss();
-                    }
-                });
-
-                btnEndExperiment.setEnabled(experiment.getActive());
-
-                /*
-                db.collection("experiments")
-                        .document(String.valueOf(exp_id))
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if(task.isSuccessful()) {
-                                    DocumentSnapshot ds = task.getResult();
-                                    Boolean enabled = null;
-
-                                    if(ds.get("enabled") != null) {
-                                        enabled = (boolean) ds.get("enabled");
-                                    }
-
-                                    if(enabled == null) {
-                                        db.collection("experiments").document(String.valueOf(exp_id))
-                                                .update("enabled", true);
-                                    } else if(enabled == false) {
-                                        btnEndExperiment.setEnabled(false);
-                                    }
-                                }
-                            }
-                        });*/
-            }
-        });
     }
 }
