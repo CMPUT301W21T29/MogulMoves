@@ -45,6 +45,7 @@ import com.google.zxing.integration.android.IntentResult;
 import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
 
 // some code adapted from https://programmerworld.co/android/how-to-create-your-own-qr-code-and-barcode-scanner-reader-android-app-complete-source-code
+// https://programmerworld.co/android/how-to-create-or-generate-qr-quick-response-code-in-your-android-app-complete-source-code/
 
 /**
  * Main activity. Displays a list of all experiments on the server. Clicking on any of them takes

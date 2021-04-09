@@ -16,8 +16,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 
@@ -26,6 +24,7 @@ public class CodeGeneratorFragment extends DialogFragment {
     private Experiment experiment;
     private boolean isQR;
     ArrayAdapter<Experiment> adapter;
+    int selected;
 
     public CodeGeneratorFragment(boolean isQR) {
         this.isQR = isQR;
@@ -71,15 +70,20 @@ public class CodeGeneratorFragment extends DialogFragment {
                 experiment = (Experiment) experimentList.getItemAtPosition(position);
 
                 if (experiment instanceof BinomialExperiment) {
-                    countText.setVisibility(View.VISIBLE);
-                    countInput.setVisibility(View.VISIBLE);
-                    successBox.setVisibility(View.INVISIBLE);
-                    failBox.setVisibility(View.INVISIBLE);
-                } else if (experiment instanceof NonNegativeCountExperiment) {
                     countText.setVisibility(View.INVISIBLE);
                     countInput.setVisibility(View.INVISIBLE);
                     successBox.setVisibility(View.VISIBLE);
                     failBox.setVisibility(View.VISIBLE);
+                } else if (experiment instanceof IntegerCountExperiment) {
+                    countText.setVisibility(View.INVISIBLE);
+                    countInput.setVisibility(View.INVISIBLE);
+                    successBox.setVisibility(View.INVISIBLE);
+                    failBox.setVisibility(View.INVISIBLE);
+                } else {
+                    countText.setVisibility(View.VISIBLE);
+                    countInput.setVisibility(View.VISIBLE);
+                    successBox.setVisibility(View.INVISIBLE);
+                    failBox.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -92,15 +96,33 @@ public class CodeGeneratorFragment extends DialogFragment {
                 .setPositiveButton("Generate", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
+                        String action;
+                        String id = "" + experiment.getId();
+
+                        if (experiment instanceof BinomialExperiment) {
+
+                            if(successBox.isChecked()) {
+                                action = "succ" + id;
+                            } else {
+                                action = "fail" + id;
+                            }
+
+                        } else if (experiment instanceof IntegerCountExperiment) {
+
+                            action = "incr" + id;
+
+                        } else {
+
+                            action = String.format("%04d", Integer.parseInt((countInput).getText().toString())) + id;
+
+                        }
+
                         if (isQR) {
-                            // create new QR display fragment if qr code was requested
-                            QRDisplayFragment newFragment = QRDisplayFragment.newInstance();
-                            // newFragment.show(getSupportFragmentManager(), "DISPLAY_CODE");
+                            ((CodeActivity) getActivity()).showQR(action);
                         }
                         else {
-                            
-                            ((CodeActivity) getActivity()).scanCode();
-
+                            ((CodeActivity) getActivity()).registerCode(experiment.getId(), action);
                         }
                     }
                 }).create();

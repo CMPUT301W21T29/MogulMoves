@@ -25,6 +25,9 @@ public class CodeActivity extends AppCompatActivity {
     ArrayAdapter<Barcode> codeAdapter;
     ToggleButton registerBarCode;
 
+    int tempExperiment;
+    String tempAction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +64,18 @@ public class CodeActivity extends AppCompatActivity {
 
     }
 
-    public void scanCode() {
+    public void showQR(String action) {
+
+        QRDisplayFragment newFragment = QRDisplayFragment.newInstance(action);
+        newFragment.show(getSupportFragmentManager(), "DISPLAY_CODE");
+
+    }
+
+    public void registerCode(int experiment, String action) {
+
+        tempExperiment = experiment;
+        tempAction = action;
+
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
         intentIntegrator.initiateScan();
     }
@@ -80,7 +94,8 @@ public class CodeActivity extends AppCompatActivity {
 
             } else {
 
-
+                Barcode code = new Barcode(tempExperiment, ObjectContext.userDatabaseId, result, tempAction);
+                ObjectContext.addBarcode(code, ObjectContext.getUserById(ObjectContext.userDatabaseId));
 
             }
         }
@@ -88,6 +103,4 @@ public class CodeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
-
-
 }
