@@ -57,7 +57,8 @@ public class HistogramFragment extends DialogFragment {
 
         List<Integer> integerBuffer = new ArrayList<>();
 
-        for (int i=0; i<integerData.size(); i++) {
+        int originalSize = integerData.size();
+        for (int i=0; i<originalSize; i++) {
 
             int occurrences = Collections.frequency(integerData, integerData.get(i));
 
@@ -65,13 +66,10 @@ public class HistogramFragment extends DialogFragment {
             integerBuffer.add(integerData.get(0));
 
             for (int j=i; j<integerData.size(); j++) {
-
                 if (integerData.get(j) == integerData.get(0)) {
                     integerData.remove(integerData.get(j));
                 }
-
             }
-
         }
 
         for (int i=0; i<integerBuffer.size(); i++) {
@@ -95,6 +93,37 @@ public class HistogramFragment extends DialogFragment {
             NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             integerData.add(trial.getCount());
         }
+
+        List<Integer> integerBuffer = new ArrayList<>();
+
+
+
+        while (integerData.size() > 0) {
+
+            System.out.print("\nintegerData: ");
+            for (int i=0; i<integerData.size(); i++) {
+                System.out.print(integerData.get(i) + " ");
+            }
+            System.out.print("\n");
+
+            int occurrences = Collections.frequency(integerData, integerData.get(0));
+            occurrencesList.add(occurrences);
+            integerBuffer.add(integerData.get(0));
+
+            int numToRemove = integerData.get(0);
+
+            for (int i=0; i<integerData.size(); i++) {
+                if (integerData.get(i) == numToRemove) {
+                    integerData.remove(integerData.get(i));
+                    i--;
+                }
+            }
+        }
+
+        for (int i=0; i<integerBuffer.size(); i++) {
+            integerData.add(integerBuffer.get(i));
+        }
+
         experimentType = 0;
     }
 
@@ -119,12 +148,35 @@ public class HistogramFragment extends DialogFragment {
      */
 
     public HistogramFragment(MeasureExperiment experiment) {
-        // measurement
+
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
             MeasureTrial trial = (MeasureTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             floatData.add(trial.getMeasurement());
         }
+
+        List<Float> floatBuffer = new ArrayList<>();
+
+        for (int i=0; i<floatData.size(); i++) {
+
+            int occurrences = Collections.frequency(floatData, floatData.get(i));
+
+            occurrencesList.add(occurrences);
+            floatBuffer.add(floatData.get(0));
+
+            for (int j=i; j<floatData.size(); j++) {
+                if (floatData.get(j) == floatData.get(0)) {
+                    floatData.remove(floatData.get(j));
+                    i--;
+                }
+            }
+        }
+
+        for (int i=0; i<floatBuffer.size(); i++) {
+
+            floatData.add(floatBuffer.get(i));
+        }
+
         experimentType = 2;
     }
 
@@ -154,11 +206,25 @@ public class HistogramFragment extends DialogFragment {
         BarData barData;
         BarDataSet barDataSet, barDataSet1;
 
+        System.out.print("\nfinal integerData: ");
+        for (int i=0; i<integerData.size(); i++) {
+            System.out.print(integerData.get(i) + " ");
+        }
+        System.out.print("\noccurrence list: ");
+        for (int i=0; i<integerData.size(); i++) {
+            System.out.print(occurrencesList.get(i) + " ");
+        }
+        System.out.println("\n");
 
         switch(experimentType) {
             case 0:
-                for (int i=0; i<occurrencesList.size(); i++) {
-                    histogramData.add(new BarEntry(i+1, occurrencesList.get(i)));
+                for (int i=0; i<=Collections.max(integerData); i++) {
+                    if (integerData.contains(i)) {
+                        histogramData.add(new BarEntry(i+1, occurrencesList.get(integerData.indexOf(i))));
+                    }
+                    else {
+                        histogramData.add(new BarEntry(i+1, 0));
+                    }
                     numPoints++;
                 }
                 break;
@@ -169,10 +235,16 @@ public class HistogramFragment extends DialogFragment {
                 }
                 break;
             case 2:
-                for (int i=0; i<floatData.size(); i++) {
-                    histogramData.add(new BarEntry(i+1, floatData.get(i)));
+                for (int i=0; i<=Collections.max(floatData); i++) {
+                    if (floatData.contains(i)) {
+                        histogramData.add(new BarEntry(i+1, occurrencesList.get(floatData.indexOf(i))));
+                    }
+                    else {
+                        histogramData.add(new BarEntry(i+1, 0));
+                    }
                     numPoints++;
                 }
+
                 break;
         }
 
@@ -196,6 +268,7 @@ public class HistogramFragment extends DialogFragment {
             barData.addDataSet(barDataSet);
         }
 
+        barChart.setNoDataText("No Data Yet");
         barChart.setData(barData);
         barChart.invalidate();
 
@@ -207,7 +280,7 @@ public class HistogramFragment extends DialogFragment {
         xAxis.setGranularity(1);
         xAxis.setCenterAxisLabels(true);
         xAxis.setGranularityEnabled(true);
-        xAxis.setEnabled(false);
+        //xAxis.setEnabled(false);
         barChart.getDescription().setEnabled(false);
 
         float barSpace = 0.02f;
@@ -221,7 +294,7 @@ public class HistogramFragment extends DialogFragment {
         else {
             graphWidth = numPoints;
         }
-        barChart.getXAxis().setAxisMaximum(graphWidth);
+        barChart.getXAxis().setAxisMaximum(Collections.max(integerData)+2);
 
         return builder
                 .setView(view)

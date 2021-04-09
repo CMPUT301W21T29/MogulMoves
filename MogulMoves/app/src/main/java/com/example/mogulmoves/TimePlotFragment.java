@@ -163,6 +163,7 @@ public class TimePlotFragment extends DialogFragment {
 
         lineData = new LineData(dataSets);
 
+        tpLineChart.setNoDataText("No Data Yet");
         tpLineChart.setData(lineData);
         tpLineChart.invalidate();
 
@@ -231,7 +232,7 @@ public class TimePlotFragment extends DialogFragment {
     }
 
     private List<Float> buildTimeList(List<Long> timeList) {
-        long determiner = timeList.get(timeList.size());
+        long determiner = timeList.get(timeList.size()-1);
         List<Float> timeDataNew = new ArrayList<>();
 
         for (int i=0; i<timeList.size(); i++) {
