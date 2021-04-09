@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         setupDatabaseListeners();
         //setCamera();
         setLocationCamera();
+        GetCurrentLocation();
 
         expList = findViewById(R.id.experiment_list);
 
@@ -294,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
                 PackageManager.PERMISSION_GRANTED);
     }
 
-    public void GetCurrentLocation(View view) {
+    public void GetCurrentLocation() {
         FusedLocationProviderClient fusedLocationProviderClient;
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -329,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
 
                             ObjectContext.location[0] = locationLatitude;
                             ObjectContext.location[1] = locationLongitude;
+
                         }catch (IOException e){
                             e.printStackTrace();
                         }
@@ -441,11 +443,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                 }
-
-                System.out.println("qeqeq");
-                System.out.println(action);
-                System.out.println(trial.getId());
-                System.out.println(experiment.getId());
 
                 ObjectContext.addTrial(trial, experiment);
 
