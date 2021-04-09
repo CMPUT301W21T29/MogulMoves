@@ -40,7 +40,8 @@ class IgnoreUserAdapter extends RecyclerView.Adapter<com.example.mogulmoves.Igno
 
     @Override
     public void onBindViewHolder(com.example.mogulmoves.IgnoreUserAdapter.ViewHolder holder, int position) {
-        User user = (User) ObjectContext.getObjectById(userIDs.get(position));
+        Trial trial = (Trial) ObjectContext.getObjectById(userIDs.get(position));
+        User user = (User) ObjectContext.getObjectById(trial.getExperimenter());
         String username = user.getUsername();
         if (username.length() <= 0) {
             username = "(ID " + Integer.toString(user.getId()) + ")";

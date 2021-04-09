@@ -32,7 +32,7 @@
         android:paddingRight="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lstPosts"
+            android:id="@+id/to_ignore_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
