@@ -24,8 +24,6 @@ public class QRDisplayFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.qr_display_fragment, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        // qr setup, i'll figure it out later somehow
-
         return builder
                 .setView(view)
                 .setTitle("QR Code")
@@ -40,10 +38,7 @@ public class QRDisplayFragment extends DialogFragment {
         Bundle args = new Bundle();
         // args.putSerializable("isQR", isQR);
 
-        QRDisplayFragment fragment;
-
-        fragment = new QRDisplayFragment();
-
+        QRDisplayFragment fragment = new QRDisplayFragment();
         fragment.setArguments(args);
 
         return fragment;

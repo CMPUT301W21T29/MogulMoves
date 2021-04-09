@@ -31,7 +31,7 @@ public class CodeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {          // tap item in code view list
 
-
+                // shouldn't do anything i think
 
             }
         });
