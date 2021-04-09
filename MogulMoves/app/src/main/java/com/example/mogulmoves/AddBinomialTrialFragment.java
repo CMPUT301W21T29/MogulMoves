@@ -19,8 +19,9 @@ import androidx.fragment.app.DialogFragment;
 
 import static android.view.View.VISIBLE;
 
-//Fragment to add a new binomial trial.
-
+/**
+ * Fragment to add a new binomial trial.
+ */
 public class AddBinomialTrialFragment extends DialogFragment {
     private RadioButton success;
     private RadioButton failure;

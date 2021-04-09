@@ -16,8 +16,9 @@ import androidx.fragment.app.DialogFragment;
 
 import static android.view.View.VISIBLE;
 
-//Fragment to add a new non-negative count trial.
-
+/**
+ * Fragment to add a new non-negative count trial.
+ */
 public class AddNNCountTrialFragment extends DialogFragment {
     private EditText count;
 

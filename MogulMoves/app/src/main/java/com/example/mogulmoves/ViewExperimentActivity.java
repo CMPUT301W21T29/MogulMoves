@@ -43,12 +43,11 @@ import java.util.Locale;
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
 
-/*
+/**
  * Activity to view details about an experiment, including statistics, minimum and current trials,
  * and histograms, time plots and maps of trials. Also includes functionality to add trials, subscribe,
  * and post messages on the forum.
  */
-
 public class ViewExperimentActivity extends AppCompatActivity {
 
     int exp_id;

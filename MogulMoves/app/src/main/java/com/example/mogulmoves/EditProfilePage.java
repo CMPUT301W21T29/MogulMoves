@@ -14,8 +14,9 @@ import java.util.ArrayList;
 
 import static android.view.View.VISIBLE;
 
-//Activity to edit profile information.
-
+/**
+ * Activity to edit profile information.
+ */
 public class EditProfilePage extends AppCompatActivity {
     EditText NameEditing;
     EditText EmailEditing;

@@ -9,8 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-//Fragment to increment the count of a pre-existing count trial.
-
+/**
+ * Fragment to increment the count of a pre-existing count trial.
+ */
 public class EditCountTrialFragment extends DialogFragment {
     private TextView count;
 
