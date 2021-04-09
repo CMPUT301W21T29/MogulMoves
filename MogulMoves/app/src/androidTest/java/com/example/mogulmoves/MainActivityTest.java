@@ -12,6 +12,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.regex.Pattern;
+
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.assertTrue;
 
@@ -42,11 +44,15 @@ public class MainActivityTest {
         subscribe();
         addTrials();
         checkStats();
+        openMap();
         askQuestion();
         postReply();
         viewPosts();
-        editContact();
+        ignoreTrials();
+        unpublish();
+        endExperiment();
         viewProfile();
+        editContact();
         specifyGeo();
     }
 
@@ -68,13 +74,13 @@ public class MainActivityTest {
         solo.enterText((EditText) solo.getView(R.id.experiment_description), "Robotium test");
         solo.clearEditText((EditText) solo.getView(R.id.experiment_region));
         solo.enterText((EditText) solo.getView(R.id.experiment_region), "Test location");
-        solo.enterText((EditText) solo.getView(R.id.minimum_trials), "5");
-        solo.clickOnCheckBox(R.id.location_required);
+        solo.enterText((EditText) solo.getView(R.id.minimum_trials), "1");
+        solo.clickOnText("Trial locations required?");
         solo.clickOnButton("PUBLISH");
 
         assertTrue(solo.waitForText("Robotium test", 1, 2000));
         assertTrue(solo.waitForText("Test location", 1, 2000));
-        assertTrue(solo.waitForText("5", 1, 2000));
+        assertTrue(solo.waitForText("1", 1, 2000));
     }
 
     //Subscribe to an experiment (01.04.01)
@@ -105,8 +111,17 @@ public class MainActivityTest {
         assertTrue(solo.waitForText("0", 1, 2000));
     }
 
+    //Check map functionality (06.04.01)
+    public void openMap() {
+        solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
+        solo.clickOnButton("VIEW MAP OF TRIAL LOCATIONS");
+
+        solo.assertCurrentActivity("Wrong Activity", MapActivity.class);
+    }
+
     //Ask question about experiment (02.01.01)
     public void askQuestion() {
+        solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
         solo.scrollToBottom();
         solo.clearEditText((EditText) solo.getView(R.id.new_post_content));
@@ -136,14 +151,49 @@ public class MainActivityTest {
         assertTrue(solo.waitForText("Yes. Giga sus", 1, 2000));
     }
 
-    //Edit contact info (04.02.01)
-    public void editContact() {
-        solo.goBack();
-
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        View view = solo.getView(R.id.user_button);
+    //Ignore results of experimenters (01.08.01)
+    public void ignoreTrials() {
+        solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
+        View view = solo.getView(R.id.btnExpSettings);
         solo.clickOnView(view);
 
+        View view2 = solo.getView(R.id.ignore_check);
+        solo.clickOnView(view2);
+        solo.clickOnButton("BACK");
+        assertTrue(solo.waitForText("N/A \\nN/A \\nN/A \\nN/A \\nN/A", 1, 2000));
+    }
+
+    //Unpublish experiment (01.02.01)
+    public void unpublish() {
+        solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
+        View view = solo.getView(R.id.btnExpSettings);
+        solo.clickOnView(view);
+
+        solo.clickOnText("UNPUBLISH EXPERIMENT");
+        assertTrue(solo.waitForText("REPUBLISH EXPERIMENT", 1, 2000));
+    }
+
+    //End experiment (01.03.01)
+    public void endExperiment() {
+        solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
+
+        solo.clickOnButton("END EXPERIMENT");
+        solo.clickOnButton("BACK");
+        assertTrue(solo.waitForText("Trial finished!", 1, 2000));
+    }
+
+    //Pull up user profile (04.03.01, 04.01.01)
+    public void viewProfile() {
+        solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
+
+        solo.clickOnText("(ID");
+
+        solo.assertCurrentActivity("Wrong Activity", UserProfilePage.class);
+        assertTrue(solo.waitForText("User Profile", 1, 2000));
+    }
+
+    //Edit contact info (04.02.01)
+    public void editContact() {
         solo.assertCurrentActivity("Wrong Activity", UserProfilePage.class);
         solo.clickOnText("Edit Profile");
 
@@ -159,23 +209,10 @@ public class MainActivityTest {
         assertTrue(solo.waitForText("test@email.com", 1, 2000));
     }
 
-   //View profile info (04.01.01)
-    public void viewProfile() {
-        solo.assertCurrentActivity("Wrong Activity", UserProfilePage.class);
-        View view = solo.getView(R.id.back_arrow);
-        solo.clickOnView(view);
-
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        View view2 = solo.getView(R.id.user_button);
-        solo.clickOnView(view2);
-
-        solo.assertCurrentActivity("Wrong Activity", UserProfilePage.class);
-        assertTrue(solo.waitForText("Test username", 1, 2000));
-        assertTrue(solo.waitForText("test@email.com", 1, 2000));
-    }
-
     //Specify if geolocation is required (06.01.01)
     public void specifyGeo() {
+        solo.goBack();
+        solo.goBack();
         solo.goBack();
 
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
