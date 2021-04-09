@@ -10,6 +10,8 @@
     </string-array>
     <string name="add_trial">ADD TRIAL</string>
     <string name="stats2">N/A \nN/A \nN/A \nN/A \nN/A</string>
+    <string name="geo">Warning: Your geolocation will be recorded.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

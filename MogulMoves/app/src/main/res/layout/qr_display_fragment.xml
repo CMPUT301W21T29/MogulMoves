@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/qrCodeView"
         android:layout_width="333dp"
         android:layout_height="278dp"
         android:layout_marginStart="12dp"
@@ -20,4 +20,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_qr_code"
         tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:layout_width="169dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="100dp"
+        android:text="Please take a screenshot of your generated qr code."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.478" />
 </androidx.constraintlayout.widget.ConstraintLayout>
