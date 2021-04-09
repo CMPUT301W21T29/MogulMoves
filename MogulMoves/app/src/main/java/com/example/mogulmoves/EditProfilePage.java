@@ -60,7 +60,7 @@ public class EditProfilePage extends AppCompatActivity {
                     }
                 }
 
-                if (found) {
+                if (found && !newName.equals("")) {
                     error.setVisibility(VISIBLE);
                 } else {
                     switchBackToUserProfile(newName, newEmail, newPhone);

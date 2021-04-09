@@ -38,6 +38,12 @@ public class NewExperimentActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+    }
+
     public void goBack (View view) {
         finish();
     }
