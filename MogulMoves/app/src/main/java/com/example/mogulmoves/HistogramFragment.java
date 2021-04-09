@@ -203,7 +203,6 @@ public class HistogramFragment extends DialogFragment {
         int[] colourList;
         String[] labelList;
 
-
         switch(experimentType) {
             case 0:
                 for (int i=0; i<=Collections.max(integerData); i++) {
@@ -341,8 +340,6 @@ public class HistogramFragment extends DialogFragment {
                 break;
 
         }
-
-
 
         return builder
                 .setView(view)

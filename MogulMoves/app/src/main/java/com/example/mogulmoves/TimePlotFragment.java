@@ -59,7 +59,6 @@ public class TimePlotFragment extends DialogFragment {
      *
      * @param experiment the experiment which the class is creating a time plot for.
      */
-
     public TimePlotFragment(IntegerCountExperiment experiment) {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -80,7 +79,6 @@ public class TimePlotFragment extends DialogFragment {
      *
      * @param experiment the experiment which the class is creating a time plot for.
      */
-
     public TimePlotFragment(NonNegativeCountExperiment experiment) {
         // non negative count
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -102,7 +100,6 @@ public class TimePlotFragment extends DialogFragment {
      *
      * @param experiment the experiment which the class is creating a time plot for.
      */
-
     public TimePlotFragment(BinomialExperiment experiment) {
         // binomial
 
@@ -128,7 +125,6 @@ public class TimePlotFragment extends DialogFragment {
      *
      * @param experiment the experiment which the class is creating a time plot for.
      */
-
     public TimePlotFragment(MeasureExperiment experiment) {
         // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
@@ -148,7 +144,6 @@ public class TimePlotFragment extends DialogFragment {
     /**
      * Part of setup for a fragment of any kind.
      */
-
     public interface OnFragmentInteractionListener {
         void onOkPressed(Experiment newExperiment);
     }
@@ -322,7 +317,6 @@ public class TimePlotFragment extends DialogFragment {
         } else {
             fragment = new TimePlotFragment((MeasureExperiment) experiment);
         }
-
 
         fragment.setArguments(args);
         return fragment;
