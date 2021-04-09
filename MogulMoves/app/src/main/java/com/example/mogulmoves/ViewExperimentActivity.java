@@ -269,6 +269,9 @@ public class ViewExperimentActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * add the currentLocation of device as trial location
+     */
     public void currentLocation() {
         FusedLocationProviderClient fusedLocationProviderClient;
 
