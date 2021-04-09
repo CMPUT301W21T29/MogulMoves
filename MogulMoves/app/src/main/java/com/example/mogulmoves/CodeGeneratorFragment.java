@@ -66,8 +66,8 @@ public class CodeGeneratorFragment extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (isQR) {
                             // create new QR display fragment if qr code was requested
-                            CodeGeneratorFragment newFragment = QRDisplayFragment.newInstance(true);
-                            newFragment.show(getSupportFragmentManager(), "GENERATE_QR_CODE");
+                            QRDisplayFragment newFragment = QRDisplayFragment.newInstance();
+                            newFragment.show("GENERATE_QR_CODE");
                         }
                         else {
                             //associate a given bar code with the trial
