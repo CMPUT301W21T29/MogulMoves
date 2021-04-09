@@ -9,7 +9,7 @@ import android.os.Bundle;
 /**
  *Adapter to display a map of trial locations.
  */
-public class MapAdapter extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

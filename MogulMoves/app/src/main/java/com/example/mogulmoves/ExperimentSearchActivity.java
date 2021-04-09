@@ -18,8 +18,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//Activity to search for certain experiments using keywords.
-
+/**
+ * Activity to search for certain experiments using keywords.
+ */
 public class ExperimentSearchActivity extends AppCompatActivity {
 
     ListView expList;

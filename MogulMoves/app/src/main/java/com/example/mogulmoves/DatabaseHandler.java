@@ -15,7 +15,6 @@ import java.util.HashMap;
 
 /**
  * Handles interactions between the program and Firebase.
- * Takes data from a serializer and pushes it to the database, or retrieves serialized data.
  */
 public class DatabaseHandler {
 
@@ -48,5 +47,70 @@ public class DatabaseHandler {
                         Log.d(ObjectContext.TAG, "Data could not be added!" + e.toString());
                     }
                 });
+    }
+
+    /**
+     * Pushes the data for an experiment to the database.
+     *
+     * @param experiment an experiment to push
+     */
+    public static void pushExperimentData(Experiment experiment) {
+
+        ExperimentSerializer serializer = new ExperimentSerializer();
+        pushData("experiments", "" + experiment.getId(),
+                serializer.toData(experiment));
+
+    }
+
+    /**
+     * Pushes the data for a user to the database.
+     *
+     * @param user a user to push
+     */
+    public static void pushUserData(User user) {
+
+        UserSerializer serializer = new UserSerializer();
+        pushData("users", "" + user.getId(),
+                serializer.toData(user));
+
+    }
+
+    /**
+     * Pushes the data for a trial to the database.
+     *
+     * @param trial a trial to push
+     */
+    public static void pushTrialData(Trial trial) {
+
+        TrialSerializer serializer = new TrialSerializer();
+        pushData("trials", "" + trial.getId(),
+                serializer.toData(trial));
+
+    }
+
+    /**
+     * Pushes the data for a message to the database.
+     *
+     * @param message a message to push
+     */
+    public static void pushMessageData(Message message) {
+
+        MessageSerializer serializer = new MessageSerializer();
+        pushData("messages", "" + message.getId(),
+                serializer.toData(message));
+
+    }
+
+    /**
+     * Pushes the data for a barcode to the database.
+     *
+     * @param barcode a barcode to push
+     */
+    public static void pushBarcodeData(Barcode barcode) {
+
+        BarcodeSerializer serializer = new BarcodeSerializer();
+        pushData("barcodes", "" + barcode.getId(),
+                serializer.toData(barcode));
+
     }
 }

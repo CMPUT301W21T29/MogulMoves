@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     final ListView.OnItemClickListener expOCL = new ListView.OnItemClickListener() {
         public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-            toViewExperimentActivity(view, ObjectContext.experiments.get(pos).getId());
+            toViewExperimentActivity(view, experiments.get(pos).getId());
         }
     };
 
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         setupDatabaseListeners();
         //setCamera();
         setLocationCamera();
+        GetCurrentLocation();
 
         expList = findViewById(R.id.experiment_list);
 
@@ -183,7 +184,8 @@ public class MainActivity extends AppCompatActivity {
 
                                                     experiments.clear();
                                                     for(Experiment exp: ObjectContext.experiments) {
-                                                        if(exp.getVisible() || exp.getOwner() == ObjectContext.userDatabaseId) {
+                                                        if(/*(exp.getVisible() || exp.getOwner() == ObjectContext.userDatabaseId) &&*/
+                                                        ObjectContext.getUserById(ObjectContext.userDatabaseId).getSubscribed().contains(exp.getId())) {
                                                             experiments.add(exp);
                                                         }
                                                     }
@@ -288,53 +290,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setLocationCamera() {
-        /*FusedLocationProviderClient fusedLocationProviderClient;
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-                    Location location = task.getResult();
-                    if (location != null) {
-                        try {
-                            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
-
-                            List<Address> addressList = geocoder.getFromLocation
-                                    (location.getLatitude(), location.getLongitude(), 1);
-                            double locationLatitude = addressList.get(0).getLatitude();
-                            double locationLongitude = addressList.get(0).getLongitude();
-                            Log.d("getLocation", "locationLatitude" + locationLatitude);
-                            Log.d("getLocation", "locationLongitude" + locationLongitude);
-
-                            ObjectContext.location[0] = locationLatitude;
-                            ObjectContext.location[1] = locationLongitude;
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            });
-
-        } else {
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 22);
-        }*/
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.CAMERA},
                 PackageManager.PERMISSION_GRANTED);
-
-        /*ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                PackageManager.PERMISSION_GRANTED);*/
-
-
-
-
     }
-    public void GetCurrentLocation(View view) {
+
+    public void GetCurrentLocation() {
         FusedLocationProviderClient fusedLocationProviderClient;
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -369,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
 
                             ObjectContext.location[0] = locationLatitude;
                             ObjectContext.location[1] = locationLongitude;
+
                         }catch (IOException e){
                             e.printStackTrace();
                         }
@@ -481,11 +443,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                 }
-
-                System.out.println("qeqeq");
-                System.out.println(action);
-                System.out.println(trial.getId());
-                System.out.println(experiment.getId());
 
                 ObjectContext.addTrial(trial, experiment);
 

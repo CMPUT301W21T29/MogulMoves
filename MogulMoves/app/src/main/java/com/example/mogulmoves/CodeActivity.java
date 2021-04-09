@@ -19,6 +19,9 @@ import java.util.ArrayList;
 
 import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
 
+/**
+ * Activity to show available QR codes and let the user create/register their own.
+ */
 public class CodeActivity extends AppCompatActivity {
 
     ListView codeList;
@@ -78,12 +81,11 @@ public class CodeActivity extends AppCompatActivity {
 
     public void registerCode(int experiment, String action) {
 
-        System.out.println("bruh");
+
         tempExperiment = experiment;
         tempAction = action;
+
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        System.out.println(tempAction);
-        System.out.println(tempExperiment);
         intentIntegrator.initiateScan();
 
     }
@@ -103,9 +105,6 @@ public class CodeActivity extends AppCompatActivity {
 
                 int experiment = tempExperiment;
                 String action = tempAction;
-
-                System.out.println(tempExperiment);
-                System.out.println(tempAction);
 
                 Barcode code = new Barcode(experiment, ObjectContext.userDatabaseId, result, action);
                 ObjectContext.addBarcode(code, ObjectContext.getUserById(ObjectContext.userDatabaseId));

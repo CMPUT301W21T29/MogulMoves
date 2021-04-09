@@ -24,8 +24,8 @@ public class EditCountTrialFragment extends DialogFragment {
             trial.increment();
             String count_string = "Count: " + Integer.toString(trial.getCount());
             count.setText(count_string);
-            ObjectContext.pushTrialData(trial);
-            ObjectContext.pushExperimentData(ObjectContext.getExperimentById(exp_id));
+            DatabaseHandler.pushTrialData(trial);
+            DatabaseHandler.pushExperimentData(ObjectContext.getExperimentById(exp_id));
 
             ((ViewExperimentActivity) getActivity()).updateDataDisplay();
         }
