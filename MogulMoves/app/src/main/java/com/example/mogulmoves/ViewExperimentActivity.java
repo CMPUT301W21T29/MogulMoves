@@ -9,7 +9,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -257,7 +255,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.map_linear_layout,fragment)
                 .commit();*/
-        Intent intent = new Intent(this, MapAdapter.class);
+        Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("whichExperiment", Integer.toString(exp_id));
         startActivity(intent);
     }

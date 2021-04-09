@@ -16,8 +16,9 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
-//Custom array adapter to display experiment information.
-
+/**
+ *Custom array adapter to display experiment information.
+ */
 public class CodeExperimentList extends ArrayAdapter<Barcode> {
 
     private ArrayList<Barcode> barcodes;

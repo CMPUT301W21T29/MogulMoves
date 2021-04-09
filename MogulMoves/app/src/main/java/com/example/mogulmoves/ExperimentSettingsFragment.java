@@ -19,8 +19,6 @@ import java.util.ArrayList;
  * Fragment to edit settings of an experiment, including unpublishing or ending it, as well as
  * ignoring trials of certain users.
  */
-
-
 public class ExperimentSettingsFragment extends DialogFragment {
     RecyclerView toIgnoreList;
     IgnoreUserAdapter adapter;
