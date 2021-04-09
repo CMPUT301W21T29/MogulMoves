@@ -35,4 +35,17 @@ public class QRDisplayFragment extends DialogFragment {
                     }
                 }).create();
     }
+
+    static QRDisplayFragment newInstance() {
+        Bundle args = new Bundle();
+        // args.putSerializable("isQR", isQR);
+
+        QRDisplayFragment fragment;
+
+        fragment = new QRDisplayFragment();
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 }
