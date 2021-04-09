@@ -10,54 +10,64 @@
     <ListView
         android:id="@+id/experiment_list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="415dp"
         android:layout_marginTop="10dp">
 
     </ListView>
 
-    <EditText
-        android:id="@+id/editCount"
-        android:layout_width="106dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="365dp"
-        android:ems="10"
-        android:inputType="number" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <RadioGroup
-        android:id="@+id/succfail"
-        android:layout_width="125dp"
-        android:layout_height="100dp">
+        <TextView
+            android:id="@+id/countText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="Count:"
+            android:textColor="@color/black"
+            android:textSize="21sp" />
 
-        <RadioButton
-            android:id="@+id/succBox"
+        <EditText
+            android:id="@+id/editCount"
+            android:layout_width="106dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="365dp"
+            android:ems="10"
+            android:inputType="number" />
+
+        <RadioGroup
+            android:id="@+id/succfail"
             android:layout_width="125dp"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:text="Success"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/experiment_list"
-            tools:layout_editor_absoluteX="4dp" />
+            android:layout_height="100dp">
 
-        <RadioButton
-            android:id="@+id/failBox"
-            android:layout_width="125dp"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:text="Failure"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/success"
-            tools:layout_editor_absoluteX="3dp" />
+            <RadioButton
+                android:id="@+id/succBox"
+                android:layout_width="125dp"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:text="Success"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@+id/experiment_list"
+                tools:layout_editor_absoluteX="4dp" />
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/failBox"
+                android:layout_width="125dp"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:text="Failure"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@+id/success"
+                tools:layout_editor_absoluteX="3dp" />
 
-    <TextView
-        android:id="@+id/countText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:text="Count:"
-        android:textColor="@color/black"
-        android:textSize="21sp" />
+        </RadioGroup>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 
 </LinearLayout>

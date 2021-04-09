@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -196,6 +198,13 @@ public class ViewExperimentActivity extends AppCompatActivity {
             TextView stats = findViewById(R.id.experiment_stats_2);
             stats.setText(R.string.stats2);
         }
+
+        // GeoLocation trial warning for viewer
+        if (experiment.getLocationRequired() == true) {
+            Toast geoWarning = Toast.makeText(getApplicationContext(), "WARNING: GEO REQUIRED EXPERIMENT!\nAdding new trials requires collection of your location info", Toast.LENGTH_LONG);
+            geoWarning.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            geoWarning.show();
+        }
     }
 
     public void openAddTrialFragment2() {
@@ -260,6 +269,9 @@ public class ViewExperimentActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * add the currentLocation of device as trial location
+     */
     public void currentLocation() {
         FusedLocationProviderClient fusedLocationProviderClient;
 
