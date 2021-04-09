@@ -54,7 +54,7 @@ public class EditProfilePage extends AppCompatActivity {
 
                 boolean found = false;
                 for(User user: ObjectContext.users) {
-                    if (user.getUsername().equals(newName)) {
+                    if (user.getUsername().equals(newName) && user.getId() != ObjectContext.userDatabaseId) {
                         found = true;
                         break;
                     }

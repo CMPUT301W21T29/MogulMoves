@@ -3,6 +3,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SearchView;
 
 import androidx.test.rule.ActivityTestRule;
 import com.robotium.solo.Solo;
@@ -44,6 +45,8 @@ public class MainActivityTest {
         subscribe();
         addTrials();
         checkStats();
+        openHistogram();
+        openTimePlot();
         openMap();
         askQuestion();
         postReply();
@@ -54,6 +57,7 @@ public class MainActivityTest {
         viewProfile();
         editContact();
         specifyGeo();
+        generateQR();
     }
 
     /**
@@ -109,6 +113,25 @@ public class MainActivityTest {
 
         assertTrue(solo.waitForText("1", 4, 2000));
         assertTrue(solo.waitForText("0", 1, 2000));
+    }
+
+    //Check histogram functionality (01.06.01)
+    public void openHistogram() {
+        solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
+        solo.clickOnButton("VIEW HISTOGRAM");
+
+        solo.waitForFragmentByTag("VIEW_HISTOGRAM");
+        solo.clickOnText("OK");
+    }
+
+    //Check time plot functionality (01.07.01)
+    public void openTimePlot() {
+
+        solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
+        solo.clickOnButton("VIEW TIME PLOT");
+
+        solo.waitForFragmentByTag("VIEW_TIME_PLOT");
+        solo.clickOnText("OK");
     }
 
     //Check map functionality (06.04.01)
@@ -186,7 +209,8 @@ public class MainActivityTest {
     public void viewProfile() {
         solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
 
-        solo.clickOnText("(ID");
+        View view = solo.getView(R.id.txtPostItemUserName);
+        solo.clickOnView(view);
 
         solo.assertCurrentActivity("Wrong Activity", UserProfilePage.class);
         assertTrue(solo.waitForText("User Profile", 1, 2000));
@@ -213,13 +237,28 @@ public class MainActivityTest {
     public void specifyGeo() {
         solo.goBack();
         solo.goBack();
-        solo.goBack();
 
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         View view = solo.getView(R.id.add_exp_button);
         solo.clickOnView(view);
 
         assertTrue(solo.waitForText("Trial locations required?", 1, 2000));
+    }
+
+    //Generate a QR code (03.01.01)
+    public void generateQR() {
+        solo.goBack();
+        View view = solo.getView(R.id.user_button);
+        solo.clickOnView(view);
+
+        solo.clickOnText("Bar Code");
+        solo.clickOnScreen(250, 1800); //"GENERATE QR CODE" button
+
+        solo.clickOnText("Robotium test", 0, true);
+        solo.clickOnScreen(750, 1900); //generate button
+
+        assertTrue(solo.waitForText("QR Code", 1, 2000));
+
     }
 
     /**

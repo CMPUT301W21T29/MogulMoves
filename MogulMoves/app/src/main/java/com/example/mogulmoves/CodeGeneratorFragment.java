@@ -98,6 +98,8 @@ public class CodeGeneratorFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+                        if (experiment == null) { return; }
+
                         String action;
                         String id = "" + experiment.getId();
 
