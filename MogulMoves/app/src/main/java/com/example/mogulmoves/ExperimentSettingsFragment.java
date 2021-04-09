@@ -42,8 +42,8 @@ public class ExperimentSettingsFragment extends DialogFragment {
 
         ArrayList<Integer> userIDs = new ArrayList<Integer>();
         for(int trial: exp.getTrials()) {
-            if(!userIDs.contains(((Trial)ObjectContext.getObjectById(trial)).getExperimenter())) {
-                userIDs.add(((Trial)ObjectContext.getObjectById(trial)).getExperimenter());
+            if(!userIDs.contains((ObjectContext.getTrialById(trial)).getExperimenter())) {
+                userIDs.add((ObjectContext.getTrialById(trial)).getExperimenter());
             }
         }
 
@@ -86,18 +86,10 @@ public class ExperimentSettingsFragment extends DialogFragment {
         return dialog;
     }
 
-    public ArrayList<Integer> fetchTrialUsers (int exp_id) {
-        Experiment experiment = ObjectContext.getExperimentById(exp_id);
-        ArrayList<Integer> userIDs = new ArrayList<Integer>();
-
-        for(int trial_id: experiment.getTrials()) {
-            Trial trial = ObjectContext.getTrialById(trial_id);
-            if (!userIDs.contains(trial.getExperimenter())) {
-                userIDs.add(trial.getExperimenter());
-            }
-        }
-
-        return userIDs;
+    @Override
+    public void onDetach() {
+        ((ViewExperimentActivity)getActivity()).updateDataDisplay();
+        super.onDetach();
     }
 
     static ExperimentSettingsFragment newInstance(int exp_id) {
