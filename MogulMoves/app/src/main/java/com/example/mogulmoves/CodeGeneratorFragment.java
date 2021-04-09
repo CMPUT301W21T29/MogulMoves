@@ -23,7 +23,7 @@ public class CodeGeneratorFragment extends DialogFragment {
 
     private Experiment experiment;
     private boolean isQR;
-    ArrayAdapter<Experiment> adapter;
+    ExperimentList adapter;
 
     public CodeGeneratorFragment(boolean isQR) {
         this.isQR = isQR;
