@@ -148,7 +148,7 @@ public class HistogramFragment extends DialogFragment {
      */
 
     public HistogramFragment(MeasureExperiment experiment) {
-
+        // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
             MeasureTrial trial = (MeasureTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
@@ -244,7 +244,6 @@ public class HistogramFragment extends DialogFragment {
                     }
                     numPoints++;
                 }
-
                 break;
         }
 
@@ -294,7 +293,21 @@ public class HistogramFragment extends DialogFragment {
         else {
             graphWidth = numPoints;
         }
-        barChart.getXAxis().setAxisMaximum(Collections.max(integerData)+2);
+
+        switch (experimentType) {
+            case 0:
+                barChart.getXAxis().setAxisMaximum(Collections.max(integerData)+2);
+                break;
+            case 1:
+                barChart.getXAxis().setAxisMaximum(4);
+                break;
+            case 2:
+                barChart.getXAxis().setAxisMaximum(Collections.max(floatData)+2);
+                break;
+
+        }
+
+
 
         return builder
                 .setView(view)
