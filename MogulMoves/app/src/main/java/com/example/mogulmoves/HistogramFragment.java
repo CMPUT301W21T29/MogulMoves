@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -28,7 +30,6 @@ import java.util.List;
 /**
  * Class to represent the data from the experiment's trials as a histogram based on when the data was collected.
  */
-
 public class HistogramFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
     private List<Float> floatData = new ArrayList<>();
@@ -57,23 +58,22 @@ public class HistogramFragment extends DialogFragment {
 
         List<Integer> integerBuffer = new ArrayList<>();
 
-        int originalSize = integerData.size();
-        for (int i=0; i<originalSize; i++) {
-
-            int occurrences = Collections.frequency(integerData, integerData.get(i));
-
+        while (integerData.size() > 0) {
+            int occurrences = Collections.frequency(integerData, integerData.get(0));
             occurrencesList.add(occurrences);
             integerBuffer.add(integerData.get(0));
 
-            for (int j=i; j<integerData.size(); j++) {
-                if (integerData.get(j) == integerData.get(0)) {
-                    integerData.remove(integerData.get(j));
+            int numToRemove = integerData.get(0);
+
+            for (int i=0; i<integerData.size(); i++) {
+                if (integerData.get(i) == numToRemove) {
+                    integerData.remove(integerData.get(i));
+                    i--;
                 }
             }
         }
 
         for (int i=0; i<integerBuffer.size(); i++) {
-
             integerData.add(integerBuffer.get(i));
         }
 
@@ -96,16 +96,7 @@ public class HistogramFragment extends DialogFragment {
 
         List<Integer> integerBuffer = new ArrayList<>();
 
-
-
         while (integerData.size() > 0) {
-
-            System.out.print("\nintegerData: ");
-            for (int i=0; i<integerData.size(); i++) {
-                System.out.print(integerData.get(i) + " ");
-            }
-            System.out.print("\n");
-
             int occurrences = Collections.frequency(integerData, integerData.get(0));
             occurrencesList.add(occurrences);
             integerBuffer.add(integerData.get(0));
@@ -148,7 +139,7 @@ public class HistogramFragment extends DialogFragment {
      */
 
     public HistogramFragment(MeasureExperiment experiment) {
-
+        // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
             MeasureTrial trial = (MeasureTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
@@ -157,26 +148,26 @@ public class HistogramFragment extends DialogFragment {
 
         List<Float> floatBuffer = new ArrayList<>();
 
-        for (int i=0; i<floatData.size(); i++) {
+        while (floatData.size() > 0) {
 
-            int occurrences = Collections.frequency(floatData, floatData.get(i));
 
+            int occurrences = Collections.frequency(floatData, floatData.get(0));
             occurrencesList.add(occurrences);
             floatBuffer.add(floatData.get(0));
 
-            for (int j=i; j<floatData.size(); j++) {
-                if (floatData.get(j) == floatData.get(0)) {
-                    floatData.remove(floatData.get(j));
+            float numToRemove = floatData.get(0);
+
+            for (int i=0; i<floatData.size(); i++) {
+                if (floatData.get(i) == numToRemove) {
+                    floatData.remove(floatData.get(i));
                     i--;
                 }
             }
         }
 
         for (int i=0; i<floatBuffer.size(); i++) {
-
             floatData.add(floatBuffer.get(i));
         }
-
         experimentType = 2;
     }
 
@@ -203,18 +194,13 @@ public class HistogramFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         barChart = view.findViewById(R.id.histogram_graph);
-        BarData barData;
+        BarData barData = new BarData();
         BarDataSet barDataSet, barDataSet1;
-
-        System.out.print("\nfinal integerData: ");
-        for (int i=0; i<integerData.size(); i++) {
-            System.out.print(integerData.get(i) + " ");
-        }
-        System.out.print("\noccurrence list: ");
-        for (int i=0; i<integerData.size(); i++) {
-            System.out.print(occurrencesList.get(i) + " ");
-        }
-        System.out.println("\n");
+        Legend legend = barChart.getLegend();
+        LegendEntry[] legendEntries;
+        String measureLabel = "";
+        int[] colourList;
+        String[] labelList;
 
         switch(experimentType) {
             case 0:
@@ -227,45 +213,91 @@ public class HistogramFragment extends DialogFragment {
                     }
                     numPoints++;
                 }
+
+                barDataSet = new BarDataSet(histogramData, "Data");
+                barDataSet.setColor(Color.GREEN);
+                barData.addDataSet(barDataSet);
+
                 break;
             case 1:
                 for (int i=0; i<binomialData.size(); i++) {
                     histogramData.add(new BarEntry(i+1, binomialData.get(i)));
                     numPoints++;
                 }
+                barDataSet = new BarDataSet(histogramData, "Successes");
+                barDataSet1 = new BarDataSet(histogramData, "Failures");
+
+                colourList = new int[] {Color.GREEN, Color.RED};
+                labelList = new String[] {"Success", "Failure"};
+                legendEntries = new LegendEntry[2];
+                for (int i=0; i<2; i++) {
+                    LegendEntry entry = new LegendEntry();
+                    entry.formColor = colourList[i];
+                    entry.label = labelList[i];
+                    legendEntries[i] = entry;
+                }
+                legend.setCustom(legendEntries);
+                legend.setEnabled(true);
+
+                barDataSet.setColor(Color.GREEN);
+                barDataSet1.setColors(new int[] {Color.GREEN, Color.RED});
+                barData.addDataSet(barDataSet);
+                barData.addDataSet(barDataSet1);
+
                 break;
             case 2:
-                for (int i=0; i<=Collections.max(floatData); i++) {
-                    if (floatData.contains(i)) {
-                        histogramData.add(new BarEntry(i+1, occurrencesList.get(floatData.indexOf(i))));
+                doubleListSort(floatData, occurrencesList);
+                int[] colours = new int[floatData.size()];
+                for (int i=0; i<floatData.size(); i++) {
+                    histogramData.add(new BarEntry(i+1, floatData.get(i)));
+
+                    switch (occurrencesList.get(i)) {
+                        case 1:
+                            colours[i] = Color.RED;
+                            break;
+                        case 2:
+                            colours[i] = Color.YELLOW;
+                            break;
+                        case 3:
+                            colours[i] = Color.GREEN;
+                            break;
+                        case 4:
+                            colours[i] = Color.CYAN;
+                            break;
+                        case 5:
+                            colours[i] = Color.BLUE;
+                            break;
+                        default:
+                            if (occurrencesList.get(i) > 0) {
+                                colours[i] = Color.MAGENTA;
+                            }
+                            else {
+                                colours[i] = Color.TRANSPARENT;
+                            }
+                            break;
+
                     }
-                    else {
-                        histogramData.add(new BarEntry(i+1, 0));
-                    }
+
                     numPoints++;
                 }
 
+                barDataSet = new BarDataSet(histogramData, "Data");
+                colourList = new int[] {Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN, Color.BLUE, Color.MAGENTA};
+                labelList = new String[] {"1", "2", "3", "4", "5", "6+"};
+                legendEntries = new LegendEntry[6];
+                for (int i=0; i<6; i++) {
+                    LegendEntry entry = new LegendEntry();
+                    entry.formColor = colourList[i];
+                    entry.label = labelList[i];
+                    legendEntries[i] = entry;
+                }
+                legend.setCustom(legendEntries);
+                legend.setEnabled(true);
+
+                barDataSet.setColors(colours);
+                barData.addDataSet(barDataSet);
+
                 break;
-        }
-
-        if (experimentType == 1) {
-            barDataSet = new BarDataSet(histogramData, "Successes");
-            barDataSet1 = new BarDataSet(histogramData, "Failures");
-
-            barDataSet.setColor(Color.GREEN);
-            barDataSet1.setColors(new int[] {Color.GREEN, Color.RED});
-
-            barData = new BarData(barDataSet, barDataSet1);
-
-        }
-        else {
-            barDataSet = new BarDataSet(histogramData, "Data");
-
-            barDataSet.setColor(Color.GREEN);
-
-            barData = new BarData();
-
-            barData.addDataSet(barDataSet);
         }
 
         barChart.setNoDataText("No Data Yet");
@@ -294,7 +326,19 @@ public class HistogramFragment extends DialogFragment {
         else {
             graphWidth = numPoints;
         }
-        barChart.getXAxis().setAxisMaximum(Collections.max(integerData)+2);
+
+        switch (experimentType) {
+            case 0:
+                barChart.getXAxis().setAxisMaximum(Collections.max(integerData)+2);
+                break;
+            case 1:
+                barChart.getXAxis().setAxisMaximum(4);
+                break;
+            case 2:
+                barChart.getXAxis().setAxisMaximum(floatData.size()+2);
+                break;
+
+        }
 
         return builder
                 .setView(view)
@@ -305,6 +349,46 @@ public class HistogramFragment extends DialogFragment {
                 }).create();
     }
 
+    /**
+     * Position i in list1 and list2 go together as a pair of values, so this method sorts list1 and has the elements of list2 follow their counterparts from list1.
+     *
+     * @param list1
+     * @param list2
+     *
+     * @return list1 (sorted by value), and list2 (sorted by the list1 values).
+     */
+    private void doubleListSort(List<Float> list1, List<Integer> list2) {
+        // sort list1 and have list2 follow with the same elements
+        // arr was the sample array
+            int n = list1.size();
+            float tempFloat = 0;
+            int tempInt = 0;
+            for(int i=0; i < n; i++){
+                for(int j=1; j < (n-i); j++){
+                    if(list1.get(j-1) > list1.get(j)){
+                        // swap elements in list1
+                        tempFloat = list1.get(j-1);
+                        list1.set(j-1, list1.get(j));
+                        list1.set(j, tempFloat);
+                        // swap elements in list2
+                        tempInt = list2.get(j-1);
+                        list2.set(j-1, list2.get(j));
+                        list2.set(j, tempInt);
+                    }
+
+                }
+            }
+
+
+    }
+
+    /**
+     * Creates a new instance of a HistogramFragment.
+     *
+     * @param exp_id the object id of the experiment a histogram is needed for.
+     *
+     * @return a new instance of a HistogramFragment.
+     */
     static HistogramFragment newInstance(int exp_id) {
         Bundle args = new Bundle();
         args.putSerializable("exp_id", exp_id);
