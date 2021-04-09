@@ -77,6 +77,11 @@ public class UserProfilePage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void switchToCodeActivity(View view) {
+        Intent intent = new Intent(this, CodeActivity.class);
+        startActivity(intent);
+    }
+
     public void goBack(View view){
         finish();
     }
