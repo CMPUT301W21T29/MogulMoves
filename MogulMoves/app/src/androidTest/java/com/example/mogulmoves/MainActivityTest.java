@@ -1,6 +1,7 @@
 package com.example.mogulmoves;
 import android.app.Activity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import androidx.test.rule.ActivityTestRule;
@@ -68,6 +69,7 @@ public class MainActivityTest {
         solo.clearEditText((EditText) solo.getView(R.id.experiment_region));
         solo.enterText((EditText) solo.getView(R.id.experiment_region), "Test location");
         solo.enterText((EditText) solo.getView(R.id.minimum_trials), "5");
+        solo.clickOnCheckBox(R.id.location_required);
         solo.clickOnButton("PUBLISH");
 
         assertTrue(solo.waitForText("Robotium test", 1, 2000));
@@ -77,27 +79,19 @@ public class MainActivityTest {
 
     //Subscribe to an experiment (01.04.01)
     public void subscribe() {
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnText("Robotium test");
-
         solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
         solo.clickOnButton("SUBSCRIBE");
-        solo.goBack();
 
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnText("Robotium test");
-
-        assertTrue(solo.waitForText("SUBSCRIBED", 1, 2000));
+        assertTrue(solo.waitForText("UNSUBSCRIBE", 1, 2000));
     }
 
-    //Add trials to an experiment (01.05.01)
+    //Add trials to an experiment (01.05.01), warn if geolocation required (06.03.01)
     public void addTrials() {
-        solo.clickOnText("Robotium test");
-
         solo.assertCurrentActivity("Wrong Activity", ViewExperimentActivity.class);
         solo.clickOnButton(1); //add trial button
-        solo.clickOnScreen(900, 1250); //submit button
+        assertTrue(solo.waitForText("geolocation", 1, 2000));
 
+        solo.clickOnScreen(900, 1250); //submit button
         assertTrue(solo.waitForText("Trials: 1/", 1, 2000));
     }
 
