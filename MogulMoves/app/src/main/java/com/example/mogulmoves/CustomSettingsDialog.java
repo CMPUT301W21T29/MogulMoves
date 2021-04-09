@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-//Custom dialog class for EditCountTrialFragment.
+//Custom dialog class for ExperimentSettingsFragment.
 
 public class CustomSettingsDialog extends AlertDialog {
     private Button negative;

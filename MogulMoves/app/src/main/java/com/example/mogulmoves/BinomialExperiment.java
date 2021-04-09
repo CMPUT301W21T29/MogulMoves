@@ -46,7 +46,7 @@ public class BinomialExperiment extends Experiment {
 
         for(int i = 0; i < length; i++) {
 
-            BinomialTrial trial = (BinomialTrial) ObjectContext.getObjectById(unignoredTrials.get(i));
+            BinomialTrial trial = (BinomialTrial) ObjectContext.getTrialById(unignoredTrials.get(i));
 
             if(trial.getIsSuccess()) {
                 values[i] = 1;
@@ -69,7 +69,7 @@ public class BinomialExperiment extends Experiment {
         int sum = 0;
 
         for(int trial: trials){
-            if(((BinomialTrial) ObjectContext.getObjectById(trial)).getIsSuccess()) {
+            if(((BinomialTrial) ObjectContext.getTrialById(trial)).getIsSuccess()) {
                 sum++;
             }
         }
@@ -86,7 +86,7 @@ public class BinomialExperiment extends Experiment {
         int sum = 0;
 
         for(int trial: trials){
-            if(!((BinomialTrial) ObjectContext.getObjectById(trial)).getIsSuccess()) {
+            if(!((BinomialTrial) ObjectContext.getTrialById(trial)).getIsSuccess()) {
                 sum++;
             }
         }

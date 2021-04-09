@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//Custom adapter for listing experiment messages.
+
 class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder> {
     private static final String TAG = "ListItemAdapter";
     ArrayList<Message> docData;
@@ -45,7 +47,7 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Message message = docData.get(position);
-        User poster = (User) ObjectContext.getObjectById(message.getUser());
+        User poster = ObjectContext.getUserById(message.getUser());
         String username = poster.getUsername();
         if (username.length() <= 0) {
             username = "(ID " + Integer.toString(poster.getId()) + ")";

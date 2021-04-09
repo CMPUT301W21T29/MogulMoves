@@ -15,8 +15,8 @@ public abstract class SavedObject {
      */
     public SavedObject() {
 
-        id = ObjectContext.nextId;
         ObjectContext.nextId++;
+        id = ObjectContext.nextId;
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("nextId", ObjectContext.nextId);

@@ -1,25 +1,50 @@
 package com.example.mogulmoves;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
+
+import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
+/*
+ * Activity to view details about an experiment, including statistics, minimum and current trials,
+ * and histograms, time plots and maps of trials. Also includes functionality to add trials, subscribe,
+ * and post messages on the forum.
+ */
 
 public class ViewExperimentActivity extends AppCompatActivity {
 
@@ -43,15 +68,15 @@ public class ViewExperimentActivity extends AppCompatActivity {
         exp_id = getIntent().getIntExtra("expID", -1);
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
 
-        experiment = (Experiment) ObjectContext.getObjectById(exp_id);
-        self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+        experiment = ObjectContext.getExperimentById(exp_id);
+        self = ObjectContext.getUserById(ObjectContext.userDatabaseId);
 
         postList = (RecyclerView) findViewById(R.id.lstPosts);
 
         items = new ArrayList<>();
 
         for(int message: experiment.getMessages()) {
-            items.add((Message) ObjectContext.getObjectById(message));
+            items.add(ObjectContext.getMessageById(message));
         }
 
         adapter3 = new ListItemAdapter3(items);
@@ -87,21 +112,39 @@ public class ViewExperimentActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-
     public void updateDataDisplay() {
-        experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+        experiment = ObjectContext.getExperimentById(exp_id);
+
+        if (ObjectContext.userDatabaseId != experiment.getOwner()) {
+            btnExpSettings.setVisibility(View.INVISIBLE);
+        }
 
         TextView description = findViewById(R.id.experiment_description);
         description.setText(experiment.getDescription());
 
         TextView owner = findViewById(R.id.exp_list_item_owner);
-        User exp_owner = (User) ObjectContext.getObjectById(experiment.getOwner());
+        User exp_owner = ObjectContext.getUserById(experiment.getOwner());
 
         if (exp_owner.getUsername().length() <= 0 || exp_owner.getUsername() == null) {
             String str = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
             owner.setText(str);
         } else {
             owner.setText(exp_owner.getUsername());
+        }
+
+        Button trial_button = findViewById(R.id.add_trial_button);
+        if (experiment instanceof IntegerCountExperiment) {
+            if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
+                trial_button.setText("EDIT TRIAL");
+            }
+        }
+
+        LinearLayout trial_row = findViewById(R.id.trial_row);
+
+        if (!experiment.getActive()) {
+            trial_row.removeAllViews();
+            View new_view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.trial_ended, null);
+            trial_row.addView(new_view);
         }
 
         TextView trials = findViewById(R.id.experiment_trials);
@@ -124,13 +167,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
             sub_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
         }
 
-        Button trial_button = findViewById(R.id.add_trial_button);
-        if (experiment instanceof IntegerCountExperiment) {
-            if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
-                trial_button.setText("EDIT TRIAL");
-            }
-        }
-
         if (experiment.getNumTrials() > 0) {
             TextView stats = findViewById(R.id.experiment_stats_2);
 
@@ -151,8 +187,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
             stats.setText(stats_string);
 
         }
-
-
     }
 
     public void openAddTrialFragment2() {
@@ -161,7 +195,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     }
 
     public void openAddTrialFragment(View view) {
-
+        currentLocation();
         if (experiment instanceof BinomialExperiment) {
             AddBinomialTrialFragment newFragment = AddBinomialTrialFragment.newInstance(exp_id);
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
@@ -212,15 +246,48 @@ public class ViewExperimentActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.map_linear_layout,fragment)
                 .commit();*/
-        Intent intent = new Intent(this, MapAdaptor.class);
+        Intent intent = new Intent(this, MapAdapter.class);
         intent.putExtra("whichExperiment", Integer.toString(exp_id));
         startActivity(intent);
     }
 
-    public void toProfileActivity (View view)
-    {
-        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
-        startActivity(i);
+    public void currentLocation() {
+        FusedLocationProviderClient fusedLocationProviderClient;
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+                    if (location != null) {
+                        try {
+                            Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
+
+                            List<Address> addressList = geocoder.getFromLocation
+                                    (location.getLatitude(),location.getLongitude(),1);
+                            double locationLatitude = addressList.get(0).getLatitude();
+                            double locationLongitude = addressList.get(0).getLongitude();
+                            Log.d("getLocation","locationLatitude" + locationLatitude);
+                            Log.d("getLocation", "locationLongitude" + locationLongitude);
+
+                            ObjectContext.location[0] = locationLatitude;
+                            ObjectContext.location[1] = locationLongitude;
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            });
+
+        } else {
+            ActivityCompat.requestPermissions(ViewExperimentActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
     }
 
     private void addListeners() {

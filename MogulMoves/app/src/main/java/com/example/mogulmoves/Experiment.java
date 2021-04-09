@@ -3,15 +3,16 @@ package com.example.mogulmoves;
 import android.location.Location;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * Abstract class to represent an experiment and all of its data.
  */
-public abstract class Experiment extends SavedObject /*implements GeoExperiment*/ {
+public abstract class Experiment extends SavedObject {
 
     private boolean active = true;
-    private final boolean visible;
+    private boolean visible;
     private final boolean locationRequired;
     private final String description;
     private final String region;
@@ -20,6 +21,7 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
 
     protected final ArrayList<Integer> trials;
     private final ArrayList<Integer> messages;
+    private final ArrayList<Integer> ignoredUsers;
 
     /**
      * Creates the experiment.
@@ -44,6 +46,7 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
 
         trials = new ArrayList<>();
         messages = new ArrayList<>();
+        ignoredUsers = new ArrayList<>();
 
     }
 
@@ -71,12 +74,10 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
 
         trials = new ArrayList<>();
         messages = new ArrayList<>();
+        ignoredUsers = new ArrayList<>();
 
     }
 
-    public void setActive(boolean active){
-        this.active = active;
-    }
 
     /**
      * Returns the active state of the experiment.
@@ -88,12 +89,28 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     }
 
     /**
+     * Sets the active state of the experiment.
+     *
+     * @param active the new active state of the experiment
+     */
+    public void setActive(boolean active){
+        this.active = active;
+    }
+
+    /**
      * Returns the visibility of the experiment.
      *
      * @return the visibility of the experiment
      */
     public boolean getVisible() {
         return visible;
+    }
+
+    /**
+     * Toggles the visibility of the experiment.
+     */
+    public void toggleVisible() {
+        visible = !visible;
     }
 
     /**
@@ -151,30 +168,20 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     }
 
     /**
-     * Returns the list of trials added to the experiment.
-     *
-     * @return the list of trials added to the experiment
-     */
-    public ArrayList<Integer> getTrials() {
-        return trials;
-    }
-
-    /**
      * Returns the list of trials that haven't been ignored.
      *
      * @return the list of unignored trials
      */
     public ArrayList<Integer> getUnignoredTrials() {
 
-        ArrayList<Integer> currentUserIgnored = ((User) ObjectContext.getObjectById(ObjectContext.userDatabaseId)).getIgnored();
         ArrayList<Integer> result = new ArrayList<>();
 
         for(int trial: trials) {
 
             boolean keep = true;
             
-            for(int ignoredTrial: currentUserIgnored) {
-                if(trial == ignoredTrial) {
+            for(int ignoredUser: ignoredUsers) {
+                if((ObjectContext.getTrialById(trial)).getExperimenter() == ignoredUser) {
                     keep = false;
                     break;
                 }
@@ -190,21 +197,21 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     }
 
     /**
-     * Returns the list of messages added to the experiment.
-     *
-     * @return the list of messages added to the experiment
-     */
-    public ArrayList<Integer> getMessages() {
-        return messages;
-    }
-
-    /**
      * Adds a trial to the experiment.
      *
      * @param trial the id of a trial to add to this experiment
      */
     public void addTrial(int trial){
         trials.add(trial);
+    }
+
+    /**
+     * Returns the list of trials added to the experiment.
+     *
+     * @return the list of trials added to the experiment
+     */
+    public ArrayList<Integer> getTrials() {
+        return trials;
     }
 
     /**
@@ -217,47 +224,31 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     }
 
     /**
-     * @param locationRequired a boolean representing whether locations are required for this experiment
-     * @param user the user who try to set if locations are required for this experiment
-     * @throws IOException
-
-    @Override
-    public void setLocationRequired(boolean locationRequired, int user) throws IOException {
-        if (owner == user) {
-            this.locationRequired = locationRequired;
-        }
-        else {
-            throw new IOException("Permission Denied");
-        }
-    }*/
+     * Returns the list of messages added to the experiment.
+     *
+     * @return the list of messages added to the experiment
+     */
+    public ArrayList<Integer> getMessages() {
+        return messages;
+    }
 
     /**
-     * @param user the user who tries to subscribe to this experiment, or owner who tries to set geo requirement
-     * @return
-
-    @Override
-    public String GeoExperimentWarning(int user) {
-        if (owner == user) {
-            return "Do you want to require user location for this experiment?";
-        }
-        else {
-            return "This experiment requires collection of your location, do you want to continue?";
-        }
-    }*/
-
+     * Adds an experimenter to the list of ignored experimenters.
+     *
+     * @param experimenter the id of an experimenter to ignore
+     */
+    public void addIgnoredUser(int experimenter) {
+        ignoredUsers.add(experimenter);
+    }
 
     /**
-     * @return a list of locations of all existent trials of this experiment if geo required
-     * @throws IOException
-
-    @Override
-    public ArrayList<Location> getAllLocations() throws IOException {
-        ArrayList<Location> locations = new ArrayList<>();
-        for (int i = 0; i < trials.size(); i++) {
-            locations.add(((Trial) ObjectContext.getObjectById(trials.get(i))).getExperimenterGeo());
-        }
-        return locations;
-    }*/
+     * Returns the list of users that have been ignored.
+     *
+     * @return the list of ignored users
+     */
+    public ArrayList<Integer> getIgnoredUsers() {
+        return ignoredUsers;
+    }
 
     /**
      * Returns the values of every trial in the experiment.
@@ -301,4 +292,47 @@ public abstract class Experiment extends SavedObject /*implements GeoExperiment*
     public float getStdDev() {
         return StatCalculator.getStdDev(getValues());
     }
+
+    /**
+     * @param locationRequired a boolean representing whether locations are required for this experiment
+     * @param user the user who try to set if locations are required for this experiment
+     * @throws IOException
+
+     @Override
+     public void setLocationRequired(boolean locationRequired, int user) throws IOException {
+     if (owner == user) {
+     this.locationRequired = locationRequired;
+     }
+     else {
+     throw new IOException("Permission Denied");
+     }
+     }*/
+
+    /**
+     * @param user the user who tries to subscribe to this experiment, or owner who tries to set geo requirement
+     * @return
+
+     @Override
+     public String GeoExperimentWarning(int user) {
+     if (owner == user) {
+     return "Do you want to require user location for this experiment?";
+     }
+     else {
+     return "This experiment requires collection of your location, do you want to continue?";
+     }
+     }*/
+
+
+    /**
+     * @return a list of locations of all existent trials of this experiment if geo required
+     * @throws IOException
+
+     @Override
+     public ArrayList<Location> getAllLocations() throws IOException {
+     ArrayList<Location> locations = new ArrayList<>();
+     for (int i = 0; i < trials.size(); i++) {
+     locations.add(((Trial) ObjectContext.getObjectById(trials.get(i))).getExperimenterGeo());
+     }
+     return locations;
+     }*/
 }

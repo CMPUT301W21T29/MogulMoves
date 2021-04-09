@@ -32,19 +32,9 @@
         android:paddingRight="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lstPosts"
+            android:id="@+id/to_ignore_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Amogus" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EngineerGameing" />
 
     </RelativeLayout>
 
@@ -56,6 +46,7 @@
         <TableRow>
 
             <TextView
+                android:id="@+id/num_trials"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trials: x/y"
@@ -72,10 +63,12 @@
 
     </TableLayout>
 
-    <Button
+    <ToggleButton
+        android:id="@+id/btnUnpublishExperiment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="UNPUBLISH EXPERIMENT" />
+        android:textOff="REPUBLISH EXPERIMENT"
+        android:textOn="UNPUBLISH EXPERIMENT" />
 
     <Button
         android:id="@+id/back2"

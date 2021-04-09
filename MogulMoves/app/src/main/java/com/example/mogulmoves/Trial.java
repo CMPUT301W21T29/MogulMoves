@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Abstract class to represent a trial of an experiment.
  */
-public abstract class Trial extends SavedObject implements GeoTrial {
+public abstract class Trial extends SavedObject {
 
     private final int experimenter;
     private final long timestamp;
@@ -71,17 +71,6 @@ public abstract class Trial extends SavedObject implements GeoTrial {
     public double[] getTrialLocation() {
         return trialLocation;
     }
-
-    /*
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void addExperimenterGeo() {
-        //User experimenterObject = (User) ObjectContext.getObjectById(experimenter);
-        //trialLocation = experimenterObject.getDefaultLocation();
-        Double random1 = ThreadLocalRandom.current().nextDouble(1, 89);
-        Double random2 = ThreadLocalRandom.current().nextDouble(-179, -1);
-        trialLocation[0] = random1;
-        trialLocation[1] = random2;
-    }*/
 
     /**
      * @return the location of this trial

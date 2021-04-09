@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class MapAdaptor extends AppCompatActivity {
+/**
+ *Adapter to display a map of trial locations.
+ */
+public class MapAdapter extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,34 +17,35 @@ public class MapAdaptor extends AppCompatActivity {
         setContentView(R.layout.activity_map_adaptor);
         Intent intent = getIntent();
         int expId = Integer.parseInt(intent.getStringExtra("whichExperiment"));
+        Experiment exp = ObjectContext.getExperimentById(expId);
 
         //Initialize fragment
-        if (ObjectContext.getObjectById(expId) instanceof BinomialExperiment) {
-            Fragment fragment = new MapFragment((BinomialExperiment) ObjectContext.getObjectById(expId));
+        if (exp instanceof BinomialExperiment) {
+            Fragment fragment = new MapFragment((BinomialExperiment) exp);
 
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.map_frame_layout, fragment)
                     .commit();
         }
-        else if (ObjectContext.getObjectById(expId) instanceof IntegerCountExperiment) {
-            Fragment fragment = new MapFragment((IntegerCountExperiment) ObjectContext.getObjectById(expId));
+        else if (exp instanceof IntegerCountExperiment) {
+            Fragment fragment = new MapFragment((IntegerCountExperiment) exp);
 
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.map_frame_layout, fragment)
                     .commit();
         }
-        else if (ObjectContext.getObjectById(expId) instanceof NonNegativeCountExperiment) {
-            Fragment fragment = new MapFragment((NonNegativeCountExperiment) ObjectContext.getObjectById(expId));
+        else if (exp instanceof NonNegativeCountExperiment) {
+            Fragment fragment = new MapFragment((NonNegativeCountExperiment) exp);
 
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.map_frame_layout, fragment)
                     .commit();
         }
-        else if (ObjectContext.getObjectById(expId) instanceof MeasureExperiment) {
-            Fragment fragment = new MapFragment((MeasureExperiment) ObjectContext.getObjectById(expId));
+        else if (exp instanceof MeasureExperiment) {
+            Fragment fragment = new MapFragment((MeasureExperiment) exp);
 
             getSupportFragmentManager()
                     .beginTransaction()

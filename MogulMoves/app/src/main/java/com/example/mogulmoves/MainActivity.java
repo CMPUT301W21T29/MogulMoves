@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setupDatabaseListeners();
-        setLocation();
+        //setCamera();
+        setLocationCamera();
 
         expList = findViewById(R.id.experiment_list);
 
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        // trial message data listener
+                                        // experiment message data listener
                                         CollectionReference collectionReference4 = db.collection("messages");
                                         collectionReference4.addSnapshotListener(new EventListener<QuerySnapshot>() {
                                             @Override
@@ -235,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        // trial data listener
+                                        // barcode data listener
                                         CollectionReference collectionReference5 = db.collection("barcodes");
                                         collectionReference5.addSnapshotListener(new EventListener<QuerySnapshot>() {
                                             @Override
@@ -273,10 +274,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setLocation() {
-        FusedLocationProviderClient fusedLocationProviderClient;
+    private void setLocationCamera() {
+        /*FusedLocationProviderClient fusedLocationProviderClient;
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -307,44 +308,56 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 22);
+        }*/
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA},
+                PackageManager.PERMISSION_GRANTED);
+
+        /*ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                PackageManager.PERMISSION_GRANTED);*/
+
+
+
+
+    }
+    public void GetCurrentLocation(View view) {
+        FusedLocationProviderClient fusedLocationProviderClient;
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+                    if (location != null) {
+                        try {
+                            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+
+                            List<Address> addressList = geocoder.getFromLocation
+                                    (location.getLatitude(),location.getLongitude(),1);
+                            double locationLatitude = addressList.get(0).getLatitude();
+                            double locationLongitude = addressList.get(0).getLongitude();
+                            Log.d("getLocation","locationLatitude" + locationLatitude);
+                            Log.d("getLocation", "locationLongitude" + locationLongitude);
+
+                            ObjectContext.location[0] = locationLatitude;
+                            ObjectContext.location[1] = locationLongitude;
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            });
+
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
-
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                PackageManager.PERMISSION_GRANTED);
-
-            /*Button b = findViewById(R.id.add_trial_button);
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
-                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location != null) {
-                                    try {
-                                        Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
-
-                                        List<Address> addressList = geocoder.getFromLocation
-                                                (location.getLatitude(),location.getLongitude(),1);
-                                    }catch (IOException e){
-                                        e.printStackTrace();
-                                    }
-
-                                }
-                            }
-                        });
-
-                    } else {
-                        ActivityCompat.requestPermissions(ViewExperimentActivity.this,
-                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                    }
-                }
-            });*/
     }
 
     public void toUserProfilePage (View view) {
@@ -408,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String action = result.substring(0, 4);
                 int id = Integer.parseInt(result.substring(4));
-                Experiment experiment = (Experiment) ObjectContext.getObjectById(id);
+                Experiment experiment = ObjectContext.getExperimentById(id);
                 int experimenter = ObjectContext.userDatabaseId;
                 Trial trial;
 
@@ -426,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
 
                         for(int trialId: experiment.getTrials()) {
 
-                            Trial checkTrial = (Trial) ObjectContext.getObjectById(trialId);
+                            Trial checkTrial = ObjectContext.getTrialById(trialId);
 
                             if(checkTrial.getExperimenter() == experimenter) {
 
