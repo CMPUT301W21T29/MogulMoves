@@ -50,7 +50,7 @@ public class NonNegativeCountExperiment extends Experiment {
         ArrayList<Integer> unignoredTrials = getUnignoredTrials();
 
         for(int i = 0; i < length; i++) {
-            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(unignoredTrials.get(i));
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getTrialById(unignoredTrials.get(i));
             values[i] = (float) trial.getCount();
         }
 

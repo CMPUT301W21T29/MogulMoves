@@ -45,7 +45,7 @@ public class IntegerCountExperiment extends NonNegativeCountExperiment {
     public boolean userHasTrial(int user) {
 
         for(int trial: trials) {
-            if(((Trial) ObjectContext.getObjectById(trial)).getExperimenter() == user) {
+            if((ObjectContext.getTrialById(trial)).getExperimenter() == user) {
                 return true;
             }
         }

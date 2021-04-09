@@ -15,10 +15,7 @@ public abstract class SavedObject {
      */
     public SavedObject() {
 
-        while(ObjectContext.getObjectById(ObjectContext.nextId) != null) {
-            ObjectContext.nextId++;
-        }
-
+        ObjectContext.nextId++;
         id = ObjectContext.nextId;
 
         HashMap<String, Object> map = new HashMap<>();
