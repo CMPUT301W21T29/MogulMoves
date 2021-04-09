@@ -51,7 +51,7 @@ public class CodeGeneratorFragment extends DialogFragment {
         for(int expId: ObjectContext.getUserById(ObjectContext.userDatabaseId).getSubscribed()) {
             Experiment exp = ObjectContext.getExperimentById(expId);
 
-            if(exp.getVisible()) {
+            if(exp.getVisible() && exp.getActive() && !(exp instanceof MeasureExperiment)) {
                 experiments.add(exp);
             }
         }
