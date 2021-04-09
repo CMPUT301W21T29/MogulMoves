@@ -14,7 +14,7 @@ public class MapAdapter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_adaptor);
+        setContentView(R.layout.activity_map_adapter);
         Intent intent = getIntent();
         int expId = Integer.parseInt(intent.getStringExtra("whichExperiment"));
         Experiment exp = ObjectContext.getExperimentById(expId);
