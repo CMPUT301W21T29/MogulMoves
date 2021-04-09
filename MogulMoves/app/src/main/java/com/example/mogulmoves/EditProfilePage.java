@@ -79,7 +79,7 @@ public class EditProfilePage extends AppCompatActivity {
         currentUser.setEmail(newEmail);
         currentUser.setPhone(newPhone);
 
-        ObjectContext.pushUserData(currentUser);
+        DatabaseHandler.pushUserData(currentUser);
 
         finish();
     }

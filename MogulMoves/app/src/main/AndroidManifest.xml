@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MogulMoves">
         <activity android:name=".CodeActivity"></activity>
-        <activity android:name=".MapAdapter" />
+        <activity android:name=".MapActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

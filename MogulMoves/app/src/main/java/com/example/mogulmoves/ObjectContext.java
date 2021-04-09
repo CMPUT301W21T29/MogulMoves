@@ -156,7 +156,7 @@ public class ObjectContext {
      */
     public static void addExperiment(Experiment experiment) {
         ObjectContext.experiments.add(experiment);
-        pushExperimentData(experiment);
+        DatabaseHandler.pushExperimentData(experiment);
     }
 
     /**
@@ -166,7 +166,7 @@ public class ObjectContext {
      * @param user a User object to add
      */
     public static void addUser(User user) {
-        pushUserData(user);
+        DatabaseHandler.pushUserData(user);
     }
 
     /**
@@ -181,8 +181,8 @@ public class ObjectContext {
         experiment.addTrial(trial.getId());
         trials.add(trial);
 
-        pushTrialData(trial);
-        pushExperimentData(experiment);
+        DatabaseHandler.pushTrialData(trial);
+        DatabaseHandler.pushExperimentData(experiment);
     }
 
     /**
@@ -196,8 +196,8 @@ public class ObjectContext {
 
         experiment.addMessage(message.getId());
 
-        pushMessageData(message);
-        pushExperimentData(experiment);
+        DatabaseHandler.pushMessageData(message);
+        DatabaseHandler.pushExperimentData(experiment);
 
     }
 
@@ -211,73 +211,8 @@ public class ObjectContext {
 
         user.addBarcode(barcode.getId());
 
-        pushBarcodeData(barcode);
-        pushUserData(user);
-
-    }
-
-    /**
-     * Pushes the data for an experiment to the database.
-     *
-     * @param experiment an experiment to push
-     */
-    public static void pushExperimentData(Experiment experiment) {
-
-        ExperimentSerializer serializer = new ExperimentSerializer();
-        DatabaseHandler.pushData("experiments", "" + experiment.getId(),
-                serializer.toData(experiment));
-
-    }
-
-    /**
-     * Pushes the data for a user to the database.
-     *
-     * @param user a user to push
-     */
-    public static void pushUserData(User user) {
-
-        UserSerializer serializer = new UserSerializer();
-        DatabaseHandler.pushData("users", "" + user.getId(),
-                serializer.toData(user));
-
-    }
-
-    /**
-     * Pushes the data for a trial to the database.
-     *
-     * @param trial a trial to push
-     */
-    public static void pushTrialData(Trial trial) {
-
-        TrialSerializer serializer = new TrialSerializer();
-        DatabaseHandler.pushData("trials", "" + trial.getId(),
-                serializer.toData(trial));
-
-    }
-
-    /**
-     * Pushes the data for a message to the database.
-     *
-     * @param message a message to push
-     */
-    public static void pushMessageData(Message message) {
-
-        MessageSerializer serializer = new MessageSerializer();
-        DatabaseHandler.pushData("messages", "" + message.getId(),
-                serializer.toData(message));
-
-    }
-
-    /**
-     * Pushes the data for a barcode to the database.
-     *
-     * @param barcode a barcode to push
-     */
-    public static void pushBarcodeData(Barcode barcode) {
-
-        BarcodeSerializer serializer = new BarcodeSerializer();
-        DatabaseHandler.pushData("barcodes", "" + barcode.getId(),
-                serializer.toData(barcode));
+        DatabaseHandler.pushBarcodeData(barcode);
+        DatabaseHandler.pushUserData(user);
 
     }
 

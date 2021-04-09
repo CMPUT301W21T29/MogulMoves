@@ -19,6 +19,9 @@ import java.util.ArrayList;
 
 import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
 
+/**
+ * Activity to show available QR codes and let the user create/register their own.
+ */
 public class CodeActivity extends AppCompatActivity {
 
     ListView codeList;
