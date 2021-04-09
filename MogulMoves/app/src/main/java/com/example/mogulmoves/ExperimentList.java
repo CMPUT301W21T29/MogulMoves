@@ -42,7 +42,7 @@ public class ExperimentList extends ArrayAdapter<Experiment> {
         TextView owner = view.findViewById(R.id.exp_list_item_owner);
         TextView trials = view.findViewById(R.id.exp_list_item_trials);
         TextView region = view.findViewById(R.id.exp_list_item_region);
-        TextView subbed = view.findViewById(R.id.subbed);
+        TextView finished = view.findViewById(R.id.finished);
 
         desc.setText(experiment.getDescription());
 
@@ -63,11 +63,10 @@ public class ExperimentList extends ArrayAdapter<Experiment> {
             region.setText(experiment.getRegion());
         }
 
-        User app_user = ObjectContext.getUserById(ObjectContext.userDatabaseId);
-        if (app_user.getSubscribed().contains(experiment.getId())) {
-            subbed.setVisibility(VISIBLE);
+        if (!experiment.getActive()) {
+            finished.setVisibility(VISIBLE);
         } else {
-            subbed.setVisibility(INVISIBLE);
+            finished.setVisibility(INVISIBLE);
         }
 
         return view;
