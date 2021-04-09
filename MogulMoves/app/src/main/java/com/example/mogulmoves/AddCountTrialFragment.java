@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import static android.view.View.VISIBLE;
 
 //Fragment to add a new count trial.
 
@@ -21,6 +24,13 @@ public class AddCountTrialFragment extends DialogFragment {
     public Dialog onCreateDialog (@Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.count_trial_fragment, null);
 
+        TextView geo = view.findViewById(R.id.geo_message);
+        int exp_id = (int) getArguments().getSerializable("exp_id");
+        Experiment experiment = ObjectContext.getExperimentById(exp_id);
+        if (experiment.getLocationRequired()) {
+            geo.setVisibility(VISIBLE);
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
                 .setView(view)
@@ -29,9 +39,6 @@ public class AddCountTrialFragment extends DialogFragment {
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        int exp_id = (int) getArguments().getSerializable("exp_id");
-                        Experiment experiment = ObjectContext.getExperimentById(exp_id);
-
                         IntegerCountTrial trial = new IntegerCountTrial(ObjectContext.userDatabaseId, 0);
                         ObjectContext.addTrial(trial, experiment);
 

@@ -28,6 +28,13 @@ public class AddNNCountTrialFragment extends DialogFragment {
         count = view.findViewById(R.id.count);
         TextView error = view.findViewById(R.id.error_message);
 
+        TextView geo = view.findViewById(R.id.geo_message);
+        int exp_id = (int) getArguments().getSerializable("exp_id");
+        Experiment experiment = ObjectContext.getExperimentById(exp_id);
+        if (experiment.getLocationRequired()) {
+            geo.setVisibility(VISIBLE);
+        }
+
         AlertDialog dialog = new AlertDialog.Builder(getContext())
                 .setView(view)
                 .setTitle("ADD NEW TRIAL")
@@ -44,14 +51,10 @@ public class AddNNCountTrialFragment extends DialogFragment {
 
                     @Override
                     public void onClick(View view) {
-                        int exp_id = (int) getArguments().getSerializable("exp_id");
-
                         if (count.getText().toString().equals("")) {
                             error.setVisibility(VISIBLE);
                         } else {
                             int count_int = Integer.parseInt(count.getText().toString());
-
-                            Experiment experiment = ObjectContext.getExperimentById(exp_id);
 
                             NonNegativeCountTrial trial = new NonNegativeCountTrial(ObjectContext.userDatabaseId, count_int);
                             ObjectContext.addTrial(trial, experiment);

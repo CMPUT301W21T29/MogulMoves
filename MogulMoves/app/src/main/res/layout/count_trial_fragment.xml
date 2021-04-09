@@ -38,7 +38,6 @@
             android:id="@+id/geo_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:paddingRight="15dp"
             android:text="@string/geo"
             android:textColor="#EB4034"
