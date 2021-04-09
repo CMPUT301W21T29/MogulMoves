@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+//Adapter to display a map of trial locations.
+
 public class MapAdaptor extends AppCompatActivity {
 
     @Override

@@ -10,22 +10,20 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-//Fragment to increment the count of a pre-existing count trial.
+/**
+ * Fragment to edit settings of an experiment, including unpublishing or ending it, as well as
+ * ignoring trials of certain users.
+ */
+
 
 public class ExperimentSettingsFragment extends DialogFragment {
-    private TextView count;
-
-    View.OnClickListener incrementOCL =  new View.OnClickListener() {
-        public void onClick(View view) {
-            count = view.getRootView().findViewById(R.id.display_count);
-            int exp_id = (int) getArguments().getSerializable("exp_id");
-
-            ((ViewExperimentActivity) getActivity()).updateDataDisplay();
-        }
-    };
+    RecyclerView toIgnoreList;
+    IgnoreUserAdapter adapter;
 
     View.OnClickListener backOCL =  new View.OnClickListener() {
         public void onClick(View view) {
@@ -42,6 +40,18 @@ public class ExperimentSettingsFragment extends DialogFragment {
         CustomSettingsDialog dialog = new CustomSettingsDialog(getContext(), view);
         dialog.setView(view);
 
+        ArrayList<Integer> userIDs = new ArrayList<Integer>();
+        for(int trial: exp.getTrials()) {
+            if(!userIDs.contains(((Trial)ObjectContext.getObjectById(trial)).getExperimenter())) {
+                userIDs.add(trial);
+            }
+        }
+
+        toIgnoreList = dialog.findViewById(R.id.to_ignore_list);
+        adapter = new IgnoreUserAdapter(userIDs);
+        toIgnoreList.setAdapter(adapter);
+        toIgnoreList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
+
         Button btnEndExperiment = dialog.findViewById(R.id.btnEndExperiment);
         btnEndExperiment.setEnabled(exp.getActive());
         btnEndExperiment.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +59,16 @@ public class ExperimentSettingsFragment extends DialogFragment {
             public void onClick(View v) {
                 exp.setActive(false);
                 ObjectContext.pushExperimentData(exp);
+                btnEndExperiment.setEnabled(false);
+                ((ViewExperimentActivity) getActivity()).updateDataDisplay();
             }
         });
+
+        TextView trials = dialog.findViewById(R.id.num_trials);
+        String trials_text = "Trials: " + exp.getNumTrials() + "/" + exp.getMinTrials();
+        trials.setText(trials_text);
+
+        btnEndExperiment.setEnabled(exp.getNumTrials() >= exp.getMinTrials() && exp.getActive());
 
         ToggleButton btnUnpublishExperiment = dialog.findViewById(R.id.btnUnpublishExperiment);
         btnUnpublishExperiment.setChecked(exp.getVisible());

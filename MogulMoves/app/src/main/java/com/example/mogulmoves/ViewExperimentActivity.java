@@ -8,11 +8,14 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+
+import android.view.LayoutInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,12 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
+/*
+ * Activity to view details about an experiment, including statistics, minimum and current trials,
+ * and histograms, time plots and maps of trials. Also includes functionality to add trials, subscribe,
+ * and post messages on the forum.
+ */
 
 public class ViewExperimentActivity extends AppCompatActivity {
 
@@ -106,6 +115,10 @@ public class ViewExperimentActivity extends AppCompatActivity {
     public void updateDataDisplay() {
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
 
+        if (ObjectContext.userDatabaseId != experiment.getOwner()) {
+            btnExpSettings.setVisibility(View.INVISIBLE);
+        }
+
         TextView description = findViewById(R.id.experiment_description);
         description.setText(experiment.getDescription());
 
@@ -117,6 +130,21 @@ public class ViewExperimentActivity extends AppCompatActivity {
             owner.setText(str);
         } else {
             owner.setText(exp_owner.getUsername());
+        }
+
+        Button trial_button = findViewById(R.id.add_trial_button);
+        if (experiment instanceof IntegerCountExperiment) {
+            if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
+                trial_button.setText("EDIT TRIAL");
+            }
+        }
+
+        LinearLayout trial_row = findViewById(R.id.trial_row);
+
+        if (!experiment.getActive()) {
+            trial_row.removeAllViews();
+            View new_view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.trial_ended, null);
+            trial_row.addView(new_view);
         }
 
         TextView trials = findViewById(R.id.experiment_trials);
@@ -137,13 +165,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
         } else {
             sub_button.setText("SUBSCRIBE");
             sub_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
-        }
-
-        Button trial_button = findViewById(R.id.add_trial_button);
-        if (experiment instanceof IntegerCountExperiment) {
-            if (((IntegerCountExperiment) experiment).userHasTrial(ObjectContext.userDatabaseId)) {
-                trial_button.setText("EDIT TRIAL");
-            }
         }
 
         if (experiment.getNumTrials() > 0) {
@@ -267,11 +288,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
-    }
-
-    public void toProfileActivity (View view) {
-        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
-        startActivity(i);
     }
 
     private void addListeners() {
