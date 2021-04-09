@@ -46,7 +46,7 @@ public class ExperimentList extends ArrayAdapter<Experiment> {
 
         desc.setText(experiment.getDescription());
 
-        User exp_owner = (User) ObjectContext.getObjectById(experiment.getOwner());
+        User exp_owner = ObjectContext.getUserById(experiment.getOwner());
         if(exp_owner.getUsername().length() <= 0 || exp_owner.getUsername() == null) {
             String str = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
             owner.setText(str);
@@ -63,7 +63,7 @@ public class ExperimentList extends ArrayAdapter<Experiment> {
             region.setText(experiment.getRegion());
         }
 
-        User app_user = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+        User app_user = ObjectContext.getUserById(ObjectContext.userDatabaseId);
         if (app_user.getSubscribed().contains(experiment.getId())) {
             subbed.setVisibility(VISIBLE);
         } else {

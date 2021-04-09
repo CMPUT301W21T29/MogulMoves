@@ -72,7 +72,7 @@ public class ExperimentSearchActivity extends AppCompatActivity {
     public void toViewExperimentActivity(View v, int exp_id) {
         Intent i = new Intent(getApplicationContext(), ViewExperimentActivity.class);
         i.putExtra("expID", exp_id);
-        User self = (User)ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+        User self = ObjectContext.getUserById(ObjectContext.userDatabaseId);
         i.putExtra("loggedInUser", self.getUsername());
         startActivity(i);
     }

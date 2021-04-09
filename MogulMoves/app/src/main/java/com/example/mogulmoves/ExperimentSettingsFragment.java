@@ -37,7 +37,7 @@ public class ExperimentSettingsFragment extends DialogFragment {
     @Override
     public CustomSettingsDialog onCreateDialog (@Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_experiment_settings, null);
-        Experiment exp = (Experiment) ObjectContext.getObjectById((int) getArguments().getSerializable("exp_id"));
+        Experiment exp = ObjectContext.getExperimentById((int) getArguments().getSerializable("exp_id"));
 
         CustomSettingsDialog dialog = new CustomSettingsDialog(getContext(), view);
         dialog.setView(view);
@@ -69,11 +69,11 @@ public class ExperimentSettingsFragment extends DialogFragment {
     }
 
     public ArrayList<Integer> fetchTrialUsers (int exp_id) {
-        Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+        Experiment experiment = ObjectContext.getExperimentById(exp_id);
         ArrayList<Integer> userIDs = new ArrayList<Integer>();
 
         for(int trial_id: experiment.getTrials()) {
-            Trial trial = (Trial)ObjectContext.getObjectById(trial_id);
+            Trial trial = ObjectContext.getTrialById(trial_id);
             if (!userIDs.contains(trial.getExperimenter())) {
                 userIDs.add(trial.getExperimenter());
             }

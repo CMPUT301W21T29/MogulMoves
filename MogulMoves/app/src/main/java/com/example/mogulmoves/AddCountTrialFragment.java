@@ -30,12 +30,12 @@ public class AddCountTrialFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int exp_id = (int) getArguments().getSerializable("exp_id");
-                        Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+                        Experiment experiment = ObjectContext.getExperimentById(exp_id);
 
                         IntegerCountTrial trial = new IntegerCountTrial(ObjectContext.userDatabaseId, 0);
                         ObjectContext.addTrial(trial, experiment);
 
-                        User self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+                        User self = ObjectContext.getUserById(ObjectContext.userDatabaseId);
                         if (!self.getSubscribed().contains(exp_id)) {
                             ((ViewExperimentActivity)getActivity()).autoSub();
                         }

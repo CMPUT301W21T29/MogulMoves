@@ -45,7 +45,7 @@ class ListItemAdapter3 extends RecyclerView.Adapter<ListItemAdapter3.ViewHolder>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Message message = docData.get(position);
-        User poster = (User) ObjectContext.getObjectById(message.getUser());
+        User poster = ObjectContext.getUserById(message.getUser());
         String username = poster.getUsername();
         if (username.length() <= 0) {
             username = "(ID " + Integer.toString(poster.getId()) + ")";

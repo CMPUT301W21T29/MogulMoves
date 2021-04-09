@@ -54,13 +54,13 @@ public class AddBinomialTrialFragment extends DialogFragment {
                         if (!success.isChecked() && !failure.isChecked()) {
                             error.setVisibility(VISIBLE);
                         } else {
-                            Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+                            Experiment experiment = ObjectContext.getExperimentById(exp_id);
 
                             boolean bool = success.isChecked();
                             BinomialTrial trial = new BinomialTrial(ObjectContext.userDatabaseId, bool);
                             ObjectContext.addTrial(trial, experiment);
 
-                            User self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+                            User self = ObjectContext.getUserById(ObjectContext.userDatabaseId);
                             if (!self.getSubscribed().contains(exp_id)) {
                                 ((ViewExperimentActivity)getActivity()).autoSub();
                             }

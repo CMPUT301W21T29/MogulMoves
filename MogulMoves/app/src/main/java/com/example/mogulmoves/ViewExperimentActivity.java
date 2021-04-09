@@ -59,15 +59,15 @@ public class ViewExperimentActivity extends AppCompatActivity {
         exp_id = getIntent().getIntExtra("expID", -1);
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
 
-        experiment = (Experiment) ObjectContext.getObjectById(exp_id);
-        self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+        experiment = ObjectContext.getExperimentById(exp_id);
+        self = ObjectContext.getUserById(ObjectContext.userDatabaseId);
 
         postList = (RecyclerView) findViewById(R.id.lstPosts);
 
         items = new ArrayList<>();
 
         for(int message: experiment.getMessages()) {
-            items.add((Message) ObjectContext.getObjectById(message));
+            items.add(ObjectContext.getMessageById(message));
         }
 
         adapter3 = new ListItemAdapter3(items);
@@ -104,13 +104,13 @@ public class ViewExperimentActivity extends AppCompatActivity {
     }
 
     public void updateDataDisplay() {
-        experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+        experiment = ObjectContext.getExperimentById(exp_id);
 
         TextView description = findViewById(R.id.experiment_description);
         description.setText(experiment.getDescription());
 
         TextView owner = findViewById(R.id.exp_list_item_owner);
-        User exp_owner = (User) ObjectContext.getObjectById(experiment.getOwner());
+        User exp_owner = ObjectContext.getUserById(experiment.getOwner());
 
         if (exp_owner.getUsername().length() <= 0 || exp_owner.getUsername() == null) {
             String str = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";

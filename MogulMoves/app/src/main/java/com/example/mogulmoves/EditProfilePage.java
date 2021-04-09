@@ -73,7 +73,7 @@ public class EditProfilePage extends AppCompatActivity {
     public void switchBackToUserProfile(String newName, String newEmail, String newPhone){
 
         // save changes
-        User currentUser = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+        User currentUser = ObjectContext.getUserById(ObjectContext.userDatabaseId);
 
         currentUser.setUsername(newName);
         currentUser.setEmail(newEmail);

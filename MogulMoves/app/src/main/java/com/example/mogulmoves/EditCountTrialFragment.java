@@ -25,7 +25,7 @@ public class EditCountTrialFragment extends DialogFragment {
             String count_string = "Count: " + Integer.toString(trial.getCount());
             count.setText(count_string);
             ObjectContext.pushTrialData(trial);
-            ObjectContext.pushExperimentData((Experiment)ObjectContext.getObjectById(exp_id));
+            ObjectContext.pushExperimentData(ObjectContext.getExperimentById(exp_id));
 
             ((ViewExperimentActivity) getActivity()).updateDataDisplay();
         }
@@ -62,11 +62,11 @@ public class EditCountTrialFragment extends DialogFragment {
     }
 
     public IntegerCountTrial fetchTrial (int exp_id) {
-        Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+        Experiment experiment = ObjectContext.getExperimentById(exp_id);
         IntegerCountTrial current_trial = null;
 
         for(int trial_id: experiment.getTrials()) {
-            Trial trial = (Trial)ObjectContext.getObjectById(trial_id);
+            Trial trial = ObjectContext.getTrialById(trial_id);
             if (trial.getExperimenter() == ObjectContext.userDatabaseId) {
                 current_trial = (IntegerCountTrial) trial;
             }

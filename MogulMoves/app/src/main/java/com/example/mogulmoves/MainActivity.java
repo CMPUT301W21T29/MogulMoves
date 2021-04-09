@@ -421,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String action = result.substring(0, 4);
                 int id = Integer.parseInt(result.substring(4));
-                Experiment experiment = (Experiment) ObjectContext.getObjectById(id);
+                Experiment experiment = ObjectContext.getExperimentById(id);
                 int experimenter = ObjectContext.userDatabaseId;
                 Trial trial;
 
@@ -439,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
 
                         for(int trialId: experiment.getTrials()) {
 
-                            Trial checkTrial = (Trial) ObjectContext.getObjectById(trialId);
+                            Trial checkTrial = ObjectContext.getTrialById(trialId);
 
                             if(checkTrial.getExperimenter() == experimenter) {
 

@@ -181,7 +181,7 @@ public abstract class Experiment extends SavedObject {
             boolean keep = true;
             
             for(int ignoredUser: ignoredUsers) {
-                if(((Trial) ObjectContext.getObjectById(trial)).getExperimenter() == ignoredUser) {
+                if((ObjectContext.getTrialById(trial)).getExperimenter() == ignoredUser) {
                     keep = false;
                     break;
                 }
