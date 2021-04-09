@@ -18,8 +18,6 @@ public abstract class SavedObject {
         ObjectContext.nextId++;
         id = ObjectContext.nextId;
 
-        System.out.println(id);
-
         HashMap<String, Object> map = new HashMap<>();
         map.put("nextId", ObjectContext.nextId);
         DatabaseHandler.pushData("globals", "globals", map);
