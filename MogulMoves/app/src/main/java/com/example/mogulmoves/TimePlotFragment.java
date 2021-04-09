@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -243,15 +244,14 @@ public class TimePlotFragment extends DialogFragment {
     }
 
     private List<Float> buildTimeList(List<Long> timeList) {
-        
         long determiner;
+
         if (timeList.size() > 0) {
             determiner = timeList.get(timeList.size()-1);
-        }
-        else {
+        } else {
             determiner = 0;
         }
-
+      
         List<Float> timeDataNew = new ArrayList<>();
 
         for (int i=0; i<timeList.size(); i++) {
@@ -278,8 +278,7 @@ public class TimePlotFragment extends DialogFragment {
         }
         if (timeList.size() > 0) {
             maxTimeNum = timeDataNew.get(timeDataNew.size()-1);
-        }
-        else {
+        } else {
             maxTimeNum = 0;
         }
         return timeDataNew;

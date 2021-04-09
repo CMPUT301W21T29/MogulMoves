@@ -139,7 +139,7 @@ public class ObjectContext {
             if((experiment.getDescription().toLowerCase().contains(keyword) ||
                     experiment.getRegion().toLowerCase().contains(keyword) ||
                     (getUserById(experiment.getOwner())).getUsername().toLowerCase().contains(keyword)
-                    ) && experiment.getActive() && experiment.getVisible()){
+                    ) && (experiment.getVisible() || experiment.getOwner() == userDatabaseId)) {
                 found.add(experiment);
             }
         }

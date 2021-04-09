@@ -20,9 +20,11 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnTokenCanceledListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -33,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.installations.FirebaseInstallations;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -41,9 +44,11 @@ import java.util.Map;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
 import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
 
 // some code adapted from https://programmerworld.co/android/how-to-create-your-own-qr-code-and-barcode-scanner-reader-android-app-complete-source-code
+// https://programmerworld.co/android/how-to-create-or-generate-qr-quick-response-code-in-your-android-app-complete-source-code/
 
 /**
  * Main activity. Displays a list of all experiments on the server. Clicking on any of them takes
@@ -52,6 +57,7 @@ import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
  */
 public class MainActivity extends AppCompatActivity {
 
+    ArrayList<Experiment> experiments = new ArrayList<Experiment>();
     ListView expList;
     ArrayAdapter<Experiment> expAdapter;
     boolean initialBootComplete = false;
@@ -154,14 +160,6 @@ public class MainActivity extends AppCompatActivity {
                                                 ObjectContext.addUser(self);
                                             }
 
-                                            expAdapter = new ExperimentList(getApplicationContext(), ObjectContext.experiments);
-                                            expList.setAdapter(expAdapter);
-                                            expList.setOnItemClickListener(expOCL);
-
-                                            ObjectContext.adapters.add(expAdapter);
-
-                                            initialBootComplete = true;
-
                                         }
 
                                         // experiment data listener
@@ -182,6 +180,21 @@ public class MainActivity extends AppCompatActivity {
                                                     Experiment experiment = serializer.fromData(data);
 
                                                     ObjectContext.experiments.add(experiment);
+
+                                                    experiments.clear();
+                                                    for(Experiment exp: ObjectContext.experiments) {
+                                                        if(exp.getVisible() || exp.getOwner() == ObjectContext.userDatabaseId) {
+                                                            experiments.add(exp);
+                                                        }
+                                                    }
+
+                                                    expAdapter = new ExperimentList(getApplicationContext(), experiments);
+                                                    expList.setAdapter(expAdapter);
+                                                    expList.setOnItemClickListener(expOCL);
+
+                                                    ObjectContext.adapters.add(expAdapter);
+
+                                                    initialBootComplete = true;
                                                     ObjectContext.refreshAdapters();
 
                                                 }
@@ -328,7 +341,18 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            fusedLocationProviderClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, new CancellationToken() {
+                @Override
+                public boolean isCancellationRequested() {
+                    return false;
+                }
+
+                @NonNull
+                @Override
+                public CancellationToken onCanceledRequested(@NonNull OnTokenCanceledListener onTokenCanceledListener) {
+                    return null;
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
                     Location location = task.getResult();

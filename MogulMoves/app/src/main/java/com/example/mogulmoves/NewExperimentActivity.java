@@ -56,7 +56,7 @@ public class NewExperimentActivity extends AppCompatActivity {
 
         TextView error = findViewById(R.id.error_message);
 
-        if (description_string.equals("") || region_string.equals("") || minimum_int_str.equals("")) {
+        if (description_string.equals("") || minimum_int_str.equals("")) {
             error.setVisibility(VISIBLE);
         } else {
 

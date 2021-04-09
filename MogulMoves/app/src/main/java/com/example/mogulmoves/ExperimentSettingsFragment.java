@@ -43,12 +43,12 @@ public class ExperimentSettingsFragment extends DialogFragment {
         ArrayList<Integer> userIDs = new ArrayList<Integer>();
         for(int trial: exp.getTrials()) {
             if(!userIDs.contains((ObjectContext.getTrialById(trial)).getExperimenter())) {
-                userIDs.add(trial);
+                userIDs.add((ObjectContext.getTrialById(trial)).getExperimenter());
             }
         }
 
         toIgnoreList = dialog.findViewById(R.id.to_ignore_list);
-        adapter = new IgnoreUserAdapter(userIDs);
+        adapter = new IgnoreUserAdapter(exp, userIDs);
         toIgnoreList.setAdapter(adapter);
         toIgnoreList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -86,18 +86,10 @@ public class ExperimentSettingsFragment extends DialogFragment {
         return dialog;
     }
 
-    public ArrayList<Integer> fetchTrialUsers (int exp_id) {
-        Experiment experiment = ObjectContext.getExperimentById(exp_id);
-        ArrayList<Integer> userIDs = new ArrayList<Integer>();
-
-        for(int trial_id: experiment.getTrials()) {
-            Trial trial = ObjectContext.getTrialById(trial_id);
-            if (!userIDs.contains(trial.getExperimenter())) {
-                userIDs.add(trial.getExperimenter());
-            }
-        }
-
-        return userIDs;
+    @Override
+    public void onDetach() {
+        ((ViewExperimentActivity)getActivity()).updateDataDisplay();
+        super.onDetach();
     }
 
     static ExperimentSettingsFragment newInstance(int exp_id) {

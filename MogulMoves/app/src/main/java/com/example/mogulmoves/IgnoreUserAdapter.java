@@ -15,9 +15,11 @@ import java.util.ArrayList;
 class IgnoreUserAdapter extends RecyclerView.Adapter<com.example.mogulmoves.IgnoreUserAdapter.ViewHolder> {
     private static final String TAG = "IgnoreUserAdapter";
     ArrayList<Integer> userIDs;
+    Experiment exp;
 
-    public IgnoreUserAdapter(ArrayList<Integer> userIDs) {
+    public IgnoreUserAdapter(Experiment exp, ArrayList<Integer> userIDs) {
         this.userIDs = userIDs;
+        this.exp = exp;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -40,18 +42,23 @@ class IgnoreUserAdapter extends RecyclerView.Adapter<com.example.mogulmoves.Igno
 
     @Override
     public void onBindViewHolder(com.example.mogulmoves.IgnoreUserAdapter.ViewHolder holder, int position) {
-        Trial trial = ObjectContext.getTrialById(userIDs.get(position));
-        User user = ObjectContext.getUserById(trial.getExperimenter());
+        User user = ObjectContext.getUserById(userIDs.get(position));
         String username = user.getUsername();
         if (username.length() <= 0) {
             username = "(ID " + Integer.toString(user.getId()) + ")";
         }
         holder.check.setText(username);
+        if (exp.getIgnoredUsers().contains(userIDs.get(position))) {
+            holder.check.setChecked(true);
+        }
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-
+                    exp.getIgnoredUsers().add(userIDs.get(position));
+                    //((ViewExperimentActivity)getActivity()).updateDataDisplay();
+                } else {
+                    exp.getIgnoredUsers().remove(userIDs.get(position));
                 }
             }
         });

@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +29,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnTokenCanceledListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
@@ -39,6 +43,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
 
 /*
  * Activity to view details about an experiment, including statistics, minimum and current trials,
@@ -140,11 +145,15 @@ public class ViewExperimentActivity extends AppCompatActivity {
         }
 
         LinearLayout trial_row = findViewById(R.id.trial_row);
-
         if (!experiment.getActive()) {
             trial_row.removeAllViews();
             View new_view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.trial_ended, null);
             trial_row.addView(new_view);
+        }
+
+        LinearLayout map_row = findViewById(R.id.map_row);
+        if (!experiment.getLocationRequired()) {
+            map_row.removeAllViews();
         }
 
         TextView trials = findViewById(R.id.experiment_trials);
@@ -167,7 +176,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
             sub_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
         }
 
-        if (experiment.getNumTrials() > 0) {
+        if (experiment.getUnignoredTrials().size() > 0) {
             TextView stats = findViewById(R.id.experiment_stats_2);
 
             //some code below adapted from https://stackoverflow.com/a/154354
@@ -185,7 +194,9 @@ public class ViewExperimentActivity extends AppCompatActivity {
             String stats_string = mean + "\n" + stdev + "\n"
                     + q1 + "\n" + median + "\n" + q3;
             stats.setText(stats_string);
-
+        } else {
+            TextView stats = findViewById(R.id.experiment_stats_2);
+            stats.setText(R.string.stats2);
         }
     }
 
@@ -251,6 +262,9 @@ public class ViewExperimentActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * add the currentLocation of device as trial location
+     */
     public void currentLocation() {
         FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -258,7 +272,18 @@ public class ViewExperimentActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            fusedLocationProviderClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, new CancellationToken() {
+                @Override
+                public boolean isCancellationRequested() {
+                    return false;
+                }
+
+                @NonNull
+                @Override
+                public CancellationToken onCanceledRequested(@NonNull OnTokenCanceledListener onTokenCanceledListener) {
+                    return null;
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
                     Location location = task.getResult();
