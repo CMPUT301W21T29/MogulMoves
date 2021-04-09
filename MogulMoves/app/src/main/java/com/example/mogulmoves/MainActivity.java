@@ -33,6 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.installations.FirebaseInstallations;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -52,6 +53,7 @@ import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
  */
 public class MainActivity extends AppCompatActivity {
 
+    ArrayList<Experiment> experiments = new ArrayList<Experiment>();
     ListView expList;
     ArrayAdapter<Experiment> expAdapter;
     boolean initialBootComplete = false;
@@ -154,14 +156,6 @@ public class MainActivity extends AppCompatActivity {
                                                 ObjectContext.addUser(self);
                                             }
 
-                                            expAdapter = new ExperimentList(getApplicationContext(), ObjectContext.experiments);
-                                            expList.setAdapter(expAdapter);
-                                            expList.setOnItemClickListener(expOCL);
-
-                                            ObjectContext.adapters.add(expAdapter);
-
-                                            initialBootComplete = true;
-
                                         }
 
                                         // experiment data listener
@@ -182,6 +176,21 @@ public class MainActivity extends AppCompatActivity {
                                                     Experiment experiment = serializer.fromData(data);
 
                                                     ObjectContext.experiments.add(experiment);
+
+                                                    experiments.clear();
+                                                    for(Experiment exp: ObjectContext.experiments) {
+                                                        if(exp.getVisible() || exp.getOwner() == ObjectContext.userDatabaseId) {
+                                                            experiments.add(exp);
+                                                        }
+                                                    }
+
+                                                    expAdapter = new ExperimentList(getApplicationContext(), experiments);
+                                                    expList.setAdapter(expAdapter);
+                                                    expList.setOnItemClickListener(expOCL);
+
+                                                    ObjectContext.adapters.add(expAdapter);
+
+                                                    initialBootComplete = true;
                                                     ObjectContext.refreshAdapters();
 
                                                 }

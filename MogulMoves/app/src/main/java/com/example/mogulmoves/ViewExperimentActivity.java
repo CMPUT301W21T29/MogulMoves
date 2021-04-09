@@ -140,11 +140,15 @@ public class ViewExperimentActivity extends AppCompatActivity {
         }
 
         LinearLayout trial_row = findViewById(R.id.trial_row);
-
         if (!experiment.getActive()) {
             trial_row.removeAllViews();
             View new_view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.trial_ended, null);
             trial_row.addView(new_view);
+        }
+
+        LinearLayout map_row = findViewById(R.id.map_row);
+        if (!experiment.getLocationRequired()) {
+            map_row.removeAllViews();
         }
 
         TextView trials = findViewById(R.id.experiment_trials);
@@ -167,7 +171,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
             sub_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.purple_500));
         }
 
-        if (experiment.getNumTrials() > 0) {
+        if (experiment.getUnignoredTrials().size() > 0) {
             TextView stats = findViewById(R.id.experiment_stats_2);
 
             //some code below adapted from https://stackoverflow.com/a/154354
@@ -185,7 +189,9 @@ public class ViewExperimentActivity extends AppCompatActivity {
             String stats_string = mean + "\n" + stdev + "\n"
                     + q1 + "\n" + median + "\n" + q3;
             stats.setText(stats_string);
-
+        } else {
+            TextView stats = findViewById(R.id.experiment_stats_2);
+            stats.setText(R.string.stats2);
         }
     }
 

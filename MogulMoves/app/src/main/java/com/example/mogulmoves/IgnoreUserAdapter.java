@@ -48,6 +48,9 @@ class IgnoreUserAdapter extends RecyclerView.Adapter<com.example.mogulmoves.Igno
             username = "(ID " + Integer.toString(user.getId()) + ")";
         }
         holder.check.setText(username);
+        if (exp.getIgnoredUsers().contains(userIDs.get(position))) {
+            holder.check.setChecked(true);
+        }
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
