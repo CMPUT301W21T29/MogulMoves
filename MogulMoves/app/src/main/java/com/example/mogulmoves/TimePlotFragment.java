@@ -63,12 +63,13 @@ public class TimePlotFragment extends DialogFragment {
     public TimePlotFragment(IntegerCountExperiment experiment) {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
+        int totalCount = 0;
         for (int i=0; i<countTrials.size(); i++) {
             IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             if (i == 0) {
                 minTimeValue = trial.getTimestamp();
             }
-            integerData.add(trial.getCount());
+            integerData.add(totalCount + trial.getCount());
             timeData.add(trial.getTimestamp() - minTimeValue);
         }
         experimentType = 0;
@@ -83,15 +84,17 @@ public class TimePlotFragment extends DialogFragment {
     public TimePlotFragment(NonNegativeCountExperiment experiment) {
         // non negative count
         ArrayList<Integer> countTrials = experiment.getTrials();
+        float totalCount = 0;
         for (int i=0; i<countTrials.size(); i++) {
             NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             if (i == 0) {
                 minTimeValue = trial.getTimestamp();
             }
-            integerData.add(trial.getCount());
+            totalCount += trial.getCount();
+            floatData.add(totalCount / (i+1));
             timeData.add(trial.getTimestamp() - minTimeValue);
         }
-        experimentType = 0;
+        experimentType = 2;
     }
 
     /**
@@ -129,12 +132,14 @@ public class TimePlotFragment extends DialogFragment {
     public TimePlotFragment(MeasureExperiment experiment) {
         // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
+        float totalCount = 0;
         for (int i=0; i<countTrials.size(); i++) {
             MeasureTrial trial = (MeasureTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             if (i == 0) {
                 minTimeValue = trial.getTimestamp();
             }
-            floatData.add(trial.getMeasurement());
+            totalCount += trial.getMeasurement();
+            floatData.add(totalCount / (i+1));
             timeData.add(trial.getTimestamp() - minTimeValue);
         }
         experimentType = 2;
@@ -233,7 +238,6 @@ public class TimePlotFragment extends DialogFragment {
                 break;
             case 2:
                 for (int i=0; i<floatData.size(); i++) {
-                    // timePlotData.add(new Entry(timeDataInt.get(i), floatData.get(i)));
                     timePlotData.add(new Entry(timeDataReformatted.get(i), floatData.get(i)));
                     numPoints++;
                 }
