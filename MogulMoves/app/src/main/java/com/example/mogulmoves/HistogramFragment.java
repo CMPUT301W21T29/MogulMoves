@@ -97,8 +97,6 @@ public class HistogramFragment extends DialogFragment {
 
         List<Integer> integerBuffer = new ArrayList<>();
 
-
-
         while (integerData.size() > 0) {
             int occurrences = Collections.frequency(integerData, integerData.get(0));
             occurrencesList.add(occurrences);
@@ -151,24 +149,6 @@ public class HistogramFragment extends DialogFragment {
 
         List<Float> floatBuffer = new ArrayList<>();
 
-        printLists(floatData, occurrencesList);
-
-//        for (int i=0; i<floatData.size(); i++) {
-//
-//            int occurrences = Collections.frequency(floatData, floatData.get(i));
-//
-//            occurrencesList.add(occurrences);
-//            floatBuffer.add(floatData.get(0));
-//
-//            for (int j=i; j<floatData.size(); j++) {
-//                if (floatData.get(j) == floatData.get(0)) {
-//                    floatData.remove(floatData.get(j));
-//                    i--;
-//                }
-//            }
-//            printLists(floatData, occurrencesList);
-//        }
-
         while (floatData.size() > 0) {
 
 
@@ -189,10 +169,7 @@ public class HistogramFragment extends DialogFragment {
         for (int i=0; i<floatBuffer.size(); i++) {
             floatData.add(floatBuffer.get(i));
         }
-
         experimentType = 2;
-
-        printLists(floatData, occurrencesList);
     }
 
     /**
@@ -376,6 +353,14 @@ public class HistogramFragment extends DialogFragment {
                 }).create();
     }
 
+    /**
+     * Position i in list1 and list2 go together as a pair of values, so this method sorts list1 and has the elements of list2 follow their counterparts from list1.
+     *
+     * @param list1
+     * @param list2
+     *
+     * @return list1 (sorted by value), and list2 (sorted by the list1 values).
+     */
     private void doubleListSort(List<Float> list1, List<Integer> list2) {
         // sort list1 and have list2 follow with the same elements
         // arr was the sample array
@@ -401,18 +386,13 @@ public class HistogramFragment extends DialogFragment {
 
     }
 
-    public void printLists(List<Float> list1, List<Integer> list2) {
-        System.out.print("\nfloat list: ");
-        for (int i=0; i<list1.size(); i++) {
-            System.out.print(list1.get(i) + " ");
-        }
-        System.out.print("\noccur list: ");
-        for (int i=0; i<list2.size(); i++) {
-            System.out.print(list2.get(i) + " ");
-        }
-        System.out.println("\n");
-    }
-
+    /**
+     * Creates a new instance of a HistogramFragment.
+     *
+     * @param exp_id the object id of the experiment a histogram is needed for.
+     *
+     * @return a new instance of a HistogramFragment.
+     */
     static HistogramFragment newInstance(int exp_id) {
         Bundle args = new Bundle();
         args.putSerializable("exp_id", exp_id);

@@ -171,9 +171,6 @@ public class TimePlotFragment extends DialogFragment {
         LineDataSet lineDataSet;
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
-
-
-
         lineDataSet = new LineDataSet(dataValues(), "X: " + timeInterval + " after First Trial");
 
         dataSets.add(lineDataSet);
@@ -196,7 +193,6 @@ public class TimePlotFragment extends DialogFragment {
         tpLineChart.getDescription().setEnabled(false);
         tpLineChart.setVisibleXRangeMaximum(10);
 
-
         if (numPoints < 5) {
             graphWidth = 5;
         }
@@ -208,8 +204,6 @@ public class TimePlotFragment extends DialogFragment {
         lineDataSet.setLineWidth(2f);
         lineDataSet.setColor(Color.BLUE);
 
-
-
         return builder
                 .setView(view)
                 .setTitle("Time Plot")
@@ -219,6 +213,11 @@ public class TimePlotFragment extends DialogFragment {
                 }).create();
     }
 
+    /**
+     * Creates an ArrayList of entries for the database.
+     *
+     * @return An ArrayList of entries for the database.
+     */
     private ArrayList<Entry> dataValues() {
         ArrayList<Entry> timePlotData = new ArrayList<Entry>();
         List<Float> timeDataReformatted = buildTimeList(timeData);
@@ -247,6 +246,13 @@ public class TimePlotFragment extends DialogFragment {
         return timePlotData;
     }
 
+    /**
+     * Creates a List of lengths of time corresponding to each trial (but now reformatted so they're readable).
+     *
+     * @param timeList a list of all the amounts of time (in ms) since the first trial.
+     *
+     * @return a List of lengths of time corresponding to each trial (but now reformatted so they're readable).
+     */
     private List<Float> buildTimeList(List<Long> timeList) {
         long determiner;
 
@@ -288,6 +294,13 @@ public class TimePlotFragment extends DialogFragment {
         return timeDataNew;
     }
 
+    /**
+     * Creates a new instance of a TimePlotFragment.
+     *
+     * @param exp_id the object id of the experiment a time plot is needed for.
+     *
+     * @return a new instance of a TimePlotFragment.
+     */
     static TimePlotFragment newInstance(int exp_id) {
         Bundle args = new Bundle();
         args.putSerializable("exp_id", exp_id);
