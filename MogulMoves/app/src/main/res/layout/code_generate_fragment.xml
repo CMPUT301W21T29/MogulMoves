@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/experiment_list"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/editCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
+
+    <EditText
+        android:id="@+id/editCount"
+        android:layout_width="106dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="365dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/countText"
+        app:layout_constraintTop_toBottomOf="@+id/code_list" />
+
+    <RadioGroup
+        android:id="@+id/succfail"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/experiment_list">
+
+        <RadioButton
+            android:id="@+id/succBox"
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:text="Success"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/experiment_list"
+            tools:layout_editor_absoluteX="4dp" />
+
+        <RadioButton
+            android:id="@+id/failBox"
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:text="Failure"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/success"
+            tools:layout_editor_absoluteX="3dp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/countText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text="Count:"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        app:layout_constraintStart_toEndOf="@+id/succfail"
+        app:layout_constraintTop_toBottomOf="@+id/experiment_list" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

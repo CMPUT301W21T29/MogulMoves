@@ -22,6 +22,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,6 +38,7 @@ public class HistogramFragment extends DialogFragment {
     private int experimentType;
     private ArrayList<BarEntry> histogramData = new ArrayList<>();
     private int numPoints, graphWidth = 0;
+    private List<Integer> occurrencesList = new ArrayList<>();
 
     // different constructors for the fragment based on what kind of experiment is needing a histogram
 
@@ -52,6 +54,31 @@ public class HistogramFragment extends DialogFragment {
             IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             integerData.add(trial.getCount());
         }
+
+        List<Integer> integerBuffer = new ArrayList<>();
+
+        for (int i=0; i<integerData.size(); i++) {
+
+            int occurrences = Collections.frequency(integerData, integerData.get(i));
+
+            occurrencesList.add(occurrences);
+            integerBuffer.add(integerData.get(0));
+
+            for (int j=i; j<integerData.size(); j++) {
+
+                if (integerData.get(j) == integerData.get(0)) {
+                    integerData.remove(integerData.get(j));
+                }
+
+            }
+
+        }
+
+        for (int i=0; i<integerBuffer.size(); i++) {
+
+            integerData.add(integerBuffer.get(i));
+        }
+
         experimentType = 0;
     }
 
@@ -130,8 +157,8 @@ public class HistogramFragment extends DialogFragment {
 
         switch(experimentType) {
             case 0:
-                for (int i=0; i<integerData.size(); i++) {
-                    histogramData.add(new BarEntry(i+1, integerData.get(i)));
+                for (int i=0; i<occurrencesList.size(); i++) {
+                    histogramData.add(new BarEntry(i+1, occurrencesList.get(i)));
                     numPoints++;
                 }
                 break;
