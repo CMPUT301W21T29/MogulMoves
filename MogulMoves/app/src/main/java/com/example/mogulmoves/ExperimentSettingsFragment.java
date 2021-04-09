@@ -42,7 +42,7 @@ public class ExperimentSettingsFragment extends DialogFragment {
 
         ArrayList<Integer> userIDs = new ArrayList<Integer>();
         for(int trial: exp.getTrials()) {
-            if(!userIDs.contains(((Trial)ObjectContext.getObjectById(trial)).getExperimenter())) {
+            if(!userIDs.contains((ObjectContext.getTrialById(trial)).getExperimenter())) {
                 userIDs.add(trial);
             }
         }
