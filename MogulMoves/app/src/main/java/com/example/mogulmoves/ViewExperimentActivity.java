@@ -225,7 +225,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.map_linear_layout,fragment)
                 .commit();*/
-        Intent intent = new Intent(this, MapAdaptor.class);
+        Intent intent = new Intent(this, MapAdapter.class);
         intent.putExtra("whichExperiment", Integer.toString(exp_id));
         startActivity(intent);
     }
