@@ -18,7 +18,9 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.ArrayList;
 
-
+/**
+ * Fragment that allows the user to select an experiment and some trial data to make a QR code for.
+ */
 public class CodeGeneratorFragment extends DialogFragment {
 
     private Experiment experiment;

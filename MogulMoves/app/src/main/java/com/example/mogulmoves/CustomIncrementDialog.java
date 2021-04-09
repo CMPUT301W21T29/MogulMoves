@@ -6,8 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-//Custom dialog class for EditCountTrialFragment.
-
+/**
+ * Custom dialog class for EditCountTrialFragment.
+ */
 public class CustomIncrementDialog extends AlertDialog {
     private Button positive;
     private Button negative;

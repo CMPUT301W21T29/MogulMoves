@@ -18,6 +18,9 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+/**
+ * Fragment that displays a QR code which, when scanned, can update a trial.
+ */
 public class QRDisplayFragment extends DialogFragment {
 
     @NonNull

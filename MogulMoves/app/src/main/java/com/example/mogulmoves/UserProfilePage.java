@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-/*
+/**
  * Activity to view user profile data. A button allows you to edit it, and another allows you to
  * manage QR and bar code data. The latter is not implemented yet.
  */
-
 public class UserProfilePage extends AppCompatActivity {
     TextView fullName, email, phone;
     User currentUser = ObjectContext.getUserById(ObjectContext.userDatabaseId);
