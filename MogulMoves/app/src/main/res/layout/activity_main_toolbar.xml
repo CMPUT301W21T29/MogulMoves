@@ -21,6 +21,15 @@
             android:onClick="toUserProfilePage"
             android:src="@drawable/ic_baseline_person" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="#90F5FF"
+            android:text="GetLocation"
+            android:textColor="@color/black"
+            android:textSize="9dp"
+            android:onClick="GetCurrentLocation"/>
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
