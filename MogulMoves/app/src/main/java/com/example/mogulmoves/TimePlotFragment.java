@@ -59,16 +59,16 @@ public class TimePlotFragment extends DialogFragment {
      *
      * @param experiment the experiment which the class is creating a time plot for.
      */
-
     public TimePlotFragment(IntegerCountExperiment experiment) {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
+        int totalCount = 0;
         for (int i=0; i<countTrials.size(); i++) {
             IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             if (i == 0) {
                 minTimeValue = trial.getTimestamp();
             }
-            integerData.add(trial.getCount());
+            integerData.add(totalCount + trial.getCount());
             timeData.add(trial.getTimestamp() - minTimeValue);
         }
         experimentType = 0;
@@ -79,19 +79,20 @@ public class TimePlotFragment extends DialogFragment {
      *
      * @param experiment the experiment which the class is creating a time plot for.
      */
-
     public TimePlotFragment(NonNegativeCountExperiment experiment) {
         // non negative count
         ArrayList<Integer> countTrials = experiment.getTrials();
+        float totalCount = 0;
         for (int i=0; i<countTrials.size(); i++) {
             NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             if (i == 0) {
                 minTimeValue = trial.getTimestamp();
             }
-            integerData.add(trial.getCount());
+            totalCount += trial.getCount();
+            floatData.add(totalCount / (i+1));
             timeData.add(trial.getTimestamp() - minTimeValue);
         }
-        experimentType = 0;
+        experimentType = 2;
     }
 
     /**
@@ -99,7 +100,6 @@ public class TimePlotFragment extends DialogFragment {
      *
      * @param experiment the experiment which the class is creating a time plot for.
      */
-
     public TimePlotFragment(BinomialExperiment experiment) {
         // binomial
 
@@ -125,16 +125,17 @@ public class TimePlotFragment extends DialogFragment {
      *
      * @param experiment the experiment which the class is creating a time plot for.
      */
-
     public TimePlotFragment(MeasureExperiment experiment) {
         // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
+        float totalCount = 0;
         for (int i=0; i<countTrials.size(); i++) {
             MeasureTrial trial = (MeasureTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             if (i == 0) {
                 minTimeValue = trial.getTimestamp();
             }
-            floatData.add(trial.getMeasurement());
+            totalCount += trial.getMeasurement();
+            floatData.add(totalCount / (i+1));
             timeData.add(trial.getTimestamp() - minTimeValue);
         }
         experimentType = 2;
@@ -143,7 +144,6 @@ public class TimePlotFragment extends DialogFragment {
     /**
      * Part of setup for a fragment of any kind.
      */
-
     public interface OnFragmentInteractionListener {
         void onOkPressed(Experiment newExperiment);
     }
@@ -165,9 +165,6 @@ public class TimePlotFragment extends DialogFragment {
         LineData lineData;
         LineDataSet lineDataSet;
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-
-
-
 
         lineDataSet = new LineDataSet(dataValues(), "X: " + timeInterval + " after First Trial");
 
@@ -191,7 +188,6 @@ public class TimePlotFragment extends DialogFragment {
         tpLineChart.getDescription().setEnabled(false);
         tpLineChart.setVisibleXRangeMaximum(10);
 
-
         if (numPoints < 5) {
             graphWidth = 5;
         }
@@ -203,8 +199,6 @@ public class TimePlotFragment extends DialogFragment {
         lineDataSet.setLineWidth(2f);
         lineDataSet.setColor(Color.BLUE);
 
-
-
         return builder
                 .setView(view)
                 .setTitle("Time Plot")
@@ -214,6 +208,11 @@ public class TimePlotFragment extends DialogFragment {
                 }).create();
     }
 
+    /**
+     * Creates an ArrayList of entries for the database.
+     *
+     * @return An ArrayList of entries for the database.
+     */
     private ArrayList<Entry> dataValues() {
         ArrayList<Entry> timePlotData = new ArrayList<Entry>();
         List<Float> timeDataReformatted = buildTimeList(timeData);
@@ -233,7 +232,6 @@ public class TimePlotFragment extends DialogFragment {
                 break;
             case 2:
                 for (int i=0; i<floatData.size(); i++) {
-                    // timePlotData.add(new Entry(timeDataInt.get(i), floatData.get(i)));
                     timePlotData.add(new Entry(timeDataReformatted.get(i), floatData.get(i)));
                     numPoints++;
                 }
@@ -243,6 +241,13 @@ public class TimePlotFragment extends DialogFragment {
         return timePlotData;
     }
 
+    /**
+     * Creates a List of lengths of time corresponding to each trial (but now reformatted so they're readable).
+     *
+     * @param timeList a list of all the amounts of time (in ms) since the first trial.
+     *
+     * @return a List of lengths of time corresponding to each trial (but now reformatted so they're readable).
+     */
     private List<Float> buildTimeList(List<Long> timeList) {
         long determiner;
 
@@ -284,6 +289,13 @@ public class TimePlotFragment extends DialogFragment {
         return timeDataNew;
     }
 
+    /**
+     * Creates a new instance of a TimePlotFragment.
+     *
+     * @param exp_id the object id of the experiment a time plot is needed for.
+     *
+     * @return a new instance of a TimePlotFragment.
+     */
     static TimePlotFragment newInstance(int exp_id) {
         Bundle args = new Bundle();
         args.putSerializable("exp_id", exp_id);
@@ -305,7 +317,6 @@ public class TimePlotFragment extends DialogFragment {
         } else {
             fragment = new TimePlotFragment((MeasureExperiment) experiment);
         }
-
 
         fragment.setArguments(args);
         return fragment;
