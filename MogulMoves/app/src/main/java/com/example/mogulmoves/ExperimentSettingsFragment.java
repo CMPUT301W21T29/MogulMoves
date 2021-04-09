@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +47,7 @@ public class ExperimentSettingsFragment extends DialogFragment {
         dialog.setView(view);
 
         Button btnEndExperiment = dialog.findViewById(R.id.btnEndExperiment);
+        btnEndExperiment.setEnabled(exp.getActive());
         btnEndExperiment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +63,16 @@ public class ExperimentSettingsFragment extends DialogFragment {
         trials.setText(trials_text);
 
         btnEndExperiment.setEnabled(exp.getNumTrials() >= exp.getMinTrials() && exp.getActive());
+
+        ToggleButton btnUnpublishExperiment = dialog.findViewById(R.id.btnUnpublishExperiment);
+        btnUnpublishExperiment.setChecked(exp.getVisible());
+        btnUnpublishExperiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exp.toggleVisible();
+                ObjectContext.pushExperimentData(exp);
+            }
+        });
 
         dialog.setTitle("Experiment Settings");
         dialog.setNegativeButton("BACK", backOCL);

@@ -1,9 +1,16 @@
 package com.example.mogulmoves;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,15 +18,25 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
@@ -94,7 +111,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
         i.putExtra("userID", experiment.getOwner());
         startActivity(i);
     }
-
 
     public void updateDataDisplay() {
         experiment = (Experiment) ObjectContext.getObjectById(exp_id);
@@ -171,8 +187,6 @@ public class ViewExperimentActivity extends AppCompatActivity {
             stats.setText(stats_string);
 
         }
-
-
     }
 
     public void openAddTrialFragment2() {
@@ -181,7 +195,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     }
 
     public void openAddTrialFragment(View view) {
-
+        currentLocation();
         if (experiment instanceof BinomialExperiment) {
             AddBinomialTrialFragment newFragment = AddBinomialTrialFragment.newInstance(exp_id);
             newFragment.show(getSupportFragmentManager(), "ADD_TRIAL");
@@ -235,6 +249,45 @@ public class ViewExperimentActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MapAdaptor.class);
         intent.putExtra("whichExperiment", Integer.toString(exp_id));
         startActivity(intent);
+    }
+
+    public void currentLocation() {
+        FusedLocationProviderClient fusedLocationProviderClient;
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(ViewExperimentActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+                    if (location != null) {
+                        try {
+                            Geocoder geocoder = new Geocoder(ViewExperimentActivity.this, Locale.getDefault());
+
+                            List<Address> addressList = geocoder.getFromLocation
+                                    (location.getLatitude(),location.getLongitude(),1);
+                            double locationLatitude = addressList.get(0).getLatitude();
+                            double locationLongitude = addressList.get(0).getLongitude();
+                            Log.d("getLocation","locationLatitude" + locationLatitude);
+                            Log.d("getLocation", "locationLongitude" + locationLongitude);
+
+                            ObjectContext.location[0] = locationLatitude;
+                            ObjectContext.location[1] = locationLongitude;
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            });
+
+        } else {
+            ActivityCompat.requestPermissions(ViewExperimentActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
     }
 
     private void addListeners() {
