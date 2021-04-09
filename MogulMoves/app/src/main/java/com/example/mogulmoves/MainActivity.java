@@ -482,6 +482,11 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+                System.out.println("qeqeq");
+                System.out.println(action);
+                System.out.println(trial.getId());
+                System.out.println(experiment.getId());
+
                 ObjectContext.addTrial(trial, experiment);
 
             }
