@@ -40,9 +40,9 @@ public class BinomialExperiment extends Experiment {
 
     protected float[] getValues() {
 
-        int length = trials.size();
-        float[] values = new float[length];
         ArrayList<Integer> unignoredTrials = getUnignoredTrials();
+        int length = unignoredTrials.size();
+        float[] values = new float[length];
 
         for(int i = 0; i < length; i++) {
 
