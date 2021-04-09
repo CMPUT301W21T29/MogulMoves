@@ -58,7 +58,7 @@ public class ExperimentSettingsFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 exp.setActive(false);
-                ObjectContext.pushExperimentData(exp);
+                DatabaseHandler.pushExperimentData(exp);
                 btnEndExperiment.setEnabled(false);
                 ((ViewExperimentActivity) getActivity()).updateDataDisplay();
             }
@@ -76,7 +76,7 @@ public class ExperimentSettingsFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 exp.toggleVisible();
-                ObjectContext.pushExperimentData(exp);
+                DatabaseHandler.pushExperimentData(exp);
             }
         });
 

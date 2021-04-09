@@ -96,7 +96,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     public void autoSub() {
         self.addSubscription(exp_id);
 
-        ObjectContext.pushUserData(self);
+        DatabaseHandler.pushUserData(self);
         updateDataDisplay();
     }
 
@@ -107,7 +107,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
             self.addSubscription(exp_id);
         }
 
-        ObjectContext.pushUserData(self);
+        DatabaseHandler.pushUserData(self);
         updateDataDisplay();
     }
 
