@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
                                                     experiments.clear();
                                                     for(Experiment exp: ObjectContext.experiments) {
-                                                        if(/*(exp.getVisible() || exp.getOwner() == ObjectContext.userDatabaseId) &&*/
+                                                        if((exp.getVisible() || exp.getOwner() == ObjectContext.userDatabaseId) &&
                                                         ObjectContext.getUserById(ObjectContext.userDatabaseId).getSubscribed().contains(exp.getId())) {
                                                             experiments.add(exp);
                                                         }
