@@ -43,12 +43,12 @@ public class ExperimentSettingsFragment extends DialogFragment {
         ArrayList<Integer> userIDs = new ArrayList<Integer>();
         for(int trial: exp.getTrials()) {
             if(!userIDs.contains(((Trial)ObjectContext.getObjectById(trial)).getExperimenter())) {
-                userIDs.add(trial);
+                userIDs.add(((Trial)ObjectContext.getObjectById(trial)).getExperimenter());
             }
         }
 
         toIgnoreList = dialog.findViewById(R.id.to_ignore_list);
-        adapter = new IgnoreUserAdapter(userIDs);
+        adapter = new IgnoreUserAdapter(exp, userIDs);
         toIgnoreList.setAdapter(adapter);
         toIgnoreList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
 
