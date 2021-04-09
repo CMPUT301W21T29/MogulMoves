@@ -1,7 +1,9 @@
 package com.example.mogulmoves;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ToggleButton;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
 
 public class CodeActivity extends AppCompatActivity {
 
@@ -53,4 +60,34 @@ public class CodeActivity extends AppCompatActivity {
         });
 
     }
+
+    public void scanCode() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.initiateScan();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+
+            String result = intentResult.getContents();
+
+            if (result == null) {
+
+                // no result, do something i guess
+
+            } else {
+
+
+
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+
 }

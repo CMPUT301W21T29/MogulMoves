@@ -98,8 +98,8 @@ public class CodeGeneratorFragment extends DialogFragment {
                             // newFragment.show(getSupportFragmentManager(), "DISPLAY_CODE");
                         }
                         else {
-
-
+                            
+                            ((CodeActivity) getActivity()).scanCode();
 
                         }
                     }
