@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:layout_marginLeft="9dp"
-        android:text="QR/Bar Codes"
+        android:text="Bar Codes"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -20,7 +20,7 @@
     <ListView
         android:id="@+id/code_list"
         android:layout_width="wrap_content"
-        android:layout_height="557dp">
+        android:layout_height="501dp">
 
     </ListView>
 

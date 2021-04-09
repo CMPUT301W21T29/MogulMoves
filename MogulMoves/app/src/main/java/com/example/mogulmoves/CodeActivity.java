@@ -15,6 +15,8 @@ import android.widget.ToggleButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
+
 import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
 
 public class CodeActivity extends AppCompatActivity {
@@ -22,11 +24,10 @@ public class CodeActivity extends AppCompatActivity {
     ListView codeList;
     Button qrButton;
     Button barButton;
-    ArrayAdapter<Barcode> codeAdapter;
-    ToggleButton registerBarCode;
+    ArrayAdapter<Barcode> adapter;
 
-    int tempExperiment;
-    String tempAction;
+    static int tempExperiment;
+    static String tempAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,10 @@ public class CodeActivity extends AppCompatActivity {
 
             }
         });
+
+        adapter = new BarcodeAdapter(this, ObjectContext.barcodes);
+        codeList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         qrButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +78,16 @@ public class CodeActivity extends AppCompatActivity {
 
     public void registerCode(int experiment, String action) {
 
+        System.out.println("bruh");
         tempExperiment = experiment;
         tempAction = action;
-
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        System.out.println(tempAction);
+        System.out.println(tempExperiment);
         intentIntegrator.initiateScan();
+
     }
 
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -94,7 +101,13 @@ public class CodeActivity extends AppCompatActivity {
 
             } else {
 
-                Barcode code = new Barcode(tempExperiment, ObjectContext.userDatabaseId, result, tempAction);
+                int experiment = tempExperiment;
+                String action = tempAction;
+
+                System.out.println(tempExperiment);
+                System.out.println(tempAction);
+
+                Barcode code = new Barcode(experiment, ObjectContext.userDatabaseId, result, action);
                 ObjectContext.addBarcode(code, ObjectContext.getUserById(ObjectContext.userDatabaseId));
 
             }

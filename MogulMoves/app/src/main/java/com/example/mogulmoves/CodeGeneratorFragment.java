@@ -41,7 +41,7 @@ public class CodeGeneratorFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.code_generate_fragment, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        experimentList = view.findViewById(R.id.experiment_list);                                               // still gotta make a selected element highlighted
+        experimentList = view.findViewById(R.id.experiment_list);                       // still gotta make a selected element highlighted
         successBox = view.findViewById(R.id.succBox);
         failBox = view.findViewById(R.id.failBox);
         countText = view.findViewById(R.id.countText);
@@ -49,11 +49,13 @@ public class CodeGeneratorFragment extends DialogFragment {
 
         ArrayList<Experiment> experiments = new ArrayList<>();
 
-        /*
         for(int expId: ObjectContext.getUserById(ObjectContext.userDatabaseId).getSubscribed()) {
-            experiments.add(ObjectContext.getExperimentById(expId));
-        }*/
-        experiments = ObjectContext.experiments;
+            Experiment exp = ObjectContext.getExperimentById(expId);
+
+            if(exp.getVisible()) {
+                experiments.add(exp);
+            }
+        }
 
         adapter = new ExperimentList(getContext(), experiments);
         experimentList.setAdapter(adapter);
@@ -120,9 +122,10 @@ public class CodeGeneratorFragment extends DialogFragment {
 
                         if (isQR) {
                             ((CodeActivity) getActivity()).showQR(action);
-                        }
-                        else {
+
+                        }else {
                             ((CodeActivity) getActivity()).registerCode(experiment.getId(), action);
+
                         }
                     }
                 }).create();
