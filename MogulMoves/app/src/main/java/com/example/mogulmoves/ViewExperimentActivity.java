@@ -199,7 +199,11 @@ public class ViewExperimentActivity extends AppCompatActivity {
             stats.setText(R.string.stats2);
         }
 
-
+        // GeoLocation trial warning
+        if (experiment.getLocationRequired() == true) {
+            Toast geoWarning = Toast.makeText(getApplicationContext(), "WARNING: GEO REQUIRED EXPERIMENT!\nAdding new trials requires collection of your location info", Toast.LENGTH_LONG);
+            geoWarning.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            geoWarning.show();
         }
     }
 
