@@ -101,9 +101,20 @@ public class TimePlotFragment extends DialogFragment {
 
     public TimePlotFragment(BinomialExperiment experiment) {
         // binomial
-        binomialData.add(experiment.getSuccessRate());
-        binomialData.add((float) 1.0 - experiment.getSuccessRate());
-        // timeData.add(trial.getTimestamp()); still dunno what im tracking for binomial time plots lol
+
+        ArrayList<Integer> binomialTrials = experiment.getTrials();
+        float numSuccesses = 0;
+        for (int i=0; i<binomialTrials.size(); i++) {
+            BinomialTrial trial = (BinomialTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
+            if (i == 0) {
+                minTimeValue = trial.getTimestamp();
+            }
+            if (trial.getIsSuccess()) {
+                 numSuccesses++;
+            }
+            binomialData.add(numSuccesses / (i+1)); // trial's success rate up until that point
+            timeData.add(trial.getTimestamp() - minTimeValue);
+        }
 
         experimentType = 1;
     }
@@ -265,7 +276,12 @@ public class TimePlotFragment extends DialogFragment {
                 timeInterval = "Days";
             }
         }
-        maxTimeNum = timeDataNew.get(timeDataNew.size()-1);
+        if (timeList.size() > 0) {
+            maxTimeNum = timeDataNew.get(timeDataNew.size()-1);
+        }
+        else {
+            maxTimeNum = 0;
+        }
         return timeDataNew;
     }
 
