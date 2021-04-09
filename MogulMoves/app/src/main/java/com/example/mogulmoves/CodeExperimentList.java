@@ -39,7 +39,7 @@ public class CodeExperimentList extends ArrayAdapter<Barcode> {
         }
 
         Barcode barcode = barcodes.get(position);
-        Experiment experiment = (Experiment) ObjectContext.getObjectById(barcode.getExperiment());
+        Experiment experiment = ObjectContext.getExperimentById(barcode.getExperiment());
 
         TextView desc = view.findViewById(R.id.exp_list_item_desc);
         TextView effect = view.findViewById(R.id.exp_list_item_effect);
