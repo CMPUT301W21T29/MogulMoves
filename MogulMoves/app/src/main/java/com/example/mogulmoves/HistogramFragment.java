@@ -204,7 +204,12 @@ public class HistogramFragment extends DialogFragment {
 
         switch(experimentType) {
             case 0:
-                for (int i=0; i<=Collections.max(integerData); i++) {
+                int maxValue = 0;
+                if (integerData.size() > 0) {
+                    maxValue = Collections.max(integerData);
+                }
+
+                for (int i=0; i<=maxValue; i++) {
                     if (integerData.contains(i)) {
                         histogramData.add(new BarEntry(i+1, occurrencesList.get(integerData.indexOf(i))));
                     }
@@ -329,7 +334,11 @@ public class HistogramFragment extends DialogFragment {
 
         switch (experimentType) {
             case 0:
-                barChart.getXAxis().setAxisMaximum(Collections.max(integerData)+2);
+                int maxValue = 0;
+                if (integerData.size() > 0) {
+                    maxValue = Collections.max(integerData);
+                }
+                barChart.getXAxis().setAxisMaximum(maxValue+2);
                 break;
             case 1:
                 barChart.getXAxis().setAxisMaximum(4);
