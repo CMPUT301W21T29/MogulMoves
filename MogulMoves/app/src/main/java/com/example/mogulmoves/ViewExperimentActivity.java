@@ -68,15 +68,15 @@ public class ViewExperimentActivity extends AppCompatActivity {
         exp_id = getIntent().getIntExtra("expID", -1);
         //defaultValue just set to -1 because it should never call a nonexistent experiment anyway
 
-        experiment = (Experiment) ObjectContext.getObjectById(exp_id);
-        self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+        experiment = ObjectContext.getExperimentById(exp_id);
+        self = ObjectContext.getUserById(ObjectContext.userDatabaseId);
 
         postList = (RecyclerView) findViewById(R.id.lstPosts);
 
         items = new ArrayList<>();
 
         for(int message: experiment.getMessages()) {
-            items.add((Message) ObjectContext.getObjectById(message));
+            items.add(ObjectContext.getMessageById(message));
         }
 
         adapter3 = new ListItemAdapter3(items);
@@ -113,7 +113,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
     }
 
     public void updateDataDisplay() {
-        experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+        experiment = ObjectContext.getExperimentById(exp_id);
 
         if (ObjectContext.userDatabaseId != experiment.getOwner()) {
             btnExpSettings.setVisibility(View.INVISIBLE);
@@ -123,7 +123,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
         description.setText(experiment.getDescription());
 
         TextView owner = findViewById(R.id.exp_list_item_owner);
-        User exp_owner = (User) ObjectContext.getObjectById(experiment.getOwner());
+        User exp_owner = ObjectContext.getUserById(experiment.getOwner());
 
         if (exp_owner.getUsername().length() <= 0 || exp_owner.getUsername() == null) {
             String str = "(ID " + Integer.toString(ObjectContext.userDatabaseId) + ")";
@@ -246,7 +246,7 @@ public class ViewExperimentActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.map_linear_layout,fragment)
                 .commit();*/
-        Intent intent = new Intent(this, MapAdaptor.class);
+        Intent intent = new Intent(this, MapAdapter.class);
         intent.putExtra("whichExperiment", Integer.toString(exp_id));
         startActivity(intent);
     }

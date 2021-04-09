@@ -51,12 +51,12 @@ public class AddNNCountTrialFragment extends DialogFragment {
                         } else {
                             int count_int = Integer.parseInt(count.getText().toString());
 
-                            Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+                            Experiment experiment = ObjectContext.getExperimentById(exp_id);
 
                             NonNegativeCountTrial trial = new NonNegativeCountTrial(ObjectContext.userDatabaseId, count_int);
                             ObjectContext.addTrial(trial, experiment);
 
-                            User self = (User) ObjectContext.getObjectById(ObjectContext.userDatabaseId);
+                            User self = ObjectContext.getUserById(ObjectContext.userDatabaseId);
                             if (!self.getSubscribed().contains(exp_id)) {
                                 ((ViewExperimentActivity)getActivity()).autoSub();
                             }

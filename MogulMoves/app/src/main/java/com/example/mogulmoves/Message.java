@@ -59,10 +59,20 @@ public class Message extends SavedObject {
         return text;
     }
 
+    /**
+     * Gets the date of the message.
+     *
+     * @return the date of the message
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * Gets the time of the message.
+     *
+     * @return the time of the message
+     */
     public String getTime() {
         return time;
     }

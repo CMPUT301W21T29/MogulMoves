@@ -35,12 +35,12 @@ public class ObjectContext {
     }*/
 
     /**
-     * Returns the object with the given id, or null if that object does not exist.
+     * Returns the user with the given id, or null if that object does not exist.
      *
-     * @param id the id of an object
-     * @return the corresponding SavedObject
+     * @param id the id of a user
+     * @return the corresponding User
      */
-    public static SavedObject getObjectById(int id) {
+    public static User getUserById(int id) {
 
         for(User user: users) {
             if(user.getId() == id) {
@@ -48,11 +48,35 @@ public class ObjectContext {
             }
         }
 
+        return null; // should not happen hopefully
+
+    }
+
+    /**
+     * Returns the experiment with the given id, or null if that object does not exist.
+     *
+     * @param id the id of an experiment
+     * @return the corresponding Experiment
+     */
+    public static Experiment getExperimentById(int id) {
+
         for(Experiment experiment: experiments) {
             if(experiment.getId() == id) {
                 return experiment;
             }
         }
+
+        return null; // should not happen hopefully
+
+    }
+
+    /**
+     * Returns the trial with the given id, or null if that object does not exist.
+     *
+     * @param id the id of a trial
+     * @return the corresponding Trial
+     */
+    public static Trial getTrialById(int id) {
 
         for(Trial trial: trials) {
             if(trial.getId() == id) {
@@ -60,11 +84,35 @@ public class ObjectContext {
             }
         }
 
+        return null; // should not happen hopefully
+
+    }
+
+    /**
+     * Returns the message with the given id, or null if that object does not exist.
+     *
+     * @param id the id of a message
+     * @return the corresponding Message
+     */
+    public static Message getMessageById(int id) {
+
         for(Message message: messages) {
             if(message.getId() == id) {
                 return message;
             }
         }
+
+        return null; // should not happen hopefully
+
+    }
+
+    /**
+     * Returns the barcode with the given id, or null if that object does not exist.
+     *
+     * @param id the id of a barcode
+     * @return the corresponding Barcode
+     */
+    public static Barcode getBarcodeById(int id) {
 
         for(Barcode barcode: barcodes) {
             if(barcode.getId() == id) {
@@ -90,7 +138,7 @@ public class ObjectContext {
         for(Experiment experiment: experiments) {
             if((experiment.getDescription().toLowerCase().contains(keyword) ||
                     experiment.getRegion().toLowerCase().contains(keyword) ||
-                    ((User) ObjectContext.getObjectById(experiment.getOwner())).getUsername().toLowerCase().contains(keyword)
+                    (getUserById(experiment.getOwner())).getUsername().toLowerCase().contains(keyword)
                     ) && experiment.getActive() && experiment.getVisible()){
                 found.add(experiment);
             }

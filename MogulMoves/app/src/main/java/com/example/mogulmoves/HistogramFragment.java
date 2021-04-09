@@ -49,7 +49,7 @@ public class HistogramFragment extends DialogFragment {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             integerData.add(trial.getCount());
         }
         experimentType = 0;
@@ -65,7 +65,7 @@ public class HistogramFragment extends DialogFragment {
         // non negative count
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             integerData.add(trial.getCount());
         }
         experimentType = 0;
@@ -95,7 +95,7 @@ public class HistogramFragment extends DialogFragment {
         // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            MeasureTrial trial = (MeasureTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             floatData.add(trial.getMeasurement());
         }
         experimentType = 2;
@@ -209,7 +209,7 @@ public class HistogramFragment extends DialogFragment {
         Bundle args = new Bundle();
         args.putSerializable("exp_id", exp_id);
 
-        Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+        Experiment experiment = ObjectContext.getExperimentById(exp_id);
 
         HistogramFragment fragment;
 

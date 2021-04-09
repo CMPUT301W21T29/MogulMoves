@@ -17,8 +17,6 @@ public class User extends SavedObject {
     private final ArrayList<Integer> subscribed;
     private final ArrayList<Integer> barcodes;
 
-    private Location defaultLocation;
-
     /**
      * Creates the user.
      *
@@ -177,12 +175,5 @@ public class User extends SavedObject {
      */
     public ArrayList<Integer> getBarcodes() {
         return barcodes;
-    }
-
-    /**
-     * @return the default location of this user
-     */
-    public Location getDefaultLocation() {
-        return defaultLocation;
     }
 }

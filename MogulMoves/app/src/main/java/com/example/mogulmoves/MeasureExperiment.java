@@ -50,7 +50,7 @@ public class MeasureExperiment extends Experiment {
         ArrayList<Integer> unignoredTrials = getUnignoredTrials();
 
         for(int i = 0; i < length; i++) {
-            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(unignoredTrials.get(i));
+            MeasureTrial trial = (MeasureTrial) ObjectContext.getTrialById(unignoredTrials.get(i));
             values[i] = trial.getMeasurement();
         }
 

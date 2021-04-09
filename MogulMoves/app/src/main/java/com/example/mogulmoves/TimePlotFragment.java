@@ -63,7 +63,7 @@ public class TimePlotFragment extends DialogFragment {
         // count
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            IntegerCountTrial trial = (IntegerCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             if (i == 0) {
                 minTimeValue = trial.getTimestamp();
             }
@@ -83,7 +83,7 @@ public class TimePlotFragment extends DialogFragment {
         // non negative count
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            NonNegativeCountTrial trial = (NonNegativeCountTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             if (i == 0) {
                 minTimeValue = trial.getTimestamp();
             }
@@ -118,7 +118,7 @@ public class TimePlotFragment extends DialogFragment {
         // measurement
         ArrayList<Integer> countTrials = experiment.getTrials();
         for (int i=0; i<countTrials.size(); i++) {
-            MeasureTrial trial = (MeasureTrial) ObjectContext.getObjectById(experiment.getTrials().get(i));
+            MeasureTrial trial = (MeasureTrial) ObjectContext.getTrialById(experiment.getTrials().get(i));
             if (i == 0) {
                 minTimeValue = trial.getTimestamp();
             }
@@ -267,7 +267,7 @@ public class TimePlotFragment extends DialogFragment {
         Bundle args = new Bundle();
         args.putSerializable("exp_id", exp_id);
 
-        Experiment experiment = (Experiment) ObjectContext.getObjectById(exp_id);
+        Experiment experiment = ObjectContext.getExperimentById(exp_id);
 
         TimePlotFragment fragment;
 
