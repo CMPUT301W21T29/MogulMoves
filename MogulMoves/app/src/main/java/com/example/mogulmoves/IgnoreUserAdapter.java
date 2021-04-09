@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-//Custom adapter for listing potential users to ignore in ExperimentSettingsFragment.
-
+/**
+ * Custom adapter for listing potential users to ignore in ExperimentSettingsFragment.
+ */
 class IgnoreUserAdapter extends RecyclerView.Adapter<com.example.mogulmoves.IgnoreUserAdapter.ViewHolder> {
     private static final String TAG = "IgnoreUserAdapter";
     ArrayList<Integer> userIDs;
