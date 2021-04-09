@@ -321,6 +321,44 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public void GetCurrentLocation(View view) {
+        FusedLocationProviderClient fusedLocationProviderClient;
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+                    if (location != null) {
+                        try {
+                            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+
+                            List<Address> addressList = geocoder.getFromLocation
+                                    (location.getLatitude(),location.getLongitude(),1);
+                            double locationLatitude = addressList.get(0).getLatitude();
+                            double locationLongitude = addressList.get(0).getLongitude();
+                            Log.d("getLocation","locationLatitude" + locationLatitude);
+                            Log.d("getLocation", "locationLongitude" + locationLongitude);
+
+                            ObjectContext.location[0] = locationLatitude;
+                            ObjectContext.location[1] = locationLongitude;
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            });
+
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
+    }
 
     public void toUserProfilePage (View view) {
         Intent i = new Intent(getApplicationContext(), UserProfilePage.class);
