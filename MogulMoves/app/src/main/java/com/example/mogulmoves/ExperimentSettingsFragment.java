@@ -59,6 +59,14 @@ public class ExperimentSettingsFragment extends DialogFragment {
                 DatabaseHandler.pushExperimentData(exp);
                 btnEndExperiment.setEnabled(false);
                 ((ViewExperimentActivity) getActivity()).updateDataDisplay();
+
+                // nukeBarcodes()
+                for(Barcode barcode: ObjectContext.barcodes) {
+                    if(barcode.getExperiment() == exp.getId()) {
+                        ObjectContext.barcodes.remove(barcode);
+                        DatabaseHandler.deleteItem("barcodes", Integer.toString(barcode.getId()));
+                    }
+                }
             }
         });
 

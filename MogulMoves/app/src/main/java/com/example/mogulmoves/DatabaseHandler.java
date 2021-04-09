@@ -50,6 +50,30 @@ public class DatabaseHandler {
     }
 
     /**
+     * Deletes an item from Firebase.
+     *
+     * @param collection the id of collection to delete
+     * @param document the id of the document to delete
+     */
+    public static void deleteItem(String collection, String document) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection(collection).document(document)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+    }
+
+    /**
      * Pushes the data for an experiment to the database.
      *
      * @param experiment an experiment to push

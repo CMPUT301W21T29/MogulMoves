@@ -50,7 +50,13 @@ public class CodeActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new BarcodeAdapter(this, ObjectContext.barcodes);
+        ArrayList<Barcode> barcodes = new ArrayList<>();
+
+        for(int barcode: ObjectContext.getUserById(ObjectContext.userDatabaseId).getBarcodes()) {
+            barcodes.add(ObjectContext.getBarcodeById(barcode));
+        }
+
+        adapter = new BarcodeAdapter(this, barcodes);
         codeList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
