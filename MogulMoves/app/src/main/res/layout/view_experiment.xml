@@ -188,7 +188,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:lineSpacingExtra="8sp"
-                    android:text="N/A\nN/A\nN/A\nN/A\nN/A"
+                    android:text="@string/stats2"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -228,6 +228,7 @@
 
 
             <LinearLayout
+                android:id="@+id/map_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -239,8 +240,8 @@
                     android:id="@+id/map_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="VIEW MAP OF TRIAL LOCATIONS"
-                    android:onClick="openMapFragment" />
+                    android:onClick="openMapFragment"
+                    android:text="VIEW MAP OF TRIAL LOCATIONS" />
 
             </LinearLayout>
 
@@ -285,7 +286,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/lstPosts"
                     android:layout_width="fill_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content" />
 
             </RelativeLayout>
 

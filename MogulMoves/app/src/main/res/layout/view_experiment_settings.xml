@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/border"
-        android:orientation="horizontal"
-        android:paddingLeft="21dp"
-        android:paddingRight="20dp">
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/to_ignore_list"

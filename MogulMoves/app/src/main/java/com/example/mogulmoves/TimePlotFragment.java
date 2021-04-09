@@ -231,7 +231,10 @@ public class TimePlotFragment extends DialogFragment {
     }
 
     private List<Float> buildTimeList(List<Long> timeList) {
-        long determiner = timeList.get(timeList.size());
+        long determiner = timeList.get(timeList.size()-1);
+        if (timeList.size() == 0) {
+            determiner = 0;
+        }
         List<Float> timeDataNew = new ArrayList<>();
 
         for (int i=0; i<timeList.size(); i++) {
