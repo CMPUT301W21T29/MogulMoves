@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * Class to represent the data from the experiment's trials as a histogram based on when the data was collected.
  */
-
 public class HistogramFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
     private List<Float> floatData = new ArrayList<>();
